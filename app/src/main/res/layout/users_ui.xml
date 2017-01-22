@@ -7,7 +7,16 @@
     android:id="@+id/users_ui"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dip"
     tools:context=".Users">
+
+    <!-- ListView usersListView -->
+    <ListView
+        android:id="@+id/usersListView"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="30.0sp"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
