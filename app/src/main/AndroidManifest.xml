@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!-- Log Of All Activities, Broadcasts, And Permissions, Used By The App -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="jordanzimmittidevelopers.com.communityservicelogger">
+<?xml version="1.0" encoding="utf-8"?><!-- Log Of All Activities, Broadcasts, And Permissions, Used By The App -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="jordanzimmittidevelopers.com.communityservicelogger">
 
     <!-- Allows App To Write To External Storage For Backup, Restore, And Print Features -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -32,9 +31,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
+        <activity android:name=".UsersAdd"></activity>
     </application>
 
 </manifest>
