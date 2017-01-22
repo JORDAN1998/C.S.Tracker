@@ -29,7 +29,7 @@ public class UsersView extends AppCompatActivity {
     public void onClickFab(View view) {
 
         // Start Activity UsersAdd//
-        Intent UsersAdd = new Intent(this, UsersView.class);
+        Intent UsersAdd = new Intent(this, UsersAdd.class);
         startActivity(UsersAdd);
     }
 }
