@@ -1,6 +1,7 @@
+<!-- Themes For App -->
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Red Theme -->
     <style name="RedTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Main App Color -->
