@@ -23,7 +23,7 @@
         <!-- Activity UsersView -->
         <activity
             android:name=".UsersView"
-            android:label="@string/activity_users">
+            android:label="@string/activity_users_view">
 
             <!-- Tell The App To Launch Activity At Start -->
             <intent-filter>
@@ -32,7 +32,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UsersAdd"></activity>
+
+        <!-- Activity UsersAdd -->
+        <activity
+            android:name=".UsersAdd"
+            android:label="@string/activity_users_add" />
+
     </application>
 
 </manifest>
