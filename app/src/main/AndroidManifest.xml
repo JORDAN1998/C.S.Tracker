@@ -3,6 +3,15 @@
 <!-- Log Of All Activities, Broadcasts, And Permissions, Used By The App -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="jordanzimmittidevelopers.com.communityservicelogger">
 
+    <!-- Allows App To Write To External Storage For Backup, Restore, And Print Features -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- Allows App To Vibrate -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Allows App To Add App Shortcut To Launcher -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
     <!-- Basic Application Information -->
     <application
         android:allowBackup="true"
