@@ -3,9 +3,12 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -16,6 +19,8 @@ public class UsersAdd extends AppCompatActivity {
     //<editor-fold desc="Variables">
 
     //<editor-fold desc="Extra">
+
+    private static final int SELECT_PICTURE = 0;
 
     // Define Variable Vibrator Vibe//
     private Vibrator vibe;
@@ -44,6 +49,13 @@ public class UsersAdd extends AppCompatActivity {
 
     //</editor-fold>
 
+    //<editor-fold desc="ImageViews">
+
+    // Define Variable ImageView circleImage//
+    private ImageView circleImage;
+
+    //</editor-fold>
+
     //</editor-fold>
 
     //</editor-fold>
@@ -56,14 +68,8 @@ public class UsersAdd extends AppCompatActivity {
         // Starts UI For Activity//
         setContentView(R.layout.users_add_ui);
 
-        // Instantiate Variable MaterialEditText usersAddAge//
-        usersAddAge = (MaterialEditText) findViewById(R.id.usersAddAge);
-
-        // Instantiate Variable MaterialEditText usersAddName//
-        usersAddName = (MaterialEditText) findViewById(R.id.usersAddName);
-
-        // Instantiate Variable MaterialEditText usersAddOrganization//
-        usersAddOrganization = (MaterialEditText) findViewById(R.id.usersAddOrganization);
+        // Initiate InstantiateWidgets Method//
+        instantiateWidgets();
     }
 
     // Creates Menu And All Its Components//
@@ -96,7 +102,64 @@ public class UsersAdd extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Method To Instantiate Widgets//
+    private void instantiateWidgets() {
+
+        // Instantiate Variable ImageView circleImage//
+        circleImage = (ImageView) findViewById(R.id.circleImage);
+
+        // Instantiate Variable TextView nameLetter//
+        nameLetter = (TextView) findViewById(R.id.nameLetter);
+
+        // Instantiate Variable MaterialEditText usersAddAge//
+        usersAddAge = (MaterialEditText) findViewById(R.id.usersAddAge);
+
+        // Instantiate Variable MaterialEditText usersAddName//
+        usersAddName = (MaterialEditText) findViewById(R.id.usersAddName);
+
+        // Tells App To Watch The Text Being Added To usersAddName//
+        usersAddName.addTextChangedListener(new TextWatcher() {
+
+            // What Happens Before text Is Changed//
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            // What Happens When Text is Changing//
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                // Define And Instantiate Variable String usersAddNameText / Put usersAddNameText Into String//
+                String usersAddNameText = String.valueOf(charSequence);
+
+                // What Happens If charSequence Is Empty Or Starts With A Space//
+                if (!usersAddNameText.equals("")) {
+
+                    // Define And Instantiate Variable char charFirstCharacter / Get First Letter Of Text Being Added//
+                    char charFirstCharacter = usersAddName.getText().toString().charAt(0);
+
+                    // Define And Instantiate Variable String firstLetter / Put First Character Into String//
+                    String firstLetter = String.valueOf(charFirstCharacter);
+
+                    // Set That Letter To nameLetter textView//
+                    nameLetter.setText(firstLetter);
+                }
+            }
+
+            // What Happens When Text Is Finished Changing//
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        // Instantiate Variable MaterialEditText usersAddOrganization//
+        usersAddOrganization = (MaterialEditText) findViewById(R.id.usersAddOrganization);
+    }
+
     // What Happens When Circle Image Is Clicked//
     public void onClickCircleImage(View view) {
+
     }
 }

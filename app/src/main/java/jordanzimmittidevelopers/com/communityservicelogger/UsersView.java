@@ -31,8 +31,10 @@ public class UsersView extends AppCompatActivity {
         // Vibrate For 50m//
         vibe.vibrate(50);
 
-        // Start Activity UsersAdd//
+        // Define and Instantiate Variable Intent UsersAdd//
         Intent UsersAdd = new Intent(this, UsersAdd.class);
+
+        // Start Activity UsersAdd//
         startActivity(UsersAdd);
     }
 }
