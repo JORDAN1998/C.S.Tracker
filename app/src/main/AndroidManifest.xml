@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jordanzimmittidevelopers.com.communityservicelogger">
 
+<!-- Log Of All Activities, Broadcasts, And Permissions, Used By The App -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="jordanzimmittidevelopers.com.communityservicelogger">
+
+    <!-- Basic Application Information -->
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Users">
+
+        <!-- Activity Users -->
+        <activity
+            android:name=".Users"
+            android:label="@string/activity_users">
+
+            <!-- Tell The App To Launch Activity At Start -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>

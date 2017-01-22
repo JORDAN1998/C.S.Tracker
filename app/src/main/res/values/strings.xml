@@ -1,3 +1,10 @@
+<!-- Text Resources For App -->
 <resources>
+
+    <!-- App Name String -->
     <string name="app_name">C.S. Tracker</string>
+
+    <!-- Activity Name Strings -->
+    <string name="activity_users">Users</string>
+
 </resources>

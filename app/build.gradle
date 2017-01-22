@@ -1,16 +1,36 @@
 apply plugin: 'com.android.application'
 
+// Android Data//
 android {
+
+    // SDK Version App Is Based On//
     compileSdkVersion 25
+
+    // Tools Version App Is Created On//
     buildToolsVersion "25.0.0"
+
+    // How App Is Configured//
     defaultConfig {
+
+        // ID Of Application//
         applicationId "jordanzimmittidevelopers.com.communityservicelogger"
+
+        // Lowest Android Version App Can Run On//
         minSdkVersion 16
+
+        // Android Version App Was Made For//
         targetSdkVersion 25
+
+        // # Of Times App Was Updated//
         versionCode 1
-        versionName "1.0"
+
+        // App Version Number
+        versionName "5.0.0"
+
+        // What App Runs On//
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -19,11 +39,9 @@ android {
     }
 }
 
+// App Add-Ons//
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
 }
