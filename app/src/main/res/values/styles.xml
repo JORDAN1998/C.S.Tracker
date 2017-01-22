@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Red Theme -->
-    <style name="RedTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="RedTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
 
         <!-- Main App Color -->
         <item name="colorPrimary">@color/red</item>
