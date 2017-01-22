@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Menu For Activity UsersAdd -->
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".UsersAdd">
+
+    <item
+        android:id="@+id/usersAddSave"
+        android:title="@string/save"
+        android:orderInCategory="2"
+        app:showAsAction="never" />
+
+</menu>
