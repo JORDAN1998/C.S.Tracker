@@ -28,6 +28,9 @@ public class UsersView extends AppCompatActivity {
     // What Happens When Fab Btn Is Clicked//
     public void onClickFab(View view) {
 
+        // Vibrate For 50m//
+        vibe.vibrate(50);
+
         // Start Activity UsersAdd//
         Intent UsersAdd = new Intent(this, UsersAdd.class);
         startActivity(UsersAdd);
