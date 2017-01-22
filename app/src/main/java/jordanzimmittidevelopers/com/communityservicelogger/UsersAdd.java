@@ -1,11 +1,36 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
+
+// UsersAdd Class Created By Jordan Zimmitti 1-21-17//
 public class UsersAdd extends AppCompatActivity {
+
+    //<editor-fold desc="Variables">
+
+    //<editor-fold desc="Extra">
+
+    // Define Variable Vibrator Vibe//
+    private Vibrator vibe;
+
+    //</editor-fold>
+
+    //<editor-fold desc="MaterialEditText">
+
+    private MaterialEditText usersAddAge;
+
+    private MaterialEditText usersAddName;
+
+    private MaterialEditText usersAddOrganization;
+
+    //</editor-fold>
+
+    //</editor-fold>
 
     // What Happens When Activity Starts//
     @Override
@@ -14,6 +39,15 @@ public class UsersAdd extends AppCompatActivity {
 
         // Starts UI For Activity//
         setContentView(R.layout.users_add_ui);
+
+        // Instantiate Variable MaterialEditText usersAddAge//
+        usersAddAge = (MaterialEditText) findViewById(R.id.usersAddAge);
+
+        // Instantiate Variable MaterialEditText usersAddName//
+        usersAddName = (MaterialEditText) findViewById(R.id.usersAddName);
+
+        // Instantiate Variable MaterialEditText usersAddOrganization//
+        usersAddOrganization = (MaterialEditText) findViewById(R.id.usersAddOrganization);
     }
 
     // Creates Menu And All Its Components//

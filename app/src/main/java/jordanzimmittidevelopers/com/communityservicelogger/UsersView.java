@@ -19,7 +19,7 @@ public class UsersView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Starts UI For Activity//
-        setContentView(R.layout.users_ui);
+        setContentView(R.layout.users_view_ui);
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
