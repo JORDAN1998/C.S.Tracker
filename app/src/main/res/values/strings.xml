@@ -9,6 +9,9 @@
     <string name="activity_users_add">Add User</string>
 
     <!-- Users Add Strings -->
+    <string name="name_letter">J</string>
     <string name="user_name">Name</string>
+    <string name="age">age</string>
+    <string name="organization">Organization</string>
 
 </resources>

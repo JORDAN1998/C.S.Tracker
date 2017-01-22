@@ -9,6 +9,9 @@
     <!-- Flat Dark Red -->
     <color name="darkRed">#c0392b</color>
 
+    <!-- White -->
+    <color name="white">#FFFFFF</color>
+
     <!-- Transparent -->
     <color name="transparent">#00000000</color>
 
