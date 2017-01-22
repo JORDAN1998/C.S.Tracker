@@ -10,21 +10,6 @@
     android:layout_height="match_parent"
     tools:context=".UsersView">
 
-    <!-- FAB userFab -->
-    <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/usersFab"
-        android:src="@drawable/user"
-        android:onClick="onClickFab"
-        android:layout_margin="16dip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        fab:fab_colorNormal="@color/red"
-        fab:fab_colorPressed="@color/darkRed"
-        fab:fab_colorRipple="@color/red" />
-
     <!-- ListView usersListView -->
     <ListView
         android:id="@+id/usersListView"
@@ -36,7 +21,22 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentStart="true" />
+
+    <!-- FAB userFab -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/usersFab"
+        android:src="@drawable/user"
+        android:clickable="true"
+        android:onClick="onClickFab"
+        android:layout_margin="16dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_colorNormal="@color/red"
+        fab:fab_colorPressed="@color/darkRed"
+        fab:fab_colorRipple="@color/red" />
 
 </RelativeLayout>
