@@ -5,6 +5,8 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -20,13 +22,27 @@ public class UsersAdd extends AppCompatActivity {
 
     //</editor-fold>
 
+    //<editor-fold desc="Widgets">
+
     //<editor-fold desc="MaterialEditText">
 
+    // Define Variable MaterialEditText usersAddAge//
     private MaterialEditText usersAddAge;
 
+    // Define Variable MaterialEditText usersAddName//
     private MaterialEditText usersAddName;
 
+    // Define Variable MaterialEditText usersAddOrganization//
     private MaterialEditText usersAddOrganization;
+
+    //</editor-fold>
+
+    //<editor-fold desc="TextViews">
+
+    // Define Variable TextView nameLetter//
+    private TextView nameLetter;
+
+    //</editor-fold>
 
     //</editor-fold>
 
@@ -78,5 +94,9 @@ public class UsersAdd extends AppCompatActivity {
 
         // Kill Code//
         return super.onOptionsItemSelected(item);
+    }
+
+    // What Happens When Circle Image Is Clicked//
+    public void onClickCircleImage(View view) {
     }
 }

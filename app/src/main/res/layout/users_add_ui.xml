@@ -16,6 +16,8 @@
     <ImageView
         android:id="@+id/circleImage"
         android:contentDescription="@string/activity_users_add"
+        android:clickable="true"
+        android:onClick="onClickCircleImage"
         android:layout_width="70dip"
         android:layout_height="70dip"
         app:srcCompat="@drawable/bg_circle_today"/>
