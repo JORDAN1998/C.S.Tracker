@@ -9,4 +9,7 @@
     <!-- Flat Dark Red -->
     <color name="darkRed">#c0392b</color>
 
+    <!-- Transparent -->
+    <color name="transparent">#00000000</color>
+
 </resources>
