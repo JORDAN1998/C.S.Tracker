@@ -20,9 +20,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        fab:fab_colorNormal="@color/colorPrimary"
-        fab:fab_colorPressed="@color/colorPrimary"
-        fab:fab_colorRipple="@color/colorPrimary" />
+        fab:fab_colorNormal="@color/red"
+        fab:fab_colorPressed="@color/darkRed"
+        fab:fab_colorRipple="@color/red" />
 
     <!-- ListView usersListView -->
     <ListView
