@@ -3,8 +3,8 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-// Users Class Created By Jordan Zimmitti 1-21-17//
-public class Users extends AppCompatActivity {
+// UsersView Class Created By Jordan Zimmitti 1-21-17//
+public class UsersView extends AppCompatActivity {
 
     // What Happens When Activity Starts//
     @Override

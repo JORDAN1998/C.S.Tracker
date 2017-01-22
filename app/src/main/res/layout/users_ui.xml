@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- UI For Users Activity -->
+<!-- UI For UsersView Activity -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
@@ -8,7 +8,7 @@
     android:id="@+id/users_ui"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Users">
+    tools:context=".UsersView">
 
     <!-- FAB userFab -->
     <com.github.clans.fab.FloatingActionButton

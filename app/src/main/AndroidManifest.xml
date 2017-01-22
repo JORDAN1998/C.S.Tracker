@@ -21,9 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/RedTheme">
 
-        <!-- Activity Users -->
+        <!-- Activity UsersView -->
         <activity
-            android:name=".Users"
+            android:name=".UsersView"
             android:label="@string/activity_users">
 
             <!-- Tell The App To Launch Activity At Start -->
