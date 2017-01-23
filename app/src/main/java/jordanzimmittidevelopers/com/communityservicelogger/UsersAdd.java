@@ -182,9 +182,11 @@ public class UsersAdd extends AppCompatActivity {
             // Define And Instantiate Variable Uri selectedImage / Get Image Selected//
             Uri selectedImage = data.getData();
 
+            // Hide Name Letter//
+            nameLetter.setVisibility(View.INVISIBLE);
+
             // Show Image Selected By User//
             circleImage.setImageURI(selectedImage);
-
         }
     }
 }
