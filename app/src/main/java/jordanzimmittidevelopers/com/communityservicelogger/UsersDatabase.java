@@ -5,30 +5,36 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
+
+import java.io.ByteArrayOutputStream;
 
 // UsersDatabase Class Created By Jordan Zimmitti 1-22-17//
 public class UsersDatabase {
 
     // Used For Logging Database Version Changes//
-    private static final String TAG = "UsersDatabase";
+    private static final String TAG = "database";
 
     // Row Names//
-    private static final String KEY_ROW_ID_NUMBER = "_id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_AGE = "age";
-    private static final String KEY_ORGANIZATION = "name";
+    public static final String KEY_ROW_ID_NUMBER = "_id";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_AGE = "age";
+    public static final String KEY_ORGANIZATION = "name";
+    public static final String KEY_IMAGE = "image";
 
     // Put All Rows Into A String//
     public static final String[] ALL_KEYS = new String[] { KEY_ROW_ID_NUMBER, KEY_NAME, KEY_AGE, KEY_ORGANIZATION };
 
     // Column Numbers For Each Row Name//
-    private static final int COL_NAME = 1;
-    private static final int COL_AGE = 2;
-    private static final int COL_ORGANIZATION = 3;
+    public static final int COL_NAME = 1;
+    public static final int COL_AGE = 2;
+    public static final int COL_ORGANIZATION = 3;
+    public static final int COL_IMAGE = 4;
 
     // DataBase info//
-    public static final String DATABASE_NAME = "usersDatabase";
+    public static final String DATABASE_NAME = "users_database";
     public static final String DATABASE_TABLE = "users";
     public static final int DATABASE_VERSION = 1; // The version number must be incremented each time a change to DB structure occurs.
 
@@ -37,15 +43,16 @@ public class UsersDatabase {
             + " (" + KEY_ROW_ID_NUMBER + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + KEY_NAME + " TEXT NOT NULL,"
             + KEY_AGE + " TEXT NOT NULL,"
-            + KEY_ORGANIZATION + " TEXT NOT NULL"
+            + KEY_ORGANIZATION + " TEXT NOT NULL,"
+            + KEY_IMAGE + " TEXT NOT NULL"
             + ");";
 
 
     // Define Variable DatabaseHelper dbHelper//
-    private static DatabaseHelper dbHelper;
+    public static DatabaseHelper dbHelper;
 
     // Define Variable SQLiteDatabase db//
-    private static SQLiteDatabase db;
+    public static SQLiteDatabase db;
 
     // Call Upon Database Helper//
     public UsersDatabase(Context ctx) {
@@ -72,7 +79,7 @@ public class UsersDatabase {
     }
 
     // Add A New Set Of Values To Be Inserted Into The Database//
-    public long insertRow(String name, String age, String organization) {
+    public long insertRow(String name, String age, String organization, byte[] image) {
 
         // Gets All The New Values//
         ContentValues initialValues = new ContentValues();
@@ -81,13 +88,14 @@ public class UsersDatabase {
         initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_AGE, age);
         initialValues.put(KEY_ORGANIZATION, organization);
+        initialValues.put(KEY_IMAGE, image);
 
         // Inserts The Value Data Into The Database//
         return db.insert(DATABASE_TABLE, null, initialValues);
     }
 
     // Change An Existing Row To Be Equal To New Data//
-    public boolean updateRow(long id, String name, String age, String organization) {
+    public boolean updateRow(long id, String name, String age, String organization, byte[] image) {
 
         // Get Current Row By ID Number//
         String where = KEY_ROW_ID_NUMBER + "=" + id;
@@ -99,13 +107,14 @@ public class UsersDatabase {
         newValues.put(KEY_NAME, name);
         newValues.put(KEY_AGE, age);
         newValues.put(KEY_ORGANIZATION, organization);
+        newValues.put(KEY_IMAGE, image);
 
         // Inserts The New Value Data Into The Database//
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }
 
     // Delete A Row From The Database By Id //
-    private boolean deleteRow(long id) {
+    public boolean deleteRow(long id) {
 
         // Get Specific Row ID//
         String where = KEY_ROW_ID_NUMBER + "=" + id;
@@ -133,7 +142,7 @@ public class UsersDatabase {
     }
 
     // Get All Rows In The Database//
-    private Cursor getAllRows() {
+    public Cursor getAllRows() {
 
         // Query Database For All Rows//
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, null, null);
@@ -158,6 +167,26 @@ public class UsersDatabase {
         }
 
         return c;
+    }
+
+    // Convert From Bitmap To Byte Array//
+    public static byte[] getBytes(Bitmap bitmap) {
+
+        // Define And Instantiate Variable ByteArrayOutputStream stream//
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        // Convert Bitmap To Byte//
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+
+        // Kill Code//
+        return stream.toByteArray();
+    }
+
+    // Convert From Byte Array To Bitmap//
+    public static Bitmap getImage(byte[] image) {
+
+        // Convert Byte To Bitmap//
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 
     // Helps Make Database Work (Remember Don't Touch)//

@@ -1,6 +1,7 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -13,8 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import static jordanzimmittidevelopers.com.communityservicelogger.UsersDatabase.getBytes;
 
 // UsersAdd Class Created By Jordan Zimmitti 1-21-17//
 public class UsersAdd extends AppCompatActivity {
@@ -23,7 +27,11 @@ public class UsersAdd extends AppCompatActivity {
 
     //<editor-fold desc="Extra">
 
+    // Define static Variable Int SELECT_PICTURE//
     private static final int SELECT_PICTURE = 0;
+
+    // Define Variable UsersDatabase usersDatabase//
+    private UsersDatabase usersDatabase;
 
     // Define Variable Vibrator Vibe//
     private Vibrator vibe;
@@ -73,6 +81,28 @@ public class UsersAdd extends AppCompatActivity {
 
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
+
+        // Initiate databaseOpen Method//
+        databaseOpen();
+    }
+
+    // What Happens When User Grabs Picture//
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // What Happens When Picture Was Picked Successfully//
+        if (requestCode == SELECT_PICTURE && data!=null) {
+
+            // Define And Instantiate Variable Uri selectedImage / Get Image Selected//
+            Uri selectedImage = data.getData();
+
+            // Hide Name Letter//
+            nameLetter.setVisibility(View.INVISIBLE);
+
+            // Show Image Selected By User//
+            circleImage.setImageURI(selectedImage);
+        }
     }
 
     // Creates Menu And All Its Components//
@@ -96,6 +126,8 @@ public class UsersAdd extends AppCompatActivity {
         // What Happens When usersAddSave Is Pressed//
         if (id == R.id.usersAddSave) {
 
+            // Initiate userSave Method//
+            userSave();
 
             // Kill Code//
             return true;
@@ -105,7 +137,17 @@ public class UsersAdd extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Method To Instantiate Widgets//
+    // Method That Opens Database//
+    private void databaseOpen() {
+
+        // Instantiate Variable UsersDatabase usersDatabase//
+        usersDatabase = new UsersDatabase(this);
+
+        // Open Database//
+        usersDatabase.open();
+    }
+
+    // Method That Instantiates Widgets//
     private void instantiateWidgets() {
 
         // Instantiate Variable ImageView circleImage//
@@ -161,7 +203,7 @@ public class UsersAdd extends AppCompatActivity {
         usersAddOrganization = (MaterialEditText) findViewById(R.id.usersAddOrganization);
     }
 
-    // What Happens When Circle Image Is Clicked//
+    // Method That Handles When Circle Image Is Clicked//
     public void onClickCircleImage(View view) {
 
         // Define And Instantiate Variable Intent picture / Let User Pick A Picture//
@@ -171,22 +213,31 @@ public class UsersAdd extends AppCompatActivity {
         startActivityForResult(picture, SELECT_PICTURE);
     }
 
-    // What Happens When User Grabs Picture//
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    // Method That Save User Profile//
+    private void userSave() {
 
-        // What Happens When Picture Was Picked Successfully//
-        if (requestCode == SELECT_PICTURE && data!=null) {
+        // What Happens When All EditTexts Are Filled Out//
+        if (!usersAddName.getText().toString().isEmpty() && !usersAddAge.getText().toString().isEmpty() && !usersAddOrganization.getText().toString().isEmpty()) {
 
-            // Define And Instantiate Variable Uri selectedImage / Get Image Selected//
-            Uri selectedImage = data.getData();
+            // Build Drawing Cache For circleImage//
+            circleImage.buildDrawingCache();
 
-            // Hide Name Letter//
-            nameLetter.setVisibility(View.INVISIBLE);
+            // Convert CircleImageView To Bitmap//
+            Bitmap circleImageBitmap = circleImage.getDrawingCache();
 
-            // Show Image Selected By User//
-            circleImage.setImageURI(selectedImage);
+            // Insert Values Into Database//
+            usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), getBytes(circleImageBitmap));
+
+            // Define and Instantiate Variable Intent UsersView//
+            Intent usersView = new Intent(this, UsersView.class);
+
+            // Start Activity UsersAdd//
+            startActivity(usersView);
+
+        } else {
+
+            Toast.makeText(getApplicationContext(), "Not All Filled Out", Toast.LENGTH_LONG).show();
+
         }
     }
 }
