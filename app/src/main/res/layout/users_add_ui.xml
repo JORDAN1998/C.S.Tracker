@@ -12,16 +12,15 @@
     android:fitsSystemWindows="true"
     tools:context=".UsersAdd">
 
-    <!-- ImageView circleImage -->
-    <ImageView
+    <!-- CircleImageView circleImage -->
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImage"
-        android:contentDescription="@string/activity_users_add"
-        android:background="@drawable/clear_circle"
-        android:clickable="true"
+        android:src="@drawable/darkred"
         android:onClick="onClickCircleImage"
         android:layout_width="70dip"
         android:layout_height="70dip"
-        app:srcCompat="@drawable/red_circle"/>
+        app:civ_border_width="2dp"
+        app:civ_border_color="#c0392b"/>
 
     <!-- TextView nameLetter -->
     <TextView
