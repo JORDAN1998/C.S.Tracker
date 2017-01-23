@@ -1,7 +1,9 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -161,5 +163,16 @@ public class UsersAdd extends AppCompatActivity {
     // What Happens When Circle Image Is Clicked//
     public void onClickCircleImage(View view) {
 
+        // Define And Instantiate Variable Intent picture / Let User Pick A Picture//
+        Intent picture = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+
+        // Allow User To Pick The Picture They Want//
+        startActivityForResult(picture, SELECT_PICTURE);
+    }
+
+    // What Happens When User Grabs Picture//
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
