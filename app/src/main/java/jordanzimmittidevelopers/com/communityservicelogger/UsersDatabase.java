@@ -11,6 +11,8 @@ import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 
+import static android.R.attr.name;
+
 // UsersDatabase Class Created By Jordan Zimmitti 1-22-17//
 public class UsersDatabase {
 
@@ -19,13 +21,13 @@ public class UsersDatabase {
 
     // Row Names//
     public static final String KEY_ROW_ID_NUMBER = "_id";
-    public static final String KEY_NAME = "name";
+    public static final String KEY_NAMES = "names";
     public static final String KEY_AGE = "age";
     public static final String KEY_ORGANIZATION = "name";
     public static final String KEY_IMAGE = "image";
 
     // Put All Rows Into A String//
-    public static final String[] ALL_KEYS = new String[] { KEY_ROW_ID_NUMBER, KEY_NAME, KEY_AGE, KEY_ORGANIZATION };
+    public static final String[] ALL_KEYS = new String[] { KEY_ROW_ID_NUMBER, KEY_NAMES, KEY_AGE, KEY_ORGANIZATION };
 
     // Column Numbers For Each Row Name//
     public static final int COL_NAME = 1;
@@ -41,7 +43,7 @@ public class UsersDatabase {
     //SQL Statement To Create Database//
     private static final String DATABASE_CREATE_SQL = "CREATE TABLE " + DATABASE_TABLE
             + " (" + KEY_ROW_ID_NUMBER + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + KEY_NAME + " TEXT NOT NULL,"
+            + KEY_NAMES + " TEXT NOT NULL,"
             + KEY_AGE + " TEXT NOT NULL,"
             + KEY_ORGANIZATION + " TEXT NOT NULL,"
             + KEY_IMAGE + " TEXT NOT NULL"
@@ -79,13 +81,13 @@ public class UsersDatabase {
     }
 
     // Add A New Set Of Values To Be Inserted Into The Database//
-    public long insertRow(String name, String age, String organization, byte[] image) {
+    public long insertRow(String names, String age, String organization, byte[] image) {
 
         // Gets All The New Values//
         ContentValues initialValues = new ContentValues();
 
         // ALl New Values Being Added//
-        initialValues.put(KEY_NAME, name);
+        initialValues.put(KEY_NAMES, names);
         initialValues.put(KEY_AGE, age);
         initialValues.put(KEY_ORGANIZATION, organization);
         initialValues.put(KEY_IMAGE, image);
@@ -95,7 +97,7 @@ public class UsersDatabase {
     }
 
     // Change An Existing Row To Be Equal To New Data//
-    public boolean updateRow(long id, String name, String age, String organization, byte[] image) {
+    public boolean updateRow(long id, String names, String age, String organization, byte[] image) {
 
         // Get Current Row By ID Number//
         String where = KEY_ROW_ID_NUMBER + "=" + id;
@@ -104,7 +106,7 @@ public class UsersDatabase {
         ContentValues newValues = new ContentValues();
 
         // Add New Values
-        newValues.put(KEY_NAME, name);
+        newValues.put(KEY_NAMES, names);
         newValues.put(KEY_AGE, age);
         newValues.put(KEY_ORGANIZATION, organization);
         newValues.put(KEY_IMAGE, image);

@@ -1,5 +1,6 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -201,6 +202,9 @@ public class UsersAdd extends AppCompatActivity {
 
         // Instantiate Variable MaterialEditText usersAddOrganization//
         usersAddOrganization = (MaterialEditText) findViewById(R.id.usersAddOrganization);
+
+        // Instantiate Variable Vibrator vibe//
+        vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     // Method That Handles When Circle Image Is Clicked//

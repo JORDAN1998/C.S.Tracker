@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- UI For Activity UsersView -->
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
@@ -10,9 +11,6 @@
 
     <!-- Secondary UI For Activity UsersView -->
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/add_ui"
         android:padding="16dip"
         android:layout_width="match_parent"
@@ -22,7 +20,7 @@
 
     <!-- CircleImageView circleImage -->
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImage"
+        android:id="@+id/usersViewCircleImage"
         android:src="@drawable/darkred"
         android:onClick="onClickCircleImage"
         android:layout_width="70dip"
@@ -30,67 +28,68 @@
         app:civ_border_width="2dp"
         app:civ_border_color="@color/transparent"/>
 
-    <!-- TextView nameLetter -->
+    <!-- TextView usersViewNameLetter -->
     <TextView
-        android:id="@+id/nameLetter"
+        android:id="@+id/usersViewNameLetter"
         android:text="@string/name_letter"
         android:textColor="@color/white"
         android:textSize="40sp"
         android:gravity="center"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/circleImage"
-        android:layout_alignEnd="@+id/circleImage"
+        android:layout_alignRight="@+id/usersViewCircleImage"
+        android:layout_alignEnd="@+id/usersViewCircleImage"
         android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/circleImage"
+        android:layout_alignBottom="@+id/usersViewCircleImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <!-- MaterialEditText UsersAddName -->
-    <TextView
-        android:id="@+id/usersAddName"
-        android:hint="@string/user_name"
-        android:textSize="14sp"
-        android:layout_alignBaseline="@+id/nameLetter"
-        android:layout_alignBottom="@+id/nameLetter"
-        android:layout_toRightOf="@+id/circleImage"
-        android:layout_toEndOf="@+id/circleImage"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!-- MaterialEditText usersViewName -->
 
-    <!-- MaterialEditText UsersAddAge -->
+        <!-- MaterialEditText usersViewAge -->
     <TextView
-        android:id="@+id/usersAddAge"
+        android:id="@+id/usersViewAge"
         android:hint="@string/age"
         android:textSize="14sp"
         android:gravity="center"
         android:layout_marginTop="25dp"
-        android:layout_below="@+id/circleImage"
+        android:layout_below="@+id/usersViewCircleImage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/circleImage"
-        android:layout_alignEnd="@+id/circleImage"
+        android:layout_alignRight="@+id/usersViewCircleImage"
+        android:layout_alignEnd="@+id/usersViewCircleImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <!-- MaterialEditText UsersAddOrganization -->
+    <!-- MaterialEditText usersViewOrganization -->
     <TextView
-        android:id="@+id/usersAddOrganization"
+        android:id="@+id/usersViewOrganization"
         android:hint="@string/organization"
         android:textSize="14sp"
         android:layout_marginLeft="10dip"
         android:layout_marginStart="10dip"
-        android:layout_alignBaseline="@+id/usersAddAge"
-        android:layout_alignBottom="@+id/usersAddAge"
-        android:layout_toRightOf="@+id/usersAddAge"
-        android:layout_toEndOf="@+id/usersAddAge"
+        android:layout_alignBaseline="@+id/usersViewAge"
+        android:layout_alignBottom="@+id/usersViewAge"
+        android:layout_toRightOf="@+id/usersViewAge"
+        android:layout_toEndOf="@+id/usersViewAge"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/usersViewName"
+            android:hint="@string/user_name"
+            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="26dp"
+            android:layout_alignLeft="@+id/usersViewOrganization"
+            android:layout_alignStart="@+id/usersViewOrganization" />
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

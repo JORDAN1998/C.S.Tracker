@@ -17,6 +17,7 @@
         android:dividerHeight="30.0sp"
         android:scrollbars="none"
         android:clipToPadding="false"
+        android:padding="16dip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"

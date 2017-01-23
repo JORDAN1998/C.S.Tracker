@@ -14,7 +14,7 @@
         <item name="colorAccent">@color/darkRed</item>
 
         <!-- Text Color -->
-        <item name="textColorPrimary">@color/darkRed</item>
+        <item name="android:textColorPrimary">@color/darkRed</item>
 
     </style>
 
