@@ -1,6 +1,7 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.MediaStore;
@@ -174,5 +175,16 @@ public class UsersAdd extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // What Happens When Picture Was Picked Successfully//
+        if (requestCode == SELECT_PICTURE && data!=null) {
+
+            // Define And Instantiate Variable Uri selectedImage / Get Image Selected//
+            Uri selectedImage = data.getData();
+
+            // Show Image Selected By User//
+            circleImage.setImageURI(selectedImage);
+
+        }
     }
 }
