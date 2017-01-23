@@ -216,6 +216,9 @@ public class UsersAdd extends AppCompatActivity {
     // Method That Save User Profile//
     private void userSave() {
 
+        // Vibrate For 50m//
+        vibe.vibrate(50);
+
         // What Happens When All EditTexts Are Filled Out//
         if (!usersAddName.getText().toString().isEmpty() && !usersAddAge.getText().toString().isEmpty() && !usersAddOrganization.getText().toString().isEmpty()) {
 
@@ -233,6 +236,9 @@ public class UsersAdd extends AppCompatActivity {
 
             // Start Activity UsersAdd//
             startActivity(usersView);
+
+            // Custom Transition//
+            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
 
         } else {
 
