@@ -3,13 +3,15 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 // UsersView Class Created By Jordan Zimmitti 1-21-17//
 public class UsersView extends AppCompatActivity {
@@ -95,21 +97,32 @@ public class UsersView extends AppCompatActivity {
         // Gets All Rows Added To Database//
         final Cursor cursor = usersDatabase.getAllRows();
 
-        // Code Runs If Android Is Running 5.0 Or Later//
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        // Puts Rows Stored On Database Into A String Shown//
+        final String[] fromFieldNames = new String[]{UsersDatabase.KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION};
 
-            // Puts Rows Stored On Database Into A String Shown//
-            final String[] fromFieldNames = new String[]{UsersDatabase.KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_IMAGE};
+        // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
+        int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewOrganization};
 
-            // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
-            int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewOrganization, R.id.usersViewCircleImage};
+        // Creates ListView Adapter Which Allows ListView Items To Be Seen//
+        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.users_view_design_ui, cursor, fromFieldNames, toViewIDs, 0) {
 
-            // Creates ListView Adapter Which Allows ListView Items To Be Seen//
-            SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.users_view_design_ui, cursor, fromFieldNames, toViewIDs, 0);
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                cursor.moveToPosition(position);
+                final View row = super.getView(position, convertView, parent);
 
-            // Sets Up Adapter Made Earlier / Shows Content From Database//
-            usersListView.setAdapter(simpleCursorAdapter);
-        }
+                CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
 
+                byte[] byteImage = cursor.getBlob(UsersDatabase.COL_IMAGE);
+
+                usersViewCircleImage.setImageBitmap(UsersDatabase.getImage(byteImage));
+
+                return row;
+            }
+        };
+
+
+        // Sets Up Adapter Made Earlier / Shows Content From Database//
+        usersListView.setAdapter(simpleCursorAdapter);
     }
 }

@@ -3,6 +3,7 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -226,14 +227,11 @@ public class UsersAdd extends AppCompatActivity {
         // What Happens When All EditTexts Are Filled Out//
         if (!usersAddName.getText().toString().isEmpty() && !usersAddAge.getText().toString().isEmpty() && !usersAddOrganization.getText().toString().isEmpty()) {
 
-            // Build Drawing Cache For circleImage//
-            circleImage.buildDrawingCache();
-
-            // Convert CircleImageView To Bitmap//
-            Bitmap circleImageBitmap = circleImage.getDrawingCache();
+            BitmapDrawable drawable = (BitmapDrawable) circleImage.getDrawable();
+            Bitmap bitmap = drawable.getBitmap();
 
             // Insert Values Into Database//
-            usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), getBytes(circleImageBitmap));
+            usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), getBytes(bitmap));
 
             // Define and Instantiate Variable Intent UsersView//
             Intent usersView = new Intent(this, UsersView.class);

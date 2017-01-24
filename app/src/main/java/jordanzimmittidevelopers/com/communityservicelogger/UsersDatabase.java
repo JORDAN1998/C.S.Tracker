@@ -11,8 +11,6 @@ import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 
-import static android.R.attr.name;
-
 // UsersDatabase Class Created By Jordan Zimmitti 1-22-17//
 public class UsersDatabase {
 
@@ -27,7 +25,7 @@ public class UsersDatabase {
     public static final String KEY_IMAGE = "image";
 
     // Put All Rows Into A String//
-    public static final String[] ALL_KEYS = new String[] { KEY_ROW_ID_NUMBER, KEY_NAMES, KEY_AGE, KEY_ORGANIZATION };
+    public static final String[] ALL_KEYS = new String[] { KEY_ROW_ID_NUMBER, KEY_NAMES, KEY_AGE, KEY_ORGANIZATION, KEY_IMAGE};
 
     // Column Numbers For Each Row Name//
     public static final int COL_NAME = 1;
@@ -152,6 +150,7 @@ public class UsersDatabase {
             c.moveToFirst();
         }
 
+        // Kill Code//
         return c;
     }
 
@@ -178,7 +177,7 @@ public class UsersDatabase {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
         // Convert Bitmap To Byte//
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
 
         // Kill Code//
         return stream.toByteArray();
