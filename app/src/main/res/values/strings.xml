@@ -7,6 +7,9 @@
     <!-- Activity Name Strings -->
     <string name="activity_users_add">Add User</string>
 
+    <!-- Menu Strings -->
+    <string name="order_by">Order By</string>
+
     <!-- Users Add Strings -->
     <string name="name_letter">J</string>
     <string name="user_name">Name</string>

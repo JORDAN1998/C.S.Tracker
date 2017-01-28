@@ -9,6 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -58,6 +60,37 @@ public class UsersView extends AppCompatActivity {
 
         // Initiate populateListView//
         populateListView();
+    }
+
+    // Creates Menu And All Its Components//
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflates The Menu / This Adds Items To The Action Bar If It Is Present//
+        getMenuInflater().inflate(R.menu.users_view_menu, menu);
+
+        // Kill Code//
+        return true;
+    }
+
+    // What Happens When Menu Buttons Are Clicked//
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Figures Out What Menu Button Was Pressed//
+        int id = item.getItemId();
+
+        // What Happens When usersAddSave Is Pressed//
+        if (id == R.id.usersOrderBy) {
+
+
+
+            // Kill Code//
+            return true;
+        }
+
+        // Kill Code//
+        return super.onOptionsItemSelected(item);
     }
 
     // Method That Opens Database//
