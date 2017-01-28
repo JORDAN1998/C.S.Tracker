@@ -16,7 +16,7 @@ import java.io.ByteArrayOutputStream;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 // UsersDatabase Class Created By Jordan Zimmitti 1-22-17//
-class UsersDatabase {
+public class UsersDatabase {
 
     // Used For Logging Database Version Changes//
     private static final String TAG = "database";
