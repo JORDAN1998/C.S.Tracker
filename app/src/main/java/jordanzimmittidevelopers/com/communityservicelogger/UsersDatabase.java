@@ -136,7 +136,7 @@ public class UsersDatabase {
     public void deleteAll() {
 
         // Get All Rows//
-        Cursor c = getAllRows();
+        Cursor c = getAllRowsNewestToOldest();
 
         // Delete Row One By One//
         long rowId = c.getColumnIndexOrThrow(KEY_ROW_ID_NUMBER);
@@ -150,11 +150,37 @@ public class UsersDatabase {
         c.close();
     }
 
-    // Get All Rows In The Database//
-    public Cursor getAllRows() {
+    // Get All Rows In The Database From Newest To Oldest//
+    public Cursor getAllRowsOldestToNewest() {
 
         // Query Database For All Rows//
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+
+        // Kill Code//
+        return c;
+    }
+
+    // Get All Rows In The Database From Newest To Oldest//
+    public Cursor getAllRowsNewestToOldest() {
+
+        // Query Database For All Rows//
+        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, KEY_ROW_ID_NUMBER + " DESC", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+
+        // Kill Code//
+        return c;
+    }
+
+    // Get All Rows In The Database From Names//
+    public Cursor getAllRowsName() {
+
+        // Query Database For All Rows//
+        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, KEY_NAMES + " COLLATE NOCASE" + " ASC", null);
         if (c != null) {
             c.moveToFirst();
         }

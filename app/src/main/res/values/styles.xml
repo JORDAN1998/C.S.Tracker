@@ -16,6 +16,15 @@
         <!-- Text Color -->
         <item name="android:textColorPrimary">@color/darkRed</item>
 
+        <!-- Material Dialog Background Color -->
+        <item name="md_background_color">@color/white</item>
+
+        <!-- Material Dialog Title Color -->
+        <item name="md_title_color">@color/darkRed</item>
+
+        <!-- Material Dialog Content Color -->
+        <item name="md_content_color">@color/black</item>
+
     </style>
 
 </resources>

@@ -3,14 +3,73 @@
 <!-- Color Values -->
 <resources>
 
-    <!-- Flat Red -->
+    <!-- Red -->
     <color name="red">#e74c3c</color>
 
-    <!-- Flat Dark Red -->
+    <!-- Orange -->
+    <color name="orange">#FF9800</color>
+
+    <!-- Yellow -->
+    <color name="yellow">#FBC02D</color>
+
+    <!-- Green -->
+    <color name="green">#4CAF50</color>
+
+    <!-- Blue -->
+    <color name="blue">#2196F3</color>
+
+    <!-- Indigo -->
+    <color name="indigo">#3F51B5</color>
+
+    <!-- Violet -->
+    <color name="violet">#9C27B0</color>
+
+    <!-- Pink -->
+    <color name="pink">#E91E63</color>
+
+    <!-- Dark Red -->
     <color name="darkRed">#c0392b</color>
+
+    <!-- Dark Orange -->
+    <color name="darkOrange">#E65100</color>
+
+    <!-- Dark Yellow -->
+    <color name="darkYellow">#F9A825</color>
+
+    <!-- Dark Green -->
+    <color name="darkGreen">#1B5E20</color>
+
+    <!-- Dark Blue -->
+    <color name="darkBlue">#0D47A1</color>
+
+    <!-- Dark Indigo -->
+    <color name="darkIndigo">#1A237E</color>
+
+    <!-- Dark Violet -->
+    <color name="darkViolet">#4A148C</color>
+
+    <!-- Dark Pink -->
+    <color name="darkPink">#880E4F</color>
+
+
+    <!-- Teal -->
+    <color name="teal">#009688</color>
+
+    <!-- Teal -->
+    <color name="darkTeal">#004D40</color>
+
 
     <!-- White -->
     <color name="white">#FFFFFF</color>
+
+    <!-- Dark White -->
+    <color name="darkWhite">#eeeeee</color>
+
+    <!-- Grey -->
+    <color name="grey">#9E9E9E</color>
+
+    <!-- Black -->
+    <color name="black">#000000</color>
 
     <!-- Transparent -->
     <color name="transparent">#00000000</color>
