@@ -6,6 +6,8 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/users_ui"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UsersView">

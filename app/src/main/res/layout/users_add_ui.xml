@@ -7,15 +7,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_ui"
     android:padding="16dip"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".UsersAdd">
 
     <!-- CircleImageView circleImage -->
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImage"
-        android:src="@drawable/darkred"
+        android:src="@drawable/white"
         android:onClick="onClickCircleImage"
         android:layout_width="70dip"
         android:layout_height="70dip"
@@ -26,7 +27,7 @@
     <TextView
         android:id="@+id/nameLetter"
         android:text="@string/name_letter"
-        android:textColor="@color/white"
+        android:textColor="@color/darkRed"
         android:textSize="40sp"
         android:gravity="center"
         android:layout_alignParentLeft="true"

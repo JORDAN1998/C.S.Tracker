@@ -22,7 +22,7 @@
         <!-- CircleImageView circleImage -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/usersViewCircleImage"
-            android:src="@drawable/darkred"
+            android:src="@drawable/white"
             android:layout_width="70dip"
             android:layout_height="70dip"
             app:civ_border_width="2dp"
@@ -32,7 +32,7 @@
         <TextView
             android:id="@+id/usersViewNameLetter"
             android:text="@string/name_letter"
-            android:textColor="@color/white"
+            android:textColor="@color/red"
             android:textSize="40sp"
             android:gravity="center"
             android:layout_alignParentLeft="true"
