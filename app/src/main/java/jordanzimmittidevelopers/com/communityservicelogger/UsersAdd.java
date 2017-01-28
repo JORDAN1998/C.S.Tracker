@@ -236,10 +236,14 @@ public class UsersAdd extends AppCompatActivity {
             // What Happens If nameLetter Is Invisible Or Visible//
             if (nameLetter.getVisibility() == View.INVISIBLE) {
 
-            }
+                // Insert Values Without nameLetter Into Database//
+                usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), "", getBytes(bitmap));
 
-            // Insert Values Into Database//
-            usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), getBytes(bitmap));
+            } else {
+
+                // Insert Values With nameLetter Into Database//
+                usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), nameLetter.getText().toString(), getBytes(bitmap));
+            }
 
             // Define and Instantiate Variable Intent UsersView//
             Intent usersView = new Intent(this, UsersView.class);

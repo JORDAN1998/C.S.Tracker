@@ -26,16 +26,18 @@ class UsersDatabase {
     public static final String KEY_NAMES = "names";
     public static final String KEY_AGE = "age";
     public static final String KEY_ORGANIZATION = "name";
+    public static final String KEY_NAME_LETTER = "name_letter";
     public static final String KEY_IMAGE = "image";
 
     // Put All Rows Into A String//
-    public static final String[] ALL_KEYS = new String[] { KEY_ROW_ID_NUMBER, KEY_NAMES, KEY_AGE, KEY_ORGANIZATION, KEY_IMAGE};
+    public static final String[] ALL_KEYS = new String[] { KEY_ROW_ID_NUMBER, KEY_NAMES, KEY_AGE, KEY_ORGANIZATION, KEY_NAME_LETTER, KEY_IMAGE};
 
     // Column Numbers For Each Row Name//
     public static final int COL_NAME = 1;
     public static final int COL_AGE = 2;
     public static final int COL_ORGANIZATION = 3;
-    public static final int COL_IMAGE = 4;
+    public static final int COL_NAME_LETTER = 4;
+    public static final int COL_IMAGE = 5;
 
     // DataBase info//
     public static final String DATABASE_NAME = "users_database";
@@ -48,6 +50,7 @@ class UsersDatabase {
             + KEY_NAMES + " TEXT NOT NULL,"
             + KEY_AGE + " TEXT NOT NULL,"
             + KEY_ORGANIZATION + " TEXT NOT NULL,"
+            + KEY_NAME_LETTER + " TEXT NOT NULL,"
             + KEY_IMAGE + " TEXT NOT NULL"
             + ");";
 
@@ -83,7 +86,7 @@ class UsersDatabase {
     }
 
     // Add A New Set Of Values To Be Inserted Into The Database//
-    public long insertRow(String names, String age, String organization, byte[] image) {
+    public long insertRow(String names, String age, String organization, String nameLetter, byte[] image) {
 
         // Gets All The New Values//
         ContentValues initialValues = new ContentValues();
@@ -92,6 +95,7 @@ class UsersDatabase {
         initialValues.put(KEY_NAMES, names);
         initialValues.put(KEY_AGE, age);
         initialValues.put(KEY_ORGANIZATION, organization);
+        initialValues.put(KEY_NAME_LETTER, nameLetter);
         initialValues.put(KEY_IMAGE, image);
 
         // Inserts The Value Data Into The Database//
@@ -99,7 +103,7 @@ class UsersDatabase {
     }
 
     // Change An Existing Row To Be Equal To New Data//
-    public boolean updateRow(long id, String names, String age, String organization, byte[] image) {
+    public boolean updateRow(long id, String names, String age, String organization, String nameLetter, byte[] image) {
 
         // Get Current Row By ID Number//
         String where = KEY_ROW_ID_NUMBER + "=" + id;
@@ -111,6 +115,7 @@ class UsersDatabase {
         newValues.put(KEY_NAMES, names);
         newValues.put(KEY_AGE, age);
         newValues.put(KEY_ORGANIZATION, organization);
+        newValues.put(KEY_NAME_LETTER, nameLetter);
         newValues.put(KEY_IMAGE, image);
 
         // Inserts The New Value Data Into The Database//
