@@ -227,8 +227,16 @@ public class UsersAdd extends AppCompatActivity {
         // What Happens When All EditTexts Are Filled Out//
         if (!usersAddName.getText().toString().isEmpty() && !usersAddAge.getText().toString().isEmpty() && !usersAddOrganization.getText().toString().isEmpty()) {
 
-            BitmapDrawable drawable = (BitmapDrawable) circleImage.getDrawable();
-            Bitmap bitmap = drawable.getBitmap();
+            // Define and Instantiate Variable BitmapDrawable bitmapDrawable//
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) circleImage.getDrawable();
+
+            // Define And Instantiate Variable Bitmap bitmap / Convert Drawable To Bitmap//
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+
+            // What Happens If nameLetter Is Invisible Or Visible//
+            if (nameLetter.getVisibility() == View.INVISIBLE) {
+
+            }
 
             // Insert Values Into Database//
             usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), getBytes(bitmap));

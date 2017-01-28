@@ -6,13 +6,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.io.ByteArrayOutputStream;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 // UsersDatabase Class Created By Jordan Zimmitti 1-22-17//
-public class UsersDatabase {
+class UsersDatabase {
 
     // Used For Logging Database Version Changes//
     private static final String TAG = "database";
@@ -184,11 +188,11 @@ public class UsersDatabase {
     }
 
     // Convert From Byte Array To Bitmap//
-    public static Bitmap getImage(byte[] image) {
+    public void getImage(Context context, final byte[] image, final CircleImageView circleImageView) {
 
-        // Convert Byte To Bitmap//
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
-    }
+        // Get Image From Database And Show It In ListView//
+        Glide.with(context).load(image).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).into(circleImageView);
+}
 
     // Helps Make Database Work (Remember Don't Touch)//
     private static class DatabaseHelper extends SQLiteOpenHelper {

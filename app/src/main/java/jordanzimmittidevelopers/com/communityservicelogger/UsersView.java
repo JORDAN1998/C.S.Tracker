@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -106,21 +107,35 @@ public class UsersView extends AppCompatActivity {
         // Creates ListView Adapter Which Allows ListView Items To Be Seen//
         SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.users_view_design_ui, cursor, fromFieldNames, toViewIDs, 0) {
 
+            // Access users_view_design_ui Widgets//
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
+
+                // Get Cursor Position//
                 cursor.moveToPosition(position);
+
+                // Get Row Of Database//
                 final View row = super.getView(position, convertView, parent);
 
+                // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
                 CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
 
+                // Define And Instantiate Variable Byte byteImage//
                 byte[] byteImage = cursor.getBlob(UsersDatabase.COL_IMAGE);
 
-                usersViewCircleImage.setImageBitmap(UsersDatabase.getImage(byteImage));
+                // Get Image From Database And Display It In ListView//
+                usersDatabase.getImage(UsersView.this, byteImage, usersViewCircleImage);
 
+                // Set Row Background Color//
+                row.setBackgroundColor(ContextCompat.getColor(UsersView.this, R.color.red));
+
+                // Set Color//
+                row.invalidate();
+
+                // Kill Code//
                 return row;
             }
         };
-
 
         // Sets Up Adapter Made Earlier / Shows Content From Database//
         usersListView.setAdapter(simpleCursorAdapter);

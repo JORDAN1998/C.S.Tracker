@@ -18,69 +18,38 @@
         android:fitsSystemWindows="true"
         tools:context=".UsersAdd">
 
-    <!-- CircleImageView circleImage -->
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/usersViewCircleImage"
-        android:src="@drawable/darkred"
-        android:onClick="onClickCircleImage"
-        android:layout_width="70dip"
-        android:layout_height="70dip"
-        app:civ_border_width="2dp"
-        app:civ_border_color="@color/transparent"/>
+        <!-- CircleImageView circleImage -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/usersViewCircleImage"
+            android:src="@drawable/darkred"
+            android:onClick="onClickCircleImage"
+            android:layout_width="70dip"
+            android:layout_height="70dip"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/transparent"/>
 
-    <!-- TextView usersViewNameLetter -->
-    <TextView
-        android:id="@+id/usersViewNameLetter"
-        android:text="@string/name_letter"
-        android:textColor="@color/white"
-        android:textSize="40sp"
-        android:gravity="center"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/usersViewCircleImage"
-        android:layout_alignEnd="@+id/usersViewCircleImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/usersViewCircleImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <!-- TextView usersViewNameLetter -->
+        <TextView
+            android:id="@+id/usersViewNameLetter"
+            android:text="@string/name_letter"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/usersViewCircleImage"
+            android:layout_alignEnd="@+id/usersViewCircleImage"
+            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/usersViewCircleImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <!-- MaterialEditText usersViewName -->
-
-        <!-- MaterialEditText usersViewAge -->
-    <TextView
-        android:id="@+id/usersViewAge"
-        android:hint="@string/age"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/usersViewCircleImage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/usersViewCircleImage"
-        android:layout_alignEnd="@+id/usersViewCircleImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <!-- MaterialEditText usersViewOrganization -->
-    <TextView
-        android:id="@+id/usersViewOrganization"
-        android:hint="@string/organization"
-        android:textSize="14sp"
-        android:layout_marginLeft="10dip"
-        android:layout_marginStart="10dip"
-        android:layout_alignBaseline="@+id/usersViewAge"
-        android:layout_alignBottom="@+id/usersViewAge"
-        android:layout_toRightOf="@+id/usersViewAge"
-        android:layout_toEndOf="@+id/usersViewAge"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        <!-- MaterialEditText usersViewName -->
         <TextView
             android:id="@+id/usersViewName"
             android:hint="@string/user_name"
             android:textSize="14sp"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -89,6 +58,39 @@
             android:layout_marginTop="26dp"
             android:layout_alignLeft="@+id/usersViewOrganization"
             android:layout_alignStart="@+id/usersViewOrganization" />
+
+        <!-- MaterialEditText usersViewAge -->
+        <TextView
+            android:id="@+id/usersViewAge"
+            android:hint="@string/age"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/usersViewCircleImage"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/usersViewCircleImage"
+            android:layout_alignEnd="@+id/usersViewCircleImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- MaterialEditText usersViewOrganization -->
+        <TextView
+            android:id="@+id/usersViewOrganization"
+            android:hint="@string/organization"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dip"
+            android:layout_marginStart="10dip"
+            android:layout_alignBaseline="@+id/usersViewAge"
+            android:layout_alignBottom="@+id/usersViewAge"
+            android:layout_toRightOf="@+id/usersViewAge"
+            android:layout_toEndOf="@+id/usersViewAge"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 
