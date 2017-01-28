@@ -13,6 +13,12 @@
         <!-- Accent App Color -->
         <item name="colorAccent">@color/darkRed</item>
 
+        <!-- Theme UI Controls For Android Widget Pressed Color -->
+        <item name="colorControlActivated">@color/darkRed</item>
+
+        <!-- Theme UI Controls For Android Highlighted Text -->
+        <item name="colorControlHighlight">@color/darkRed</item>
+
         <!-- Text Color -->
         <item name="android:textColorPrimary">@color/darkRed</item>
 
@@ -24,6 +30,9 @@
 
         <!-- Material Dialog Content Color -->
         <item name="md_content_color">@color/black</item>
+
+        <!-- this makes sure the action mode is painted over not above the action bar -->
+        <item name="windowActionModeOverlay">true</item>
 
     </style>
 
