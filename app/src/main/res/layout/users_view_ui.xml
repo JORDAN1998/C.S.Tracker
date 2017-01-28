@@ -17,7 +17,10 @@
         android:dividerHeight="30.0sp"
         android:scrollbars="none"
         android:clipToPadding="false"
-        android:padding="16dip"
+        android:paddingTop="16dip"
+        android:paddingBottom="85dip"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -36,8 +39,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        fab:fab_colorNormal="@color/red"
-        fab:fab_colorPressed="@color/darkRed"
+        fab:fab_colorNormal="@color/darkRed"
+        fab:fab_colorPressed="@color/red"
         fab:fab_colorRipple="@color/red" />
 
 </RelativeLayout>

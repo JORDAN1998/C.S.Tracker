@@ -99,10 +99,10 @@ public class UsersView extends AppCompatActivity {
         final Cursor cursor = usersDatabase.getAllRows();
 
         // Puts Rows Stored On Database Into A String Shown//
-        final String[] fromFieldNames = new String[]{UsersDatabase.KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION};
+        final String[] fromFieldNames = new String[]{UsersDatabase.KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
 
         // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
-        int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewOrganization};
+        int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewOrganization, R.id.usersViewNameLetter};
 
         // Creates ListView Adapter Which Allows ListView Items To Be Seen//
         SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.users_view_design_ui, cursor, fromFieldNames, toViewIDs, 0) {
