@@ -5,7 +5,6 @@
     <string name="app_name">C.S. Tracker</string>
 
     <!-- Activity Name Strings -->
-    <string name="activity_users_view">Users</string>
     <string name="activity_users_add">Add User</string>
 
     <!-- Users Add Strings -->

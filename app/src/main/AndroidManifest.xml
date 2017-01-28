@@ -24,8 +24,7 @@
 
         <!-- Activity UsersView -->
         <activity
-            android:name=".UsersView"
-            android:label="@string/activity_users_view">
+            android:name=".UsersView">
 
             <!-- Tell The App To Launch Activity At Start -->
             <intent-filter>

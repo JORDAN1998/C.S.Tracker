@@ -8,9 +8,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,21 +75,6 @@ public class UsersAdd extends AppCompatActivity {
 
     //</editor-fold>
 
-    // What Happens When Activity Starts//
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Starts UI For Activity//
-        setContentView(R.layout.users_add_ui);
-
-        // Initiate InstantiateWidgets Method//
-        instantiateWidgets();
-
-        // Initiate databaseOpen Method//
-        databaseOpen();
-    }
-
     // What Happens When User Grabs Picture//
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -107,6 +94,21 @@ public class UsersAdd extends AppCompatActivity {
         }
     }
 
+    // What Happens When Activity Starts//
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Starts UI For Activity//
+        setContentView(R.layout.users_add_ui);
+
+        // Initiate InstantiateWidgets Method//
+        instantiateWidgets();
+
+        // Initiate databaseOpen Method//
+        databaseOpen();
+    }
+
     // Creates Menu And All Its Components//
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -116,6 +118,30 @@ public class UsersAdd extends AppCompatActivity {
 
         // Kill Code//
         return true;
+    }
+
+    //Controls Back Button Functions//
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+
+            // What Happens When Back Button Is Pressed//
+            case KeyEvent.KEYCODE_BACK:
+
+                // Define and Instantiate Variable Intent UsersView//
+                Intent usersView = new Intent(this, UsersView.class);
+
+                // Start Activity UsersView//
+                startActivity(usersView);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Kill Code//
+                return false;
+            default:
+                return false;
+        }
     }
 
     // What Happens When Menu Buttons Are Clicked//
@@ -239,16 +265,22 @@ public class UsersAdd extends AppCompatActivity {
                 // Insert Values Without nameLetter Into Database//
                 usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), "", getBytes(bitmap));
 
+                // Close Database When Finished/
+                usersDatabase.close();
+
             } else {
 
                 // Insert Values With nameLetter Into Database//
                 usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), nameLetter.getText().toString(), getBytes(bitmap));
+
+                // Close Database When Finished/
+                usersDatabase.close();
             }
 
             // Define and Instantiate Variable Intent UsersView//
             Intent usersView = new Intent(this, UsersView.class);
 
-            // Start Activity UsersAdd//
+            // Start Activity UsersView//
             startActivity(usersView);
 
             // Custom Transition//

@@ -8,6 +8,7 @@ import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -42,6 +43,9 @@ public class UsersView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set Title To Users//
+        setTitle("Users");
 
         // Starts UI For Activity//
         setContentView(R.layout.users_view_ui);
@@ -117,6 +121,12 @@ public class UsersView extends AppCompatActivity {
                 // Get Row Of Database//
                 final View row = super.getView(position, convertView, parent);
 
+                // Define And Instantiate Variable CardView cardView//
+                CardView cardView = (CardView) row.findViewById(R.id.cardView);
+
+                // Set Background Color For cardView//
+                cardView.setCardBackgroundColor(ContextCompat.getColor(UsersView.this, R.color.red));
+
                 // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
                 CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
 
@@ -125,12 +135,6 @@ public class UsersView extends AppCompatActivity {
 
                 // Get Image From Database And Display It In ListView//
                 usersDatabase.getImage(UsersView.this, byteImage, usersViewCircleImage);
-
-                // Set Row Background Color//
-                row.setBackgroundColor(ContextCompat.getColor(UsersView.this, R.color.red));
-
-                // Set Color//
-                row.invalidate();
 
                 // Kill Code//
                 return row;
