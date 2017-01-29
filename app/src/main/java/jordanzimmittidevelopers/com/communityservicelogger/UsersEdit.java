@@ -76,7 +76,5 @@ public class UsersEdit extends AppCompatActivity {
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-        vibe.vibrate(50);
     }
 }
