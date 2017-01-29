@@ -7,14 +7,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".UsersView">
 
-    <!-- Item userOrderBy -->
+    <!-- Item userSortBy -->
     <item
-        android:id="@+id/usersOrderBy"
-        android:title="@string/order_by"
+        android:id="@+id/usersSortBy"
+        android:title="@string/sort_by"
         android:icon="@drawable/sort"
-        android:orderInCategory="1"
-        app:showAsAction="always" >
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom" />
 
-    </item>
+    <!-- Item userSearch -->
+    <item
+        android:id="@+id/usersSearch"
+        android:title="@string/search_by"
+        android:icon="@drawable/search"
+        android:orderInCategory="1"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom" />
 
 </menu>

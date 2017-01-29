@@ -8,7 +8,8 @@
     <string name="activity_users_add">Add User</string>
 
     <!-- Menu Strings -->
-    <string name="order_by">Order By</string>
+    <string name="sort_by">Sort By</string>
+    <string name="search_by">Search By</string>
 
     <!-- Users Add Strings -->
     <string name="name_letter">J</string>

@@ -38,20 +38,20 @@ public class UsersView extends AppCompatActivity {
 
     //<editor-fold desc="Shared Preference">
 
-    // Saves Order To String//
-    public static final String ORDER_TYPE = "order_type";
+    // Saves Sort Preference To String//
+    public static final String SORT_TYPE = "sort_type";
 
-    // Apply Order//
-    public static int ORDER_BY;
+    // Apply Sort Preference//
+    public static int SORT_BY;
 
-    // Order By Name//
-    public final static int ORDER_BY_NAME = 1;
+    // Sort By Name//
+    public final static int SORT_BY_NAME = 1;
 
-    // Order By Newest To Oldest//
-    public final static int ORDER_BY_NEWEST_TO_OLDEST = 2;
+    // Sort By Newest To Oldest//
+    public final static int SORT_BY_NEWEST_TO_OLDEST = 2;
 
-    // Order By Newest To Oldest//
-    public final static int ORDER_BY_OLDEST_TO_NEWEST = 3;
+    // Sort By Newest To Oldest//
+    public final static int SORT_BY_OLDEST_TO_NEWEST = 3;
 
     //</editor-fold>
 
@@ -107,10 +107,10 @@ public class UsersView extends AppCompatActivity {
         int id = item.getItemId();
 
         // What Happens When usersAddSave Is Pressed//
-        if (id == R.id.usersOrderBy) {
+        if (id == R.id.usersSortBy) {
 
             // Initiate Method orderBy//
-            orderBy();
+            sortBy();
 
             // Kill Code//
             return true;
@@ -171,155 +171,35 @@ public class UsersView extends AppCompatActivity {
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
     }
 
-    // Method To Order Users By//
-    private void orderBy() {
-
-            // Vibrates For 50 Mill//
-            vibe.vibrate(50);
-
-            // Title String//
-            String dialogTitle = "Order Events By...";
-
-            // Order By... Strings//
-            final String[] orderByString = {"Order By Name", "Order By Newest To Oldest", "Order By Oldest To Newest"};
-
-            // Positive Btn String//
-            String positiveBtn = "Ok";
-
-            new MaterialDialog.Builder(this)
-                    .title(dialogTitle)
-                    .items((CharSequence[]) orderByString)
-                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                        @Override
-                        public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-
-                            // Sets Order By Name//
-                            if (i == 0) {
-
-                                // Vibrates For 50 Mill//
-                                vibe.vibrate(50);
-
-                                // Saves Order Of Users//
-                                SharedPreferences settings = getSharedPreferences(ORDER_TYPE, MODE_PRIVATE);
-                                SharedPreferences.Editor edit;
-                                edit = settings.edit();
-
-                                // Vibrates For 50 Mill//
-                                vibe.vibrate(50);
-
-                                // Sets Order For Users//
-                                ORDER_BY = ORDER_BY_NAME;
-                                edit.clear();
-                                edit.putInt("Custom_Order_By", ORDER_BY);
-                                edit.apply();
-
-                                // Define and Instantiate Variable Intent UsersView//
-                                Intent usersView = new Intent(UsersView.this, UsersView.class);
-
-                                // Start Activity UsersView//
-                                startActivity(usersView);
-
-                                // Custom Transition//
-                                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
-                            }
-
-                            // Sets Order By Newest To Oldest//
-                            if (i == 1) {
-
-                                // Vibrates For 50 Mill//
-                                vibe.vibrate(50);
-
-                                // Saves Order Of Users//
-                                SharedPreferences settings = getSharedPreferences(ORDER_TYPE, MODE_PRIVATE);
-                                SharedPreferences.Editor edit;
-                                edit = settings.edit();
-
-                                // Vibrates For 50 Mill//
-                                vibe.vibrate(50);
-
-                                // Sets Order For Users//
-                                ORDER_BY = ORDER_BY_NEWEST_TO_OLDEST;
-                                edit.clear();
-                                edit.putInt("Custom_Order_By", ORDER_BY);
-                                edit.apply();
-
-                                // Define and Instantiate Variable Intent UsersView//
-                                Intent usersView = new Intent(UsersView.this, UsersView.class);
-
-                                // Start Activity UsersView//
-                                startActivity(usersView);
-
-                                // Custom Transition//
-                                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
-                            }
-
-                            // Sets Order By Oldest To Newest//
-                            if (i == 2) {
-
-                                // Vibrates For 50 Mill//
-                                vibe.vibrate(50);
-
-                                // Saves Order Of Users//
-                                SharedPreferences settings = getSharedPreferences(ORDER_TYPE, MODE_PRIVATE);
-                                SharedPreferences.Editor edit;
-                                edit = settings.edit();
-
-                                // Vibrates For 50 Mill//
-                                vibe.vibrate(50);
-
-                                // Sets Order For Users//
-                                ORDER_BY = ORDER_BY_OLDEST_TO_NEWEST;
-                                edit.clear();
-                                edit.putInt("Custom_Order_By", ORDER_BY);
-                                edit.apply();
-
-                                // Define and Instantiate Variable Intent UsersView//
-                                Intent usersView = new Intent(UsersView.this, UsersView.class);
-
-                                // Start Activity UsersView//
-                                startActivity(usersView);
-
-                                // Custom Transition//
-                                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
-                            }
-
-                            // Kill Code//
-                            return false;
-                        }
-                    })
-                    .positiveText(positiveBtn)
-                    .show();
-    }
-
     // Method To Populate ListView//
     private void populateListView() {
 
         // Define And Instantiate Variable SharedPreferences order//
-        SharedPreferences order = getSharedPreferences(ORDER_TYPE, MODE_PRIVATE);
+        SharedPreferences sort = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
 
         // Define Variable Cursor cursor//
         Cursor cursor = null;
 
         //<editor-fold desc="User Order Save Preference">
 
-        // What Happens When User Wants Database Ordered By Name//
-        if (order.getInt("Custom_Order_By", 0) == 1) {
+        // What Happens When User Wants Database Sorted By Name//
+        if (sort.getInt("Custom_Order_By", 0) == 1) {
 
             // Gets All Rows Added To Database From Name//
             cursor = usersDatabase.getAllRowsName();
 
         }
 
-        // What Happens When User Wants Database Ordered By Newest To Oldest//
-        else if (order.getInt("Custom_Order_By", 0) == 2) {
+        // What Happens When User Wants Database Sorted By Newest To Oldest//
+        else if (sort.getInt("Custom_Order_By", 0) == 2) {
 
                 // Gets All Rows Added To Database From Name//
                 cursor = usersDatabase.getAllRowsNewestToOldest();
 
             }
 
-        // What Happens When User Wants Database Ordered By Oldest To Newest//
-         else if (order.getInt("Custom_Order_By", 0) == 3) {
+        // What Happens When User Wants Database Sorted By Oldest To Newest//
+         else if (sort.getInt("Custom_Order_By", 0) == 3) {
 
             // Gets All Rows Added To Database From Oldest To Newest//
             cursor = usersDatabase.getAllRowsOldestToNewest();
@@ -376,5 +256,125 @@ public class UsersView extends AppCompatActivity {
 
         // Sets Up Adapter Made Earlier / Shows Content From Database//
         usersListView.setAdapter(simpleCursorAdapter);
+    }
+
+    // Method To Sort Users By User Preference//
+    private void sortBy() {
+
+        // Vibrates For 50 Mill//
+        vibe.vibrate(50);
+
+        // Title String//
+        String dialogTitle = "Sort Users By...";
+
+        // Order By... Strings//
+        final String[] orderByString = {"Sort By Name", "Sort By Newest To Oldest", "Sort By Oldest To Newest"};
+
+        // Positive Btn String//
+        String positiveBtn = "Ok";
+
+        new MaterialDialog.Builder(this)
+                .title(dialogTitle)
+                .items((CharSequence[]) orderByString)
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+
+                        // Sets Sort Preference By Name//
+                        if (i == 0) {
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Saves Sort Preference Of Users//
+                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences.Editor edit;
+                            edit = settings.edit();
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Sets Sort For Users//
+                            SORT_BY = SORT_BY_NAME;
+                            edit.clear();
+                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.apply();
+
+                            // Define and Instantiate Variable Intent UsersView//
+                            Intent usersView = new Intent(UsersView.this, UsersView.class);
+
+                            // Start Activity UsersView//
+                            startActivity(usersView);
+
+                            // Custom Transition//
+                            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                        }
+
+                        // Sets Sort Preference By Newest To Oldest//
+                        if (i == 1) {
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Saves Sort Preference Of Users//
+                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences.Editor edit;
+                            edit = settings.edit();
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Saves Sort Preference Of Users//
+                            SORT_BY = SORT_BY_NEWEST_TO_OLDEST;
+                            edit.clear();
+                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.apply();
+
+                            // Define and Instantiate Variable Intent UsersView//
+                            Intent usersView = new Intent(UsersView.this, UsersView.class);
+
+                            // Start Activity UsersView//
+                            startActivity(usersView);
+
+                            // Custom Transition//
+                            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                        }
+
+                        // Sets Sort Preference By Oldest To Newest//
+                        if (i == 2) {
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Saves Sort Preference Of Users//
+                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences.Editor edit;
+                            edit = settings.edit();
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Sets Save Preference For Users//
+                            SORT_BY = SORT_BY_OLDEST_TO_NEWEST;
+                            edit.clear();
+                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.apply();
+
+                            // Define and Instantiate Variable Intent UsersView//
+                            Intent usersView = new Intent(UsersView.this, UsersView.class);
+
+                            // Start Activity UsersView//
+                            startActivity(usersView);
+
+                            // Custom Transition//
+                            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                        }
+
+                        // Kill Code//
+                        return false;
+                    }
+                })
+                .positiveText(positiveBtn)
+                .show();
     }
 }
