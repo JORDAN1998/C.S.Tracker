@@ -1,6 +1,7 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +13,21 @@ public class UsersEdit extends AppCompatActivity {
 
     //<editor-fold desc="Extra">
 
+    // Define Variable Cursor cursor//
+    Cursor cursor;
+
     // Define Variable UsersDatabase usersDatabase//
     private UsersDatabase usersDatabase;
 
     // Define Variable Vibrator vibe//
     private Vibrator vibe;
+
+    //</editor-fold>
+
+    //<editor-fold desc="String">
+
+    // String Of Id Values//
+    private String passedVar = null;
 
     //</editor-fold>
 
@@ -33,6 +44,9 @@ public class UsersEdit extends AppCompatActivity {
         // Initiate databaseOpen Method//
         databaseOpen();
 
+        // Initiate getDatabaseValues Method//
+        getDatabaseValues();
+
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
     }
@@ -45,6 +59,16 @@ public class UsersEdit extends AppCompatActivity {
 
         // Open Database//
         usersDatabase.open();
+    }
+
+    // Method To get Database Values//
+    private void getDatabaseValues() {
+
+        // Gets Id Of Last Clicked List View Item//
+        passedVar = getIntent().getStringExtra(UsersView.key_row_id_number);
+
+        // Gets Row//
+        cursor = usersDatabase.getRow(passedVar);
     }
 
     // Method That Instantiates Widgets//

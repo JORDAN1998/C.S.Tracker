@@ -32,6 +32,9 @@ public class UsersView extends AppCompatActivity {
 
     //<editor-fold desc="Extra">
 
+    // Puts Id Of Last Clicked ListView Item Into String//
+    public final static String key_row_id_number = UsersDatabase.KEY_ROW_ID_NUMBER;
+
     // Define Variable UsersDatabase usersDatabase//
     private UsersDatabase usersDatabase;
 
@@ -270,10 +273,12 @@ public class UsersView extends AppCompatActivity {
                                 vibe.vibrate(50);
 
                                 // Define and Instantiate Variable Intent UsersEdit//
-                                Intent UsersEdit = new Intent(UsersView.this, UsersEdit.class);
+                                Intent usersEdit = new Intent(UsersView.this, UsersEdit.class);
+
+                                usersEdit.putExtra(key_row_id_number, String.valueOf(id));
 
                                 // Start Activity UsersAdd//
-                                startActivity(UsersEdit);
+                                startActivity(usersEdit);
 
                                 // Custom Transition//
                                 overridePendingTransition(R.anim.slid_in, R.anim.slid_out);

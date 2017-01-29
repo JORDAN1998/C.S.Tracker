@@ -190,7 +190,7 @@ public class UsersDatabase {
     }
 
     // Get A Specific Row By Id//
-    public Cursor getRow(long Id) {
+    public Cursor getRow(String Id) {
 
         // Get Row Id//
         String where = KEY_ROW_ID_NUMBER + "=" + Id;
