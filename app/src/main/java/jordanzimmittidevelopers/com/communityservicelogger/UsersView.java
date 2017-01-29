@@ -7,9 +7,11 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +33,7 @@ public class UsersView extends AppCompatActivity {
     // Define Variable UsersDatabase usersDatabase//
     private UsersDatabase usersDatabase;
 
-    // Define Variable Vibrator Vibe//
+    // Define Variable Vibrator vibe//
     private Vibrator vibe;
 
     //</editor-fold>
@@ -94,6 +96,55 @@ public class UsersView extends AppCompatActivity {
 
         // Inflates The Menu / This Adds Items To The Action Bar If It Is Present//
         getMenuInflater().inflate(R.menu.users_view_menu, menu);
+
+        // Define And Instantiate Search View searchView//
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.usersSearch));
+
+        // Set Query Hint For User//
+        searchView.setQueryHint("Search Users");
+
+        // Runs When Text Is Being Entered Into Search Box//
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            // Runs When user Submits Text //
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                // Kill Code//
+                return false;
+            }
+
+            // Runs Each Time User Adds Letter In Search Box//
+            @Override
+            public boolean onQueryTextChange(String searchText) {
+
+                // Checks If Search Is Empty//
+                if (!searchText.isEmpty()) {
+
+                    // Initiate Search Title Method//
+                    searchTitle(searchText);
+                }
+
+                // Kill Code//
+                return true;
+            }
+        });
+
+        // Runs When SearchView Is Closed//
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+
+                // Repopulate Original ListView//
+                populateListView();
+
+                // Close Search Box//
+                searchView.onActionViewCollapsed();
+
+                // Kill Code//
+                return true;
+            }
+        });
 
         // Kill Code//
         return true;
@@ -178,7 +229,7 @@ public class UsersView extends AppCompatActivity {
         SharedPreferences sort = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
 
         // Define Variable Cursor cursor//
-        Cursor cursor = null;
+        Cursor cursor;
 
         //<editor-fold desc="User Order Save Preference">
 
@@ -256,6 +307,68 @@ public class UsersView extends AppCompatActivity {
 
         // Sets Up Adapter Made Earlier / Shows Content From Database//
         usersListView.setAdapter(simpleCursorAdapter);
+    }
+
+    // Method That Searches Database By Title//
+    public void searchTitle(String names) {
+
+        // What And How The Database Is Searching//
+        String query = "SELECT * FROM users where names LIKE '%" + names + "%'";
+
+        // Query Database For What User Searched//
+        Cursor searchCursor = UsersDatabase.db.rawQuery(query, null);
+
+        // What Happens If searchCursor Has Data//
+        if (searchCursor != null) {
+
+            // Move Database To Next Value//
+            searchCursor.moveToFirst();
+
+            // Puts Rows Stored On Database Into A String Shown//
+            final String[] fromFieldNames = new String[]{UsersDatabase.KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
+
+            // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
+            int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewOrganization, R.id.usersViewNameLetter};
+
+            // Make Above Cursor Final//
+            final Cursor finalCursor = searchCursor;
+
+            // Creates ListView Adapter Which Allows ListView Items To Be Seen//
+            SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.users_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0) {
+
+                // Access users_view_design_ui Widgets//
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+
+                    // Get Cursor Position//
+                    finalCursor.moveToPosition(position);
+
+                    // Get Row Of Database//
+                    final View row = super.getView(position, convertView, parent);
+
+                    // Define And Instantiate Variable CardView cardView//
+                    CardView cardView = (CardView) row.findViewById(R.id.cardView);
+
+                    // Set Background Color For cardView//
+                    cardView.setCardBackgroundColor(ContextCompat.getColor(UsersView.this, R.color.red));
+
+                    // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
+                    CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
+
+                    // Define And Instantiate Variable Byte byteImage//
+                    byte[] byteImage = finalCursor.getBlob(UsersDatabase.COL_IMAGE);
+
+                    // Get Image From Database And Display It In ListView//
+                    usersDatabase.getImage(UsersView.this, byteImage, usersViewCircleImage);
+
+                    // Kill Code//
+                    return row;
+                }
+            };
+
+            // Sets Up Adapter Made Earlier / Shows Content From Database//
+            usersListView.setAdapter(simpleCursorAdapter);
+        }
     }
 
     // Method To Sort Users By User Preference//
