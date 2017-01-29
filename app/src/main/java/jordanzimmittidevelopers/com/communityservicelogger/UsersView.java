@@ -266,6 +266,18 @@ public class UsersView extends AppCompatActivity {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+
+                                // Define and Instantiate Variable Intent UsersEdit//
+                                Intent UsersEdit = new Intent(UsersView.this, UsersEdit.class);
+
+                                // Start Activity UsersAdd//
+                                startActivity(UsersEdit);
+
+                                // Custom Transition//
+                                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
                             }
                         })
 
@@ -277,6 +289,7 @@ public class UsersView extends AppCompatActivity {
                                 // Vibrates For 50 Mill//
                                 vibe.vibrate(50);
                             }
+
                         }).show();
 
                 // Kill Code//
