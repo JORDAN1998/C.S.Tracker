@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -85,6 +87,9 @@ public class UsersView extends AppCompatActivity {
 
         // Initiate listViewItemClick Method//
         listViewItemClick();
+
+        // Initiate listViewItemLongClick Method//
+        listViewItemLongClick();
 
         // Initiate populateListView//
         populateListView();
@@ -202,6 +207,80 @@ public class UsersView extends AppCompatActivity {
 
                 // Vibrates For 50 Mill//
                 vibe.vibrate(50);
+            }
+        });
+    }
+
+    // Method That Runs When ListView Item Is Long Clicked//
+    public void listViewItemLongClick() {
+
+        usersListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
+
+                // Vibrates For 50 Mill//
+                vibe.vibrate(50);
+
+                // Create Dialog//
+                new MaterialDialog.Builder(UsersView.this)
+
+                        // Title Of Dialog//
+                        .title("What Would You Like To Do?")
+
+                        // Content Of Dialog//
+                        .content("Cancel popup, edit user, or delete user")
+
+                        // Positive Text Name For Button//
+                        .positiveText("Delete")
+
+                        // Negative Text Name For Button//
+                        .negativeText("Edit")
+
+                        // Neutral Text Name For Button//
+                        .neutralText("Cancel")
+
+                        // What Happens When Positive Button Is Pressed//
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+
+                                // Deletes Specific ListView//
+                                usersDatabase.deleteRow(id);
+
+                                // populates ListView//
+                                populateListView();
+
+                                // Restart Note Class//
+                                Intent i = new Intent(UsersView.this, UsersView.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivityForResult(i, 0);
+                                overridePendingTransition(0, 0); //0 for no animation;
+                            }
+                        })
+
+                        //What Happens When Negative Button Is Pressed//
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                            }
+                        })
+
+                        // What Happens When Neutral Button Is Pressed//
+                        .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+                            }
+                        }).show();
+
+                // Kill Code//
+                return true;
             }
         });
     }
