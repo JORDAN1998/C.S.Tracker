@@ -33,7 +33,10 @@ public class UsersView extends AppCompatActivity {
     //<editor-fold desc="Extra">
 
     // Puts Id Of Last Clicked ListView Item Into String//
-    public final static String key_row_id_number = UsersDatabase.KEY_ROW_ID_NUMBER;
+    public final static String KEY_ROW_ID_NUMBER = UsersDatabase.KEY_ROW_ID_NUMBER;
+
+    // Puts Name Of Last Clicked ListView Item Into String//
+    public final static String KEY_NAMES = UsersDatabase.KEY_NAMES;
 
     // Define Variable UsersDatabase usersDatabase//
     private UsersDatabase usersDatabase;
@@ -214,6 +217,12 @@ public class UsersView extends AppCompatActivity {
                 // Define and Instantiate Variable Intent EventsView//
                 Intent eventsView = new Intent(UsersView.this, EventsView.class);
 
+                // Gets Row//
+                Cursor cursor = usersDatabase.getRow(String.valueOf(id));
+
+                // Get Name Of Item Clicked In userListView//
+                eventsView.putExtra(KEY_NAMES, cursor.getString(UsersDatabase.COL_NAME));
+
                 // Start Activity UsersAdd//
                 startActivity(eventsView);
 
@@ -284,7 +293,8 @@ public class UsersView extends AppCompatActivity {
                                 // Define and Instantiate Variable Intent UsersEdit//
                                 Intent usersEdit = new Intent(UsersView.this, UsersEdit.class);
 
-                                usersEdit.putExtra(key_row_id_number, String.valueOf(id));
+                                // Get Id Of Item Clicked In userListView//
+                                usersEdit.putExtra(KEY_ROW_ID_NUMBER, String.valueOf(id));
 
                                 // Start Activity UsersAdd//
                                 startActivity(usersEdit);

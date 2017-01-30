@@ -254,7 +254,7 @@ public class UsersEdit extends AppCompatActivity {
     private void getDatabaseValues() {
 
         // Gets Id Of Last Clicked List View Item//
-        passedVar = getIntent().getStringExtra(UsersView.key_row_id_number);
+        passedVar = getIntent().getStringExtra(UsersView.KEY_ROW_ID_NUMBER);
 
         // Gets Row//
         cursor = usersDatabase.getRow(passedVar);
