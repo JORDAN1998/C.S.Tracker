@@ -11,6 +11,8 @@ import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -134,6 +136,9 @@ public class UsersEdit extends AppCompatActivity {
 
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
+
+        // Initiate onLongClickCircleImage Method//
+        onLongClickCircleImage();
     }
 
     // Creates Menu And All Its Components//
@@ -205,6 +210,36 @@ public class UsersEdit extends AppCompatActivity {
         startActivityForResult(picture, SELECT_PICTURE);
     }
 
+    // Method That Runs When usersEditCircleImage Is Long Clicked//
+    private void onLongClickCircleImage() {
+
+        // What Happens When User Long Clicks usersEditCircleImage//
+        usersEditCircleImage.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View view) {
+
+                // Set usersEditCircleImage To White//
+                usersEditCircleImage.setImageResource(R.drawable.white);
+
+                // Make usersEditNameLetter Visible//
+                usersEditNameLetter.setVisibility(View.VISIBLE);
+
+                // Define And Instantiate Variable char charFirstCharacter / Get First Letter Of Text Being Added//
+                char charFirstCharacter = usersEditName.getText().toString().charAt(0);
+
+                // Define And Instantiate Variable String firstLetter / Put First Character Into String//
+                String firstLetter = String.valueOf(charFirstCharacter);
+
+                // Set That Letter To usersEditNameLetter textView//
+                usersEditNameLetter.setText(firstLetter);
+
+                // Kill Code//
+                return true;
+            }
+        });
+    }
+
     // Method That Opens Database//
     private void databaseOpen() {
 
@@ -259,6 +294,43 @@ public class UsersEdit extends AppCompatActivity {
 
         // Set Text Equal To usersEditNameString//
         usersEditName.setText(usersEditNameString);
+
+        // Tells App To Watch The Text Being Added To usersAddName//
+        usersEditName.addTextChangedListener(new TextWatcher() {
+
+            // What Happens Before text Is Changed//
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            // What Happens When Text is Changing//
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                // Define And Instantiate Variable String usersAddNameText / Put usersAddNameText Into String//
+                String usersAddNameText = String.valueOf(charSequence);
+
+                // What Happens If charSequence Is Empty Or Starts With A Space//
+                if (!usersAddNameText.equals("")) {
+
+                    // Define And Instantiate Variable char charFirstCharacter / Get First Letter Of Text Being Added//
+                    char charFirstCharacter = usersEditName.getText().toString().charAt(0);
+
+                    // Define And Instantiate Variable String firstLetter / Put First Character Into String//
+                    String firstLetter = String.valueOf(charFirstCharacter);
+
+                    // Set That Letter To usersEditNameLetter textView//
+                    usersEditNameLetter.setText(firstLetter);
+                }
+            }
+
+            // What Happens When Text Is Finished Changing//
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
 
         // Instantiate Variable TextView usersEditNameLetter//

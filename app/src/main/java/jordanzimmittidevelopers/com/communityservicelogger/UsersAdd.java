@@ -107,6 +107,9 @@ public class UsersAdd extends AppCompatActivity {
 
         // Initiate databaseOpen Method//
         databaseOpen();
+
+        // Initiate circleImageLongClick Method//
+        onLongClickCircleImage();
     }
 
     // Creates Menu And All Its Components//
@@ -245,6 +248,36 @@ public class UsersAdd extends AppCompatActivity {
 
         // Allow User To Pick The Picture They Want//
         startActivityForResult(picture, SELECT_PICTURE);
+    }
+
+    // Method That Runs When circleImage Is Long Clicked//
+    private void onLongClickCircleImage() {
+
+        // What Happens When User Long Clicks circleImage//
+        circleImage.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View view) {
+
+                // Set circleImage To White//
+                circleImage.setImageResource(R.drawable.white);
+
+                // Make nameLetter Visible//
+                nameLetter.setVisibility(View.VISIBLE);
+
+                // Define And Instantiate Variable char charFirstCharacter / Get First Letter Of Text Being Added//
+                char charFirstCharacter = usersAddName.getText().toString().charAt(0);
+
+                // Define And Instantiate Variable String firstLetter / Put First Character Into String//
+                String firstLetter = String.valueOf(charFirstCharacter);
+
+                // Set That Letter To nameLetter textView//
+                nameLetter.setText(firstLetter);
+
+                // Kill Code//
+                return true;
+            }
+        });
     }
 
     // Method That Save User Profile//
