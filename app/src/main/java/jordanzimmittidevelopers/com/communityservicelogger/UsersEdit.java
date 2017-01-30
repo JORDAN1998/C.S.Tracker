@@ -1,9 +1,12 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +21,9 @@ public class UsersEdit extends AppCompatActivity {
     //<editor-fold desc="Variables">
 
     //<editor-fold desc="Extra">
+
+    // Define static Variable Int SELECT_PICTURE//
+    private static final int SELECT_PICTURE = 0;
 
     // Define Variable byte[] byteImage//
     byte[] byteImage;
@@ -85,6 +91,22 @@ public class UsersEdit extends AppCompatActivity {
 
     //</editor-fold>
 
+    // What Happens When User Grabs Picture//
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // What Happens When Picture Was Picked Successfully//
+        if (requestCode == SELECT_PICTURE && data!=null) {
+
+            // Define And Instantiate Variable Uri selectedImage / Get Image Selected//
+            Uri selectedImage = data.getData();
+
+            // Show Image Selected By User//
+            usersEditCircleImage.setImageURI(selectedImage);
+        }
+    }
+
     // What Happens When Activity Starts//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +123,19 @@ public class UsersEdit extends AppCompatActivity {
 
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
+    }
+
+    // What Happens When usersViewCircleImage Is Clicked//
+    public void onClickCircleImage(View view) {
+
+        // Vibrate For 50mm//
+        vibe.vibrate(50);
+
+        // Define And Instantiate Variable Intent picture / Let User Pick A Picture//
+        Intent picture = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+
+        // Allow User To Pick The Picture They Want//
+        startActivityForResult(picture, SELECT_PICTURE);
     }
 
     // Method That Opens Database//
@@ -148,7 +183,7 @@ public class UsersEdit extends AppCompatActivity {
         usersEditAge.setText(usersEditAgeString);
 
 
-        // Instantiate Variable CircleImageView usersViewCircleImageView//
+        // Instantiate Variable CircleImageView usersViewCircleImage//
         usersEditCircleImage = (CircleImageView) findViewById(R.id.usersEditCircleImage);
 
 

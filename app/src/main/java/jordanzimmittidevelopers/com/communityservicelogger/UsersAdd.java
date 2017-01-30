@@ -237,6 +237,9 @@ public class UsersAdd extends AppCompatActivity {
     // Method That Handles When Circle Image Is Clicked//
     public void onClickCircleImage(View view) {
 
+        // Vibrate For 50mm//
+        vibe.vibrate(50);
+
         // Define And Instantiate Variable Intent picture / Let User Pick A Picture//
         Intent picture = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
 
