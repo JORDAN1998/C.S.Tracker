@@ -210,6 +210,15 @@ public class UsersView extends AppCompatActivity {
 
                 // Vibrates For 50 Mill//
                 vibe.vibrate(50);
+
+                // Define and Instantiate Variable Intent EventsView//
+                Intent eventsView = new Intent(UsersView.this, EventsView.class);
+
+                // Start Activity UsersAdd//
+                startActivity(eventsView);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
             }
         });
     }

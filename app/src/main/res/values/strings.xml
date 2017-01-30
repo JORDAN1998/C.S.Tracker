@@ -6,6 +6,7 @@
 
     <!-- Activity Name Strings -->
     <string name="activity_users_add">Add User</string>
+    <string name="activity_users_edit">Edit User</string>
 
     <!-- Menu Strings -->
     <string name="sort_by">Sort By</string>

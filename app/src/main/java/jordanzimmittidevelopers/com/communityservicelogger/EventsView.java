@@ -16,6 +16,7 @@ public class EventsView extends AppCompatActivity {
         setContentView(R.layout.events_view_ui);
     }
 
+    // What Happens When Fab Btn Is Clicked//
     public void onClickFab(View view) {
     }
 }
