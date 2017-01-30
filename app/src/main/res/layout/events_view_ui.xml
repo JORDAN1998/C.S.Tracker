@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI For Activity EventsView -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/events_view_ui"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EventsView">
+
+    <!-- ListView eventsListView -->
+    <ListView
+        android:id="@+id/eventsListView"
+        android:divider="@android:color/transparent"
+        android:drawSelectorOnTop="true"
+        android:dividerHeight="30.0sp"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:paddingTop="16dip"
+        android:paddingBottom="85dip"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <!-- FAB eventsFab -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/eventsFab"
+        android:src="@drawable/user"
+        android:clickable="true"
+        android:onClick="onClickFab"
+        android:layout_margin="16dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_colorNormal="@color/darkRed"
+        fab:fab_colorPressed="@color/red"
+        fab:fab_colorRipple="@color/red" />
+
+</RelativeLayout>

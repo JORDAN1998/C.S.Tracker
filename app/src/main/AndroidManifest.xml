@@ -36,7 +36,8 @@
         <activity
             android:name=".UsersAdd"
             android:label="@string/activity_users_add" />
-        <activity android:name=".UsersEdit"></activity>
+        <activity android:name=".UsersEdit" />
+        <activity android:name=".EventsView"></activity>
     </application>
 
 </manifest>
