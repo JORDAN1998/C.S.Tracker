@@ -1,0 +1,206 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/Title_Name"
+        android:text="title name"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingLeft="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:ignore="RtlHardcoded,RtlSymmetry" >
+
+     </TextView>
+
+    <TextView
+        android:id="@+id/Name"
+        android:text="name"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:paddingLeft="5dip"
+        android:paddingRight="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Title_Name"
+        android:layout_toRightOf="@+id/Title_Name"
+        android:layout_toEndOf="@+id/Title_Name"
+        tools:ignore="RtlHardcoded,RtlSymmetry" >
+
+     </TextView>
+
+    <TextView
+        android:id="@+id/DATE"
+        android:text="title date"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/Title_TotalTime"
+        android:layout_toStartOf="@+id/Title_TotalTime"
+        tools:ignore="RelativeOverlap,RtlHardcoded,RtlSymmetry">
+     </TextView>
+
+    <TextView
+        android:id="@+id/Date_Text"
+        android:text="date"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:paddingLeft="5dip"
+        android:paddingBottom="1dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="RtlHardcoded,RtlSymmetry"
+        android:layout_alignBottom="@+id/DATE"
+        android:layout_toRightOf="@+id/DATE"
+        android:layout_toEndOf="@+id/DATE">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/Title_Location"
+        android:text="title location"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingLeft="10dip"
+        android:paddingTop="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DATE"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/Location_Txt"
+        android:text="location"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:paddingLeft="5dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Title_Location"
+        android:layout_toRightOf="@+id/Title_Location"
+        android:layout_toEndOf="@+id/Title_Location"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/Title_StartTime"
+        android:text="test"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingLeft="10dip"
+        android:paddingTop="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Title_Location"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/StartTime_Text2"
+        android:text="time"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:paddingTop="5dip"
+        android:paddingLeft="7dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Title_StartTime"
+        android:layout_alignRight="@+id/Title_StartTime"
+        android:layout_alignEnd="@+id/Title_StartTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/Title_EndTime"
+        android:text="time"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingTop="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Title_StartTime"
+        android:layout_centerHorizontal="true"
+        tools:ignore="RtlHardcoded,RtlSymmetry" >
+
+     </TextView>
+
+    <TextView
+        android:id="@+id/EndTime_Text2"
+        android:text="time"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:paddingTop="5dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Title_EndTime"
+        android:layout_alignLeft="@+id/Title_EndTime"
+        android:layout_alignStart="@+id/Title_EndTime"
+        android:layout_alignRight="@+id/Title_EndTime"
+        android:layout_alignEnd="@+id/Title_EndTime"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/Title_TotalTime"
+        android:text="time"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingRight="10dip"
+        android:paddingTop="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Title_Location"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/TotalTime_Text2"
+        android:text="time"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:paddingRight="7dip"
+        android:paddingTop="5dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/EndTime_Text2"
+        android:layout_alignLeft="@+id/Title_TotalTime"
+        android:layout_alignStart="@+id/Title_TotalTime"
+        android:layout_alignRight="@+id/Title_TotalTime"
+        android:layout_alignEnd="@+id/Title_TotalTime"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+    </TextView>
+
+</RelativeLayout>
