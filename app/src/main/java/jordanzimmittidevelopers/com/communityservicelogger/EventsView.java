@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
@@ -94,21 +93,5 @@ public class EventsView extends AppCompatActivity {
     // Method To Populate ListView//
     private void populateListView() {
 
-        // Gets All Rows Added To Database//
-        Cursor cursor = eventsDatabaseOld.getAllRows();
-
-        // Puts Rows Stored On Database Into A String (DatabaseReminder.KEY_ROWID = Numbers Each Row In ListView, KEY_TASK = Information Shown By You//
-        String[] fromFieldNames = new String[]{EventsDatabaseOld.KEY_NAME, EventsDatabaseOld.KEY_DATE, EventsDatabaseOld.KEY_LOCATION, EventsDatabaseOld.KEY_STARTTIME, EventsDatabaseOld.KEY_ENDTIME,
-                EventsDatabaseOld.KEY_TOTALTIME};
-
-        // Takes String From Database And Sends It To Whatever Layout Widget You Want. Will Show Up In The Order String Is Made In//
-        int[] toViewIDs = new int[]{R.id.Name, R.id.Date_Text, R.id.Location_Txt, R.id.StartTime_Text2, R.id.EndTime_Text2, R.id.TotalTime_Text2};
-
-        // Creates ListView Adapter Which Allows ListView Items To Be Seen//
-        SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout, cursor, fromFieldNames, toViewIDs, 0);
-
-        // Sets Up Adapter Made Earlier / Shows Content From Database//
-        eventsListView.setAdapter(myCursorAdapter);
     }
-
 }
