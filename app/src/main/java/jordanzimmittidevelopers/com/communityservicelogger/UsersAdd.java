@@ -18,8 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import static jordanzimmittidevelopers.com.communityservicelogger.UsersDatabase.getBytes;
@@ -254,7 +254,7 @@ public class UsersAdd extends AppCompatActivity {
         vibe.vibrate(50);
 
         // What Happens When All EditTexts Are Filled Out//
-        if (!usersAddName.getText().toString().isEmpty() && !usersAddAge.getText().toString().isEmpty() && !usersAddOrganization.getText().toString().isEmpty()) {
+        if (!usersAddName.getText().toString().equals("") && !usersAddAge.getText().toString().equals("") && !usersAddOrganization.getText().toString().equals("")) {
 
             // Define and Instantiate Variable BitmapDrawable bitmapDrawable//
             BitmapDrawable bitmapDrawable = (BitmapDrawable) circleImage.getDrawable();
@@ -291,8 +291,20 @@ public class UsersAdd extends AppCompatActivity {
 
         } else {
 
-            Toast.makeText(getApplicationContext(), "Not All Filled Out", Toast.LENGTH_LONG).show();
+            // Create Dialog//
+            new MaterialDialog.Builder(UsersAdd.this)
 
+                    // Title Of Dialog//
+                    .title("Warning")
+
+                    // Content Of Dialog//
+                    .content("Make sure all text fields are filled out")
+
+                    // Negative Text Name For Button//
+                    .negativeText("Cancel")
+
+                    // Show Material Dialog//
+                    .show();
         }
     }
 }
