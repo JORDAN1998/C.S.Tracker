@@ -7,10 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import static android.R.attr.id;
-import static jordanzimmittidevelopers.com.communityservicelogger.EventsDatabaseOld.COL_TOTALTIME_ADDED;
-import static jordanzimmittidevelopers.com.communityservicelogger.EventsDatabaseOld.TotalTimeAdded;
-
 // EventsDatabase Class Created By Jordan Zimmitti 1-30-17//
 public class EventsDatabase {
 
@@ -70,6 +66,9 @@ public class EventsDatabase {
     // Define Variable SQLiteDatabase db//
     public static SQLiteDatabase db;
 
+    // Define Variable int totalTimeAdded//
+    public static int totalTimeAdded;
+
     // Call Upon Database Helper//
     public EventsDatabase(Context ctx) {
 
@@ -115,7 +114,7 @@ public class EventsDatabase {
     }
 
     // Change An Existing Row To Be Equal To New Data//
-    public boolean updateRow(String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded) {
+    public boolean updateRow(String id, String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded) {
 
         // Get Current Row By ID Number//
         String where = KEY_ROW_ID_NUMBER + "=" + id;
@@ -198,7 +197,7 @@ public class EventsDatabase {
     public Cursor totalTimeAdded() {
 
         // Set Total Time Added To Zero//
-        TotalTimeAdded = 0;
+        totalTimeAdded = 0;
 
         // Query Through All Rows//
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, null, null);
@@ -209,7 +208,7 @@ public class EventsDatabase {
         while (!c.isAfterLast()) {
 
             // Get Total Time Added//
-            TotalTimeAdded  = TotalTimeAdded + c.getInt(COL_TOTALTIME_ADDED);
+            totalTimeAdded  = totalTimeAdded + c.getInt(COL_TIME_TOTAL_ADDED);
             c.moveToNext();
         }
 
