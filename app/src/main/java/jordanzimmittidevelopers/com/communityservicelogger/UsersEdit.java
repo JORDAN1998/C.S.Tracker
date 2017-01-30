@@ -3,17 +3,26 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static jordanzimmittidevelopers.com.communityservicelogger.UsersDatabase.getBytes;
 
 // UsersEdit Class Created By Jordan Zimmitti 1-28-17//
 public class UsersEdit extends AppCompatActivity {
@@ -102,6 +111,8 @@ public class UsersEdit extends AppCompatActivity {
             // Define And Instantiate Variable Uri selectedImage / Get Image Selected//
             Uri selectedImage = data.getData();
 
+            usersEditNameLetter.setVisibility(View.INVISIBLE);
+
             // Show Image Selected By User//
             usersEditCircleImage.setImageURI(selectedImage);
         }
@@ -123,6 +134,62 @@ public class UsersEdit extends AppCompatActivity {
 
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
+    }
+
+    // Creates Menu And All Its Components//
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflates The Menu / This Adds Items To The Action Bar If It Is Present//
+        getMenuInflater().inflate(R.menu.users_edit_menu, menu);
+
+        // Kill Code//
+        return true;
+    }
+
+    //Controls Back Button Functions//
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+
+            // What Happens When Back Button Is Pressed//
+            case KeyEvent.KEYCODE_BACK:
+
+                // Define and Instantiate Variable Intent UsersView//
+                Intent usersView = new Intent(this, UsersView.class);
+
+                // Start Activity UsersView//
+                startActivity(usersView);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Kill Code//
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    // What Happens When Menu Buttons Are Clicked//
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Figures Out What Menu Button Was Pressed//
+        int id = item.getItemId();
+
+        // What Happens When usersAddSave Is Pressed//
+        if (id == R.id.usersEditSave) {
+
+            // Initiate userSave Method//
+            userSave();
+
+            // Kill Code//
+            return true;
+        }
+
+        // Kill Code//
+        return super.onOptionsItemSelected(item);
     }
 
     // What Happens When usersViewCircleImage Is Clicked//
@@ -226,5 +293,53 @@ public class UsersEdit extends AppCompatActivity {
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+    }
+
+    // Method That Save User Profile//
+    private void userSave() {
+
+        // Vibrate For 50m//
+        vibe.vibrate(50);
+
+        // What Happens When All EditTexts Are Filled Out//
+        if (!usersEditName.getText().toString().isEmpty() && !usersEditAge.getText().toString().isEmpty() && !usersEditOrganization.getText().toString().isEmpty()) {
+
+            // Define and Instantiate Variable BitmapDrawable bitmapDrawable//
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) usersEditCircleImage.getDrawable();
+
+            // Define And Instantiate Variable Bitmap bitmap / Convert Drawable To Bitmap//
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+
+            // What Happens If nameLetter Is Invisible Or Visible//
+            if (usersEditNameLetter.getVisibility() == View.INVISIBLE) {
+
+                // Update Values Without usersEditNameLetter Into Database//
+                usersDatabase.updateRow(passedVar, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditOrganization.getText().toString(), "", getBytes(bitmap));
+
+                // Close Database When Finished/
+                usersDatabase.close();
+
+            } else {
+
+                // Update Values With usersEditNameLetter Into Database//
+                usersDatabase.updateRow(passedVar, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditOrganization.getText().toString(), usersEditNameLetter.getText().toString(), getBytes(bitmap));
+
+                // Close Database When Finished/
+                usersDatabase.close();
+            }
+
+            // Define and Instantiate Variable Intent UsersView//
+            Intent usersView = new Intent(this, UsersView.class);
+
+            // Start Activity UsersView//
+            startActivity(usersView);
+
+            // Custom Transition//
+            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+        } else {
+
+            Toast.makeText(getApplicationContext(), "Not All Filled Out", Toast.LENGTH_LONG).show();
+        }
     }
 }

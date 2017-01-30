@@ -103,7 +103,7 @@ public class UsersDatabase {
     }
 
     // Change An Existing Row To Be Equal To New Data//
-    public boolean updateRow(long id, String names, String age, String organization, String nameLetter, byte[] image) {
+    public boolean updateRow(String id, String names, String age, String organization, String nameLetter, byte[] image) {
 
         // Get Current Row By ID Number//
         String where = KEY_ROW_ID_NUMBER + "=" + id;
