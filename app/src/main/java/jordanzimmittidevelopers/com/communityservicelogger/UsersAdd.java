@@ -60,14 +60,14 @@ public class UsersAdd extends AppCompatActivity {
     //<editor-fold desc="TextViews">
 
     // Define Variable TextView nameLetter//
-    private TextView nameLetter;
+    private TextView usersAddNameLetter;
 
     //</editor-fold>
 
     //<editor-fold desc="ImageViews">
 
     // Define Variable ImageView circleImage//
-    private ImageView circleImage;
+    private ImageView usersAddCircleImage;
 
     //</editor-fold>
 
@@ -87,10 +87,10 @@ public class UsersAdd extends AppCompatActivity {
             Uri selectedImage = data.getData();
 
             // Hide Name Letter//
-            nameLetter.setVisibility(View.INVISIBLE);
+            usersAddNameLetter.setVisibility(View.INVISIBLE);
 
             // Show Image Selected By User//
-            circleImage.setImageURI(selectedImage);
+            usersAddCircleImage.setImageURI(selectedImage);
         }
     }
 
@@ -182,10 +182,10 @@ public class UsersAdd extends AppCompatActivity {
     private void instantiateWidgets() {
 
         // Instantiate Variable ImageView circleImage//
-        circleImage = (ImageView) findViewById(R.id.circleImage);
+        usersAddCircleImage = (ImageView) findViewById(R.id.usersAddCircleImage);
 
         // Instantiate Variable TextView nameLetter//
-        nameLetter = (TextView) findViewById(R.id.nameLetter);
+        usersAddNameLetter = (TextView) findViewById(R.id.usersAddNameLetter);
 
         // Instantiate Variable MaterialEditText usersAddAge//
         usersAddAge = (MaterialEditText) findViewById(R.id.usersAddAge);
@@ -219,7 +219,7 @@ public class UsersAdd extends AppCompatActivity {
                     String firstLetter = String.valueOf(charFirstCharacter);
 
                     // Set That Letter To nameLetter textView//
-                    nameLetter.setText(firstLetter);
+                    usersAddNameLetter.setText(firstLetter);
                 }
             }
 
@@ -254,16 +254,16 @@ public class UsersAdd extends AppCompatActivity {
     private void onLongClickCircleImage() {
 
         // What Happens When User Long Clicks circleImage//
-        circleImage.setOnLongClickListener(new View.OnLongClickListener() {
+        usersAddCircleImage.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
             public boolean onLongClick(View view) {
 
                 // Set circleImage To White//
-                circleImage.setImageResource(R.drawable.white);
+                usersAddCircleImage.setImageResource(R.drawable.white);
 
                 // Make nameLetter Visible//
-                nameLetter.setVisibility(View.VISIBLE);
+                usersAddNameLetter.setVisibility(View.VISIBLE);
 
                 // Define And Instantiate Variable char charFirstCharacter / Get First Letter Of Text Being Added//
                 char charFirstCharacter = usersAddName.getText().toString().charAt(0);
@@ -272,7 +272,7 @@ public class UsersAdd extends AppCompatActivity {
                 String firstLetter = String.valueOf(charFirstCharacter);
 
                 // Set That Letter To nameLetter textView//
-                nameLetter.setText(firstLetter);
+                usersAddNameLetter.setText(firstLetter);
 
                 // Kill Code//
                 return true;
@@ -290,13 +290,13 @@ public class UsersAdd extends AppCompatActivity {
         if (!usersAddName.getText().toString().equals("") && !usersAddAge.getText().toString().equals("") && !usersAddOrganization.getText().toString().equals("")) {
 
             // Define and Instantiate Variable BitmapDrawable bitmapDrawable//
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) circleImage.getDrawable();
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) usersAddCircleImage.getDrawable();
 
             // Define And Instantiate Variable Bitmap bitmap / Convert Drawable To Bitmap//
             Bitmap bitmap = bitmapDrawable.getBitmap();
 
             // What Happens If nameLetter Is Invisible Or Visible//
-            if (nameLetter.getVisibility() == View.INVISIBLE) {
+            if (usersAddNameLetter.getVisibility() == View.INVISIBLE) {
 
                 // Insert Values Without nameLetter Into Database//
                 usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), "", getBytes(bitmap));
@@ -307,7 +307,7 @@ public class UsersAdd extends AppCompatActivity {
             } else {
 
                 // Insert Values With nameLetter Into Database//
-                usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), nameLetter.getText().toString(), getBytes(bitmap));
+                usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), usersAddNameLetter.getText().toString(), getBytes(bitmap));
 
                 // Close Database When Finished/
                 usersDatabase.close();

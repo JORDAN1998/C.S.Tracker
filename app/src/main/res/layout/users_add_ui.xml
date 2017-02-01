@@ -6,16 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_ui"
-    android:padding="16dip"
-    android:fitsSystemWindows="true"
     android:background="@color/darkWhite"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dip"
     tools:context=".UsersAdd">
 
-    <!-- CircleImageView circleImage -->
+    <!-- CircleImageView usersAddCircleImage -->
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImage"
+        android:id="@+id/usersAddCircleImage"
         android:src="@drawable/white"
         android:onClick="onClickCircleImage"
         android:layout_width="70dip"
@@ -23,35 +23,34 @@
         app:civ_border_width="2dp"
         app:civ_border_color="@color/transparent"/>
 
-    <!-- TextView nameLetter -->
+    <!-- TextView usersAddNameLetter -->
     <TextView
-        android:id="@+id/nameLetter"
+        android:id="@+id/usersAddNameLetter"
         android:text="@string/name_letter"
         android:textColor="@color/darkRed"
         android:textSize="40sp"
         android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/circleImage"
-        android:layout_alignEnd="@+id/circleImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/circleImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_alignBottom="@+id/usersAddCircleImage"
+        android:layout_alignRight="@+id/usersAddCircleImage"
+        android:layout_alignEnd="@+id/usersAddCircleImage" />
 
     <!-- MaterialEditText UsersAddName -->
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/usersAddName"
         android:hint="@string/user_name"
         android:textSize="14sp"
-        android:layout_alignBaseline="@+id/nameLetter"
-        android:layout_alignBottom="@+id/nameLetter"
-        android:layout_toRightOf="@+id/circleImage"
-        android:layout_toEndOf="@+id/circleImage"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginStart="16dip"
+        android:layout_toRightOf="@+id/usersAddCircleImage"
+        android:layout_toEndOf="@+id/usersAddCircleImage"
         app:met_baseColor="@color/darkRed"
         app:met_primaryColor="@color/darkRed"
         app:met_floatingLabel="highlight"
@@ -64,14 +63,33 @@
         android:textSize="14sp"
         android:inputType="number"
         android:gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/circleImage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/circleImage"
-        android:layout_alignEnd="@+id/circleImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/usersAddCircleImage"
+        android:layout_alignEnd="@+id/usersAddCircleImage"
+        android:layout_below="@+id/usersAddCircleImage"
+        app:met_baseColor="@color/darkRed"
+        app:met_primaryColor="@color/darkRed"
+        app:met_floatingLabel="highlight" />
+
+    <!-- MaterialEditText UsersAddGrade -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/usersAddGrade"
+        android:hint="@string/grade"
+        android:textSize="14sp"
+        android:inputType="number"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginStart="16dip"
+        android:layout_below="@+id/usersAddCircleImage"
+        android:layout_toRightOf="@+id/usersAddAge"
+        android:layout_toEndOf="@+id/usersAddAge"
         app:met_baseColor="@color/darkRed"
         app:met_primaryColor="@color/darkRed"
         app:met_floatingLabel="highlight" />
@@ -81,19 +99,19 @@
         android:id="@+id/usersAddOrganization"
         android:hint="@string/organization"
         android:textSize="14sp"
-        android:layout_marginLeft="10dip"
-        android:layout_marginStart="10dip"
-        android:layout_alignBaseline="@+id/usersAddAge"
-        android:layout_alignBottom="@+id/usersAddAge"
-        android:layout_toRightOf="@+id/usersAddAge"
-        android:layout_toEndOf="@+id/usersAddAge"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginStart="16dip"
+        android:layout_below="@+id/usersAddCircleImage"
+        android:layout_toRightOf="@+id/usersAddGrade"
+        android:layout_toEndOf="@+id/usersAddGrade"
         app:met_baseColor="@color/darkRed"
         app:met_primaryColor="@color/darkRed"
         app:met_floatingLabel="highlight"
-        app:met_singleLineEllipsis="true"/>
+        app:met_singleLineEllipsis="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
