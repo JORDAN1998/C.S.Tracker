@@ -9,18 +9,16 @@
     <string name="activity_users_edit">Edit User</string>
 
     <!-- Menu Strings -->
-    <string name="sort_by">Sort By</string>
+    <string name="save">Save</string>
     <string name="search_by">Search By</string>
+    <string name="sort_by">Sort By</string>
 
-    <!-- Users Add Strings -->
+    <!-- Users Database Values Strings -->
     <string name="name_letter">J</string>
     <string name="user_name">Name</string>
     <string name="age">age</string>
     <string name="age_title">Age:</string>
     <string name="organization">Organization</string>
-
-    <!-- Strings That Are Used In Multiple Activities -->
-    <string name="save">Save</string>
     <string name="grade_title">Grade:</string>
     <string name="grade">grade</string>
 

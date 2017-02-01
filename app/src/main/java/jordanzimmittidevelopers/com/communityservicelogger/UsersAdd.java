@@ -52,6 +52,9 @@ public class UsersAdd extends AppCompatActivity {
     // Define Variable MaterialEditText usersAddName//
     private MaterialEditText usersAddName;
 
+    // Define Variable MaterialEditText usersAddGrade//
+    private MaterialEditText usersAddGrade;
+
     // Define Variable MaterialEditText usersAddOrganization//
     private MaterialEditText usersAddOrganization;
 
@@ -190,6 +193,9 @@ public class UsersAdd extends AppCompatActivity {
         // Instantiate Variable MaterialEditText usersAddAge//
         usersAddAge = (MaterialEditText) findViewById(R.id.usersAddAge);
 
+        // Instantiate Variable MaterialEditText usersAddGrade//
+        usersAddGrade = (MaterialEditText) findViewById(R.id.usersAddGrade);
+
         // Instantiate Variable MaterialEditText usersAddName//
         usersAddName = (MaterialEditText) findViewById(R.id.usersAddName);
 
@@ -287,7 +293,7 @@ public class UsersAdd extends AppCompatActivity {
         vibe.vibrate(50);
 
         // What Happens When All EditTexts Are Filled Out//
-        if (!usersAddName.getText().toString().equals("") && !usersAddAge.getText().toString().equals("") && !usersAddOrganization.getText().toString().equals("")) {
+        if (!usersAddName.getText().toString().equals("") && !usersAddAge.getText().toString().equals("") && !usersAddGrade.getText().toString().equals("") && !usersAddOrganization.getText().toString().equals("")) {
 
             // Define and Instantiate Variable BitmapDrawable bitmapDrawable//
             BitmapDrawable bitmapDrawable = (BitmapDrawable) usersAddCircleImage.getDrawable();
@@ -299,7 +305,7 @@ public class UsersAdd extends AppCompatActivity {
             if (usersAddNameLetter.getVisibility() == View.INVISIBLE) {
 
                 // Insert Values Without nameLetter Into Database//
-                usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), "", getBytes(bitmap));
+                usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddGrade.getText().toString(), usersAddOrganization.getText().toString(), "", getBytes(bitmap));
 
                 // Close Database When Finished/
                 usersDatabase.close();
@@ -307,7 +313,7 @@ public class UsersAdd extends AppCompatActivity {
             } else {
 
                 // Insert Values With nameLetter Into Database//
-                usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddOrganization.getText().toString(), usersAddNameLetter.getText().toString(), getBytes(bitmap));
+                usersDatabase.insertRow(usersAddName.getText().toString(), usersAddAge.getText().toString(), usersAddGrade.getText().toString(), usersAddOrganization.getText().toString(), usersAddNameLetter.getText().toString(), getBytes(bitmap));
 
                 // Close Database When Finished/
                 usersDatabase.close();

@@ -25,19 +25,21 @@ public class UsersDatabase {
     public static final String KEY_ROW_ID_NUMBER = "_id";
     public static final String KEY_NAMES = "names";
     public static final String KEY_AGE = "age";
+    public static final String KEY_GRADE = "grade";
     public static final String KEY_ORGANIZATION = "name";
     public static final String KEY_NAME_LETTER = "name_letter";
     public static final String KEY_IMAGE = "image";
 
     // Put All Rows Into A String//
-    public static final String[] ALL_KEYS = new String[] { KEY_ROW_ID_NUMBER, KEY_NAMES, KEY_AGE, KEY_ORGANIZATION, KEY_NAME_LETTER, KEY_IMAGE};
+    public static final String[] ALL_KEYS = new String[] { KEY_ROW_ID_NUMBER, KEY_NAMES, KEY_AGE, KEY_GRADE, KEY_ORGANIZATION, KEY_NAME_LETTER, KEY_IMAGE};
 
     // Column Numbers For Each Row Name//
     public static final int COL_NAME = 1;
     public static final int COL_AGE = 2;
-    public static final int COL_ORGANIZATION = 3;
-    public static final int COL_NAME_LETTER = 4;
-    public static final int COL_IMAGE = 5;
+    public static final int COL_GRADE = 3;
+    public static final int COL_ORGANIZATION = 4;
+    public static final int COL_NAME_LETTER = 5;
+    public static final int COL_IMAGE = 6;
 
     // DataBase info//
     public static final String DATABASE_NAME = "users_database";
@@ -49,6 +51,7 @@ public class UsersDatabase {
             + " (" + KEY_ROW_ID_NUMBER + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + KEY_NAMES + " TEXT NOT NULL,"
             + KEY_AGE + " TEXT NOT NULL,"
+            + KEY_GRADE + " TEXT NOT NULL,"
             + KEY_ORGANIZATION + " TEXT NOT NULL,"
             + KEY_NAME_LETTER + " TEXT NOT NULL,"
             + KEY_IMAGE + " TEXT NOT NULL"
@@ -86,7 +89,7 @@ public class UsersDatabase {
     }
 
     // Add A New Set Of Values To Be Inserted Into The Database//
-    public long insertRow(String names, String age, String organization, String nameLetter, byte[] image) {
+    public long insertRow(String names, String age, String grade, String organization, String nameLetter, byte[] image) {
 
         // Gets All The New Values//
         ContentValues initialValues = new ContentValues();
@@ -94,6 +97,7 @@ public class UsersDatabase {
         // ALl New Values Being Added//
         initialValues.put(KEY_NAMES, names);
         initialValues.put(KEY_AGE, age);
+        initialValues.put(KEY_GRADE, grade);
         initialValues.put(KEY_ORGANIZATION, organization);
         initialValues.put(KEY_NAME_LETTER, nameLetter);
         initialValues.put(KEY_IMAGE, image);
@@ -103,7 +107,7 @@ public class UsersDatabase {
     }
 
     // Change An Existing Row To Be Equal To New Data//
-    public boolean updateRow(String id, String names, String age, String organization, String nameLetter, byte[] image) {
+    public boolean updateRow(String id, String names, String age, String grade, String organization, String nameLetter, byte[] image) {
 
         // Get Current Row By ID Number//
         String where = KEY_ROW_ID_NUMBER + "=" + id;
@@ -114,6 +118,7 @@ public class UsersDatabase {
         // Add New Values
         newValues.put(KEY_NAMES, names);
         newValues.put(KEY_AGE, age);
+        newValues.put(KEY_GRADE, grade);
         newValues.put(KEY_ORGANIZATION, organization);
         newValues.put(KEY_NAME_LETTER, nameLetter);
         newValues.put(KEY_IMAGE, image);
