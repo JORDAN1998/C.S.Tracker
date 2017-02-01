@@ -55,14 +55,17 @@ public class UsersEdit extends AppCompatActivity {
     // Define Variable String passedVar / String Of Id Values//
     private String passedVar = null;
 
+    // Define Variable String userEditAgeString//
+    private String usersEditAgeString;
+
+    // Define Variable String userEditGradeString//
+    private String usersEditGradeString;
+
     // Define Variable String userEditNameString//
     private String usersEditNameString;
 
     // Define Variable String userEditNameLetterString//
     private String usersEditNameLetterString;
-
-    // Define Variable String userEditAgeString//
-    private String usersEditAgeString;
 
     // Define Variable String userEditOrganizationString//
     private String usersEditOrganizationString;
@@ -268,6 +271,9 @@ public class UsersEdit extends AppCompatActivity {
         // Instantiate Variable String userEditAgeString//
         usersEditAgeString = cursor.getString(UsersDatabase.COL_AGE);
 
+        // Instantiate Variable String userEditGradeString//
+        usersEditGradeString = cursor.getString(UsersDatabase.COL_GRADE);
+
         // Instantiate Variable String userEditNameString//
         usersEditNameString = cursor.getString(UsersDatabase.COL_NAME);
 
@@ -290,6 +296,13 @@ public class UsersEdit extends AppCompatActivity {
 
         // Instantiate Variable CircleImageView usersViewCircleImage//
         usersEditCircleImage = (CircleImageView) findViewById(R.id.usersEditCircleImage);
+
+
+        // Instantiate Variable MaterialEditText usersEditGrade//
+        usersEditGrade = (MaterialEditText) findViewById(R.id.usersEditGrade);
+
+        // Set Text Equal To usersEditGradeString//
+        usersEditGrade.setText(usersEditGradeString);
 
 
         // Instantiate Variable MaterialEditText usersEditName//
@@ -357,10 +370,6 @@ public class UsersEdit extends AppCompatActivity {
         }
 
         //</editor-fold>
-
-
-        // Instantiate Variable MaterialEditText usersEditGrade//
-        usersEditGrade = (MaterialEditText) findViewById(R.id.usersEditGrade);
 
 
         // Instantiate Variable MaterialEditText usersEditOrganization//

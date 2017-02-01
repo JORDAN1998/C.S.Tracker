@@ -380,10 +380,10 @@ public class UsersView extends AppCompatActivity {
         //</editor-fold>
 
         // Puts Rows Stored On Database Into A String Shown//
-        final String[] fromFieldNames = new String[]{UsersDatabase.KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
+        final String[] fromFieldNames = new String[]{UsersDatabase.KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_GRADE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
 
         // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
-        int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewOrganization, R.id.usersViewNameLetter};
+        int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewGrade, R.id.usersViewOrganization, R.id.usersViewNameLetter};
 
         // Make Above Cursor Final//
         final Cursor finalCursor = cursor;

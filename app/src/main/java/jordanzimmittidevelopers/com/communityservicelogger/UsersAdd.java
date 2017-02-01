@@ -192,6 +192,10 @@ public class UsersAdd extends AppCompatActivity {
         usersAddCircleImage = (ImageView) findViewById(R.id.usersAddCircleImage);
 
 
+        // Instantiate Variable MaterialEditText usersAddGrade//
+        usersAddGrade = (MaterialEditText) findViewById(R.id.usersAddGrade);
+
+
         // Instantiate Variable MaterialEditText usersAddName//
         usersAddName = (MaterialEditText) findViewById(R.id.usersAddName);
 
@@ -235,10 +239,6 @@ public class UsersAdd extends AppCompatActivity {
 
         // Instantiate Variable TextView nameLetter//
         usersAddNameLetter = (TextView) findViewById(R.id.usersAddNameLetter);
-
-
-        // Instantiate Variable MaterialEditText usersAddGrade//
-        usersAddGrade = (MaterialEditText) findViewById(R.id.usersAddGrade);
 
 
         // Instantiate Variable MaterialEditText usersAddOrganization//
