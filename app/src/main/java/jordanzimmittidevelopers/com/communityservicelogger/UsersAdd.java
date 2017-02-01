@@ -184,17 +184,13 @@ public class UsersAdd extends AppCompatActivity {
     // Method That Instantiates Widgets//
     private void instantiateWidgets() {
 
-        // Instantiate Variable ImageView circleImage//
-        usersAddCircleImage = (ImageView) findViewById(R.id.usersAddCircleImage);
-
-        // Instantiate Variable TextView nameLetter//
-        usersAddNameLetter = (TextView) findViewById(R.id.usersAddNameLetter);
-
         // Instantiate Variable MaterialEditText usersAddAge//
         usersAddAge = (MaterialEditText) findViewById(R.id.usersAddAge);
 
-        // Instantiate Variable MaterialEditText usersAddGrade//
-        usersAddGrade = (MaterialEditText) findViewById(R.id.usersAddGrade);
+
+        // Instantiate Variable ImageView circleImage//
+        usersAddCircleImage = (ImageView) findViewById(R.id.usersAddCircleImage);
+
 
         // Instantiate Variable MaterialEditText usersAddName//
         usersAddName = (MaterialEditText) findViewById(R.id.usersAddName);
@@ -236,8 +232,18 @@ public class UsersAdd extends AppCompatActivity {
             }
         });
 
+
+        // Instantiate Variable TextView nameLetter//
+        usersAddNameLetter = (TextView) findViewById(R.id.usersAddNameLetter);
+
+
+        // Instantiate Variable MaterialEditText usersAddGrade//
+        usersAddGrade = (MaterialEditText) findViewById(R.id.usersAddGrade);
+
+
         // Instantiate Variable MaterialEditText usersAddOrganization//
         usersAddOrganization = (MaterialEditText) findViewById(R.id.usersAddOrganization);
+
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

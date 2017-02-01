@@ -79,6 +79,9 @@ public class UsersEdit extends AppCompatActivity {
     // Define Variable MaterialEditText usersAddName//
     private MaterialEditText usersEditName;
 
+    // Define Variable MaterialEditText usersAddGrade//
+    private MaterialEditText usersEditGrade;
+
     // Define Variable MaterialEditText usersAddOrganization//
     private MaterialEditText usersEditOrganization;
 
@@ -356,6 +359,10 @@ public class UsersEdit extends AppCompatActivity {
         //</editor-fold>
 
 
+        // Instantiate Variable MaterialEditText usersEditGrade//
+        usersEditGrade = (MaterialEditText) findViewById(R.id.usersEditGrade);
+
+
         // Instantiate Variable MaterialEditText usersEditOrganization//
         usersEditOrganization = (MaterialEditText) findViewById(R.id.usersEditOrganization);
 
@@ -374,7 +381,7 @@ public class UsersEdit extends AppCompatActivity {
         vibe.vibrate(50);
 
         // What Happens When All EditTexts Are Filled Out//
-        if (!usersEditName.getText().toString().equals("") && !usersEditAge.getText().toString().equals("") && !usersEditOrganization.getText().toString().equals("")) {
+        if (!usersEditName.getText().toString().equals("") && !usersEditAge.getText().toString().equals("") && !usersEditGrade.getText().toString().equals("") && !usersEditOrganization.getText().toString().equals("")) {
 
             // Define and Instantiate Variable BitmapDrawable bitmapDrawable//
             BitmapDrawable bitmapDrawable = (BitmapDrawable) usersEditCircleImage.getDrawable();
@@ -386,7 +393,7 @@ public class UsersEdit extends AppCompatActivity {
             if (usersEditNameLetter.getVisibility() == View.INVISIBLE) {
 
                 // Update Values Without usersEditNameLetter Into Database//
-                usersDatabase.updateRow(passedVar, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditOrganization.getText().toString(), "", getBytes(bitmap));
+                usersDatabase.updateRow(passedVar, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditGrade.getText().toString(), usersEditOrganization.getText().toString(), "", getBytes(bitmap));
 
                 // Close Database When Finished/
                 usersDatabase.close();
@@ -394,7 +401,7 @@ public class UsersEdit extends AppCompatActivity {
             } else {
 
                 // Update Values With usersEditNameLetter Into Database//
-                usersDatabase.updateRow(passedVar, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditOrganization.getText().toString(), usersEditNameLetter.getText().toString(), getBytes(bitmap));
+                usersDatabase.updateRow(passedVar, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditGrade.getText().toString(), usersEditOrganization.getText().toString(), usersEditNameLetter.getText().toString(), getBytes(bitmap));
 
                 // Close Database When Finished/
                 usersDatabase.close();
