@@ -23,11 +23,15 @@ public class EventsDatabase {
     public static final String KEY_TIME_END = "timeEnd";
     public static final String KEY_TIME_TOTAL = "timeTotal";
     public static final String KEY_TIME_TOTAL_ADDED = "timeTotalAdded";
+    public static final String KEY_PEOPLE_IN_CHARGE = "peopleInCharge";
+    public static final String KEY_PHONE_NUMBER = "phoneNumber";
+    public static final String KEY_NOTES = "notes";
     public static final String KEY_SIGNATURE = "signature";
 
     // Put All Rows Into A String//
-    public static final String[] ALL_KEYS = new String[] {KEY_ROW_ID_NUMBER, KEY_NAME_USER, KEY_NAME_EVENT, KEY_DATE, KEY_LOCATION, KEY_TIME_START, KEY_TIME_END, KEY_TIME_TOTAL, KEY_TIME_TOTAL_ADDED};
-    public static final String[] CSV_EXPORT = new String[] {KEY_NAME_EVENT, KEY_DATE, KEY_LOCATION, KEY_TIME_START, KEY_TIME_END, KEY_TIME_TOTAL, KEY_SIGNATURE};
+    public static final String[] ALL_KEYS = new String[] {KEY_ROW_ID_NUMBER, KEY_NAME_USER, KEY_NAME_EVENT, KEY_DATE, KEY_LOCATION, KEY_TIME_START, KEY_TIME_END, KEY_TIME_TOTAL, KEY_TIME_TOTAL_ADDED, KEY_PEOPLE_IN_CHARGE, KEY_PHONE_NUMBER, KEY_NOTES};
+
+    public static final String[] CSV_EXPORT = new String[] {KEY_NAME_EVENT, KEY_DATE, KEY_LOCATION, KEY_TIME_START, KEY_TIME_END, KEY_TIME_TOTAL, KEY_PHONE_NUMBER, KEY_SIGNATURE};
 
     // Column Numbers For Each Row Name//
     public static final int COL_NAME_USER = 1;
@@ -57,6 +61,9 @@ public class EventsDatabase {
             + KEY_TIME_END + " TEXT NOT NULL,"
             + KEY_TIME_TOTAL + " TEXT NOT NULL,"
             + KEY_TIME_TOTAL_ADDED + " TEXT NOT NULL,"
+            + KEY_PEOPLE_IN_CHARGE + " TEXT NOT NULL,"
+            + KEY_PHONE_NUMBER + " TEXT NOT NULL,"
+            + KEY_NOTES + " TEXT NOT NULL,"
             + KEY_SIGNATURE + " TEXT NOT NULL"
             + ");";
 
@@ -94,7 +101,7 @@ public class EventsDatabase {
     }
 
     // Add A New Set Of Values To Be Inserted Into The Database//
-    public long insertRow(String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded) {
+    public long insertRow(String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded, String peopleInCharge, String phoneNumber, String notes) {
 
         // Gets All The New Values//
         ContentValues initialValues = new ContentValues();
@@ -108,6 +115,9 @@ public class EventsDatabase {
         initialValues.put(KEY_TIME_END, timeEnd);
         initialValues.put(KEY_TIME_TOTAL, timeTotal);
         initialValues.put(KEY_TIME_TOTAL_ADDED, timeTotalAdded);
+        initialValues.put(KEY_PEOPLE_IN_CHARGE, peopleInCharge);
+        initialValues.put(KEY_PHONE_NUMBER, phoneNumber);
+        initialValues.put(KEY_NOTES, notes);
 
         // Inserts The Value Data Into The Database//
         return db.insert(DATABASE_TABLE, null, initialValues);
