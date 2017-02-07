@@ -228,6 +228,9 @@ public class UsersView extends AppCompatActivity {
 
                 // Custom Transition//
                 overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Close usersDatabase//
+                usersDatabase.close();
             }
         });
     }
@@ -336,6 +339,9 @@ public class UsersView extends AppCompatActivity {
 
         // Custom Transition//
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+        // Close usersDatabase//
+        usersDatabase.close();
     }
 
     // Method To Populate ListView//

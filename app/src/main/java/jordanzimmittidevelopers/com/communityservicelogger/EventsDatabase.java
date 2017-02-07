@@ -46,7 +46,7 @@ public class EventsDatabase {
 
     // DataBase info//
     public static final String DATABASE_NAME = "events_database";
-    public static final String DATABASE_TABLE = "events";
+    public static final String DATABASE_TABLE = "new_events";
     public static final int DATABASE_VERSION = 1; // The version number must be incremented each time a change to DB structure occurs.
 
     //SQL Statement To Create Database//
@@ -101,7 +101,7 @@ public class EventsDatabase {
     }
 
     // Add A New Set Of Values To Be Inserted Into The Database//
-    public long insertRow(String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded, String peopleInCharge, String phoneNumber, String notes) {
+    public long insertRow(String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded, String peopleInCharge, String phoneNumber, String notes, String signature) {
 
         // Gets All The New Values//
         ContentValues initialValues = new ContentValues();
@@ -118,13 +118,14 @@ public class EventsDatabase {
         initialValues.put(KEY_PEOPLE_IN_CHARGE, peopleInCharge);
         initialValues.put(KEY_PHONE_NUMBER, phoneNumber);
         initialValues.put(KEY_NOTES, notes);
+        initialValues.put(KEY_SIGNATURE, signature);
 
         // Inserts The Value Data Into The Database//
         return db.insert(DATABASE_TABLE, null, initialValues);
     }
 
     // Change An Existing Row To Be Equal To New Data//
-    public boolean updateRow(String id, String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded) {
+    public boolean updateRow(String id, String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded, String signature) {
 
         // Get Current Row By ID Number//
         String where = KEY_ROW_ID_NUMBER + "=" + id;
@@ -141,6 +142,7 @@ public class EventsDatabase {
         newValues.put(KEY_TIME_END, timeEnd);
         newValues.put(KEY_TIME_TOTAL, timeTotal);
         newValues.put(KEY_TIME_TOTAL_ADDED, timeTotalAdded);
+        newValues.put(KEY_SIGNATURE, signature);
 
         // Inserts The New Value Data Into The Database//
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
