@@ -16,10 +16,23 @@
     <!-- Users Database Values Strings -->
     <string name="name_letter">J</string>
     <string name="user_name">Name</string>
-    <string name="age">age</string>
-    <string name="age_title">Age:</string>
     <string name="organization">Organization</string>
+    <string name="age_title">Age:</string>
+    <string name="age">age</string>
     <string name="grade_title">Grade:</string>
     <string name="grade">grade</string>
+
+    <string name="date_title">Date:</string>
+    <string name="date">mm/dd/yyyy</string>
+    <string name="location_title">Location:</string>
+    <string name="location">location</string>
+    <string name="name_title">Name:</string>
+    <string name="name">name</string>
+    <string name="start_time_title">Start Time:</string>
+    <string name="start_time">start time</string>
+    <string name="end_time_title">End Time:</string>
+    <string name="end_time">end time</string>
+    <string name="total_time_title">Total Time:</string>
+    <string name="total_time">total time</string>
 
 </resources>

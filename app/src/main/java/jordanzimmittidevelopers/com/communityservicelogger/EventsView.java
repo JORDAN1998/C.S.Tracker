@@ -170,13 +170,13 @@ public class EventsView extends AppCompatActivity {
         final String[] fromFieldNames = new String[]{EventsDatabase.KEY_NAME_EVENT, EventsDatabase.KEY_DATE, EventsDatabase.KEY_LOCATION, EventsDatabase.KEY_TIME_START, EventsDatabase.KEY_TIME_END, EventsDatabase.KEY_TIME_TOTAL};
 
         // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
-        int[] toViewIDs = new int[]{R.id.Name, R.id.Date_Text, R.id.Location_Txt, R.id.StartTime_Text2, R.id.EndTime_Text2, R.id.TotalTime_Text2};
+        int[] toViewIDs = new int[]{R.id.eventsName, R.id.eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
 
         // Make Above Cursor Final//
         final Cursor finalCursor = cursor;
 
         // Creates ListView Adapter Which Allows ListView Items To Be Seen//
-        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.item_layout, finalCursor, fromFieldNames, toViewIDs, 0);
+        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.events_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0);
 
         // Sets Up Adapter Made Earlier / Shows Content From Database//
         eventsListView.setAdapter(simpleCursorAdapter);

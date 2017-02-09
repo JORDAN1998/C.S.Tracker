@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Fist UI For Activity EventsView -->
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="@color/transparent"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="9dp" >
+
+    <!-- Second UI For Activity EventsView -->
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_gravity="center"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="@color/red"
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="0dp">
+
+        <!-- Third UI For Activity EventsView -->
+        <RelativeLayout
+            android:fitsSystemWindows="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dip">
+
+            <!-- TextView eventsNameTitle -->
+            <TextView
+                android:id="@+id/eventsNameTitle"
+                android:text="@string/name_title"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true" />
+
+            <!-- TextView eventsName -->
+            <TextView
+                android:id="@+id/eventsName"
+                android:text="@string/name"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginStart="5dip"
+                android:layout_toRightOf="@+id/eventsNameTitle"
+                android:layout_toEndOf="@+id/eventsNameTitle"/>
+
+            <!-- TextView eventsDateTitle -->
+            <TextView
+                android:id="@+id/eventsDateTitle"
+                android:text="@string/date_title"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dip"
+                android:layout_marginStart="150dip"
+                android:layout_toRightOf="@+id/eventsName"
+                android:layout_toEndOf="@+id/eventsName"
+                android:layout_alignParentTop="true" />
+
+            <!-- TextView eventsDate -->
+            <TextView
+                android:id="@+id/eventsDate"
+                android:text="@string/date"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginStart="5dip"
+                android:layout_toRightOf="@+id/eventsDateTitle"
+                android:layout_toEndOf="@+id/eventsDateTitle"/>
+
+            <!-- TextView eventsLocationTitle -->
+            <TextView
+                android:id="@+id/eventsLocationTitle"
+                android:text="@string/location_title"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dip"
+                android:layout_below="@+id/eventsNameTitle" />
+
+            <!-- TextView eventsLocation -->
+            <TextView
+                android:id="@+id/eventsLocation"
+                android:text="@string/location"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginStart="5dip"
+                android:layout_below="@+id/eventsNameTitle"
+                android:layout_toRightOf="@+id/eventsLocationTitle"
+                android:layout_toEndOf="@+id/eventsLocationTitle"/>
+
+            <!-- TextView eventsTimeStartTitle -->
+            <TextView
+                android:id="@+id/eventsTimeStartTitle"
+                android:text="@string/start_time_title"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dip"
+                android:layout_below="@+id/eventsLocationTitle"/>
+
+            <!-- TextView eventsTimeStart -->
+            <TextView
+                android:id="@+id/eventsTimeStart"
+                android:text="@string/start_time"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/eventsTimeStartTitle"
+                android:layout_alignRight="@+id/eventsTimeStartTitle"
+                android:layout_alignEnd="@+id/eventsTimeStartTitle" />
+
+            <!-- TextView eventsTimeEndTitle -->
+            <TextView
+                android:id="@+id/eventsTimeEndTitle"
+                android:text="@string/end_time_title"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dip"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/eventsLocationTitle"/>
+
+            <!-- TextView eventsTimeEnd -->
+            <TextView
+                android:id="@+id/eventsTimeEnd"
+                android:text="@string/end_time"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/eventsTimeEndTitle"
+                android:layout_alignLeft="@+id/eventsTimeEndTitle"
+                android:layout_alignStart="@+id/eventsTimeEndTitle"
+                android:layout_alignRight="@+id/eventsTimeEndTitle"
+                android:layout_alignEnd="@+id/eventsTimeEndTitle"/>
+
+            <!-- TextView eventsTimeTotalTitle -->
+            <TextView
+                android:id="@+id/eventsTimeTotalTitle"
+                android:text="@string/total_time_title"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dip"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/eventsLocationTitle"/>
+
+            <!-- TextView eventsTimeTotal -->
+            <TextView
+                android:id="@+id/eventsTimeTotal"
+                android:text="@string/end_time"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:layout_below="@+id/eventsTimeTotalTitle"
+                android:layout_alignLeft="@+id/eventsTimeTotalTitle"
+                android:layout_alignStart="@+id/eventsTimeTotalTitle"
+                android:layout_alignRight="@+id/eventsTimeTotalTitle"
+                android:layout_alignEnd="@+id/eventsTimeTotalTitle"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.v7.widget.CardView>
