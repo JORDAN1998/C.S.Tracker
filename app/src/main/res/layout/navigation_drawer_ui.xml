@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI For Activity UsersView -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -5,8 +8,10 @@
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".UsersView">
 
+    <!-- ImageView comServicePicture -->
     <ImageView
         android:id="@+id/comServicePicture"
         android:src="@drawable/com_service"
@@ -15,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <!-- ListView -->
+    <!-- ListView navListView -->
     <ListView
         android:id="@+id/navListView"
         android:divider="@android:color/transparent"
