@@ -22,6 +22,7 @@
     <string name="grade_title">Grade:</string>
     <string name="grade">grade</string>
 
+    <!-- Events View Values Strings -->
     <string name="date_title">Date:</string>
     <string name="date">mm/dd/yyyy</string>
     <string name="location_title">Location:</string>
@@ -34,5 +35,9 @@
     <string name="end_time">end time</string>
     <string name="total_time_title">Total Time:</string>
     <string name="total_time">total time</string>
+
+    <!-- Events Navigation Drawer Values Strings -->
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 
 </resources>

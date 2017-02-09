@@ -9,6 +9,7 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -43,6 +44,18 @@ public class UsersView extends AppCompatActivity {
 
     // Define Variable Vibrator vibe//
     private Vibrator vibe;
+
+    //</editor-fold>
+
+    //<editor-fold desc="Navigation Drawer Variables">
+
+    // Define Variable NavigationDrawer navigationDrawer//
+    private UsersNavigationDrawer usersNavigationDrawer;
+
+    // NavigationDrawer Items//
+    private String[] items = new String[] {"Reminders", "Settings"};
+
+    private int[] drawables = {R.drawable.today, R.drawable.settings};
 
     //</editor-fold>
 
@@ -168,6 +181,13 @@ public class UsersView extends AppCompatActivity {
         // Figures Out What Menu Button Was Pressed//
         int id = item.getItemId();
 
+        // What Happens When home Is Pressed//
+        if (id == R.id.home) {
+
+            // Toggle Navigation Drawer//
+            usersNavigationDrawer.buttonToggle();
+        }
+
         // What Happens When usersAddSave Is Pressed//
         if (id == R.id.usersSortBy) {
 
@@ -194,6 +214,23 @@ public class UsersView extends AppCompatActivity {
 
     // Method That Instantiates Widgets//
     private void instantiateWidgets() {
+
+        // Instantiate / Set Up Navigation Drawer//
+        //<editor-fold desc="Navigation Drawer">
+
+        // Instantiate NavigationDrawer navigationDrawer//
+        usersNavigationDrawer = (UsersNavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.noteNavigationDrawer);
+
+        // Sets Up NavigationDrawer//
+        usersNavigationDrawer.setUp((DrawerLayout) findViewById(R.id.usersDrawerLayout), R.id.noteNavigationDrawer);
+
+        // Add NavigationDrawer Items//
+        usersNavigationDrawer.addItems(this, items);
+
+        // Show Hamburger Icon//
+        usersNavigationDrawer.showHamburgerIcon(true);
+
+        //</editor-fold>
 
         // Instantiate Variable ListView usersListView//
         usersListView = (ListView) findViewById(R.id.usersListView);
