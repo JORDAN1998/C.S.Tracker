@@ -1,11 +1,14 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
 
@@ -74,6 +77,30 @@ public class EventsView extends AppCompatActivity {
 
         // Initiate populateListView//
         populateListView();
+    }
+
+    //Controls Back Button Functions//
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+
+            // What Happens When Back Button Is Pressed//
+            case KeyEvent.KEYCODE_BACK:
+
+                // Define and Instantiate Variable Intent UsersView//
+                Intent usersView = new Intent(this, UsersView.class);
+
+                // Start Activity UsersView//
+                startActivity(usersView);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Kill Code//
+                return false;
+            default:
+                return false;
+        }
     }
 
     // Method To Take Old Database Values And Add Them Into The New Database//
@@ -158,6 +185,21 @@ public class EventsView extends AppCompatActivity {
 
     // What Happens When Fab Btn Is Clicked//
     public void onClickFab(View view) {
+
+        // Vibrate For 50m//
+        vibe.vibrate(50);
+
+        // Define and Instantiate Variable Intent EventsAdd//
+        Intent EventsAdd = new Intent(this, EventsAdd.class);
+
+        // Start Activity EventsAdd//
+        startActivity(EventsAdd);
+
+        // Custom Transition//
+        overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+        // Close usersDatabase//
+        eventsDatabase.close();
     }
 
     // Method To Populate ListView//

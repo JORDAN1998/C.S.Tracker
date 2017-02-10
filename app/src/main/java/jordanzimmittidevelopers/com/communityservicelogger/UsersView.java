@@ -14,6 +14,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.SearchView;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,8 +55,6 @@ public class UsersView extends AppCompatActivity {
 
     // NavigationDrawer Items//
     private String[] items = new String[] {"Reminders", "Settings"};
-
-    private int[] drawables = {R.drawable.today, R.drawable.settings};
 
     //</editor-fold>
 
@@ -182,7 +181,10 @@ public class UsersView extends AppCompatActivity {
         int id = item.getItemId();
 
         // What Happens When home Is Pressed//
-        if (id == R.id.home) {
+        if (id == android.R.id.home) {
+
+            // Vibrate For 50m//
+            vibe.vibrate(50);
 
             // Toggle Navigation Drawer//
             usersNavigationDrawer.buttonToggle();
@@ -200,6 +202,53 @@ public class UsersView extends AppCompatActivity {
 
         // Kill Code//
         return super.onOptionsItemSelected(item);
+    }
+
+    //Controls Back Button Functions//
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+
+            // What Happens When Back Button Is Pressed//
+            case KeyEvent.KEYCODE_BACK:
+
+                // Create Dialog//
+                new MaterialDialog.Builder(UsersView.this)
+
+                        // Title Of Dialog//
+                        .title("Exit")
+
+                        // Content Of Dialog//
+                        .content("Would you like to exit the app?")
+
+                        // Positive Text Name For Button//
+                        .positiveText("Yes")
+
+                        // Negative Text Name For Button//
+                        .negativeText("No")
+
+                        // What Happens When Positive Button Is Pressed//
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+
+                                // Intent To Kill app//
+                                Intent killApp = new Intent(Intent.ACTION_MAIN);
+                                killApp.addCategory(Intent.CATEGORY_HOME);
+                                killApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(killApp);
+
+                            }
+                        }).show();
+
+                // Kill Code//
+                return false;
+            default:
+                return false;
+        }
     }
 
     // Method That Opens Database//
@@ -283,7 +332,7 @@ public class UsersView extends AppCompatActivity {
                 new MaterialDialog.Builder(UsersView.this)
 
                         // Title Of Dialog//
-                        .title("What Would You Like To Do?")
+                        .title("What Would You Like To Do")
 
                         // Content Of Dialog//
                         .content("Cancel popup, edit user, or delete user")

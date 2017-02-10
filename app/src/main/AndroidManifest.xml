@@ -40,12 +40,11 @@
         <!-- Activity UsersEdit -->
         <activity
             android:name=".UsersEdit"
-            android:label="@string/activity_users_edit"/>
+            android:label="@string/activity_users_edit" />
 
         <!-- Activity EventsView -->
-        <activity
-            android:name=".EventsView" />
-
+        <activity android:name=".EventsView" />
+        <activity android:name=".EventsAdd"></activity>
     </application>
 
 </manifest>
