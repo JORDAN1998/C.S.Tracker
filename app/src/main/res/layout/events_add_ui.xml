@@ -1,13 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!-- UI For Activity EventsAdd -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/events_add_ui"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="jordanzimmittidevelopers.com.communityservicelogger.EventsAdd">
+    android:padding="16dip"
+    tools:context=".EventsAdd">
+
+    <!-- TextView eventsAddNameTitle -->
+    <TextView
+        android:id="@+id/eventsAddNameTitle"
+        android:text="@string/name_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- MaterialEditText eventsAddName -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsAddName"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/eventsAddNameTitle"
+        android:layout_toLeftOf="@+id/eventsAddDateTitle"
+        android:layout_toStartOf="@+id/eventsAddDateTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsAddDateTitle -->
+    <TextView
+        android:id="@+id/eventsAddDateTitle"
+        android:text="@string/date_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="22dip"
+        android:paddingLeft="50dip"
+        android:paddingStart="50dip"
+        android:paddingRight="30dip"
+        android:paddingEnd="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/eventsAddDate"
+        android:layout_alignStart="@+id/eventsAddDate" />
+
+    <!-- TextView eventsAddDate -->
+    <TextView
+        android:id="@+id/eventsAddDate"
+        android:text="@string/date"
+        android:textSize="14sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="50dip"
+        android:paddingStart="50dip"
+        android:paddingRight="30dip"
+        android:paddingEnd="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/eventsAddDateTitle"/>
+
+    <!-- TextView eventsAddLocationTitle -->
+    <TextView
+        android:id="@+id/eventsAddLocationTitle"
+        android:text="@string/location_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_below="@+id/eventsAddName"/>
+
+    <!-- MaterialEditText eventsAddLocation -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsAddLocation"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/eventsAddLocationTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsAddPeopleInChargeTitle -->
+    <TextView
+        android:id="@+id/eventsAddPeopleInChargeTitle"
+        android:text="@string/people_in_charge_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/eventsAddLocation" />
+
+    <!-- MaterialEditText eventsAddPeopleInCharge -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsAddPeopleInCharge"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/eventsAddPeopleInChargeTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsAddPhoneNumberTitle -->
+    <TextView
+        android:id="@+id/eventsAddPhoneNumberTitle"
+        android:text="@string/phone_number_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/eventsAddPeopleInCharge" />
+
+    <!-- MaterialEditText eventsAddPhoneNumber -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsAddPhoneNumber"
+        android:textSize="14sp"
+        android:inputType="phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/eventsAddPhoneNumberTitle"
+        android:layout_alignRight="@+id/eventsAddPhoneNumberTitle"
+        android:layout_alignEnd="@+id/eventsAddPhoneNumberTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsAddNotesTitle -->
+    <TextView
+        android:id="@+id/eventsAddNotesTitle"
+        android:text="@string/notes_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@+id/eventsAddTimeEndTitle"
+        android:layout_alignStart="@+id/eventsAddTimeEndTitle"
+        android:layout_alignRight="@+id/eventsAddTimeEndTitle"
+        android:layout_alignEnd="@+id/eventsAddTimeEndTitle"
+        android:layout_below="@+id/eventsAddPeopleInCharge"/>
+
+    <!-- MaterialEditText eventsAddNotes -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsAddNotes"
+        android:textSize="14sp"
+        android:inputType="phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/eventsAddPhoneNumberTitle"
+        android:layout_alignLeft="@+id/eventsAddTimeEndTitle"
+        android:layout_alignStart="@+id/eventsAddTimeEndTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsAddTimeStartTitle -->
+    <TextView
+        android:id="@+id/eventsAddTimeStartTitle"
+        android:text="@string/start_time_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_below="@+id/eventsAddPhoneNumber"/>
+
+    <!-- TextView eventsAddTimeStart -->
+    <TextView
+        android:id="@+id/eventsAddTimeStart"
+        android:text="@string/start_time"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickTimeStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_below="@+id/eventsAddTimeStartTitle"
+        android:layout_alignLeft="@+id/eventsAddTimeStartTitle"
+        android:layout_alignStart="@+id/eventsAddTimeStartTitle"
+        android:layout_alignRight="@+id/eventsAddTimeStartTitle"
+        android:layout_alignEnd="@+id/eventsAddTimeStartTitle" />
+
+    <!-- TextView eventsAddTimeEndTitle -->
+    <TextView
+        android:id="@+id/eventsAddTimeEndTitle"
+        android:text="@string/end_time_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/eventsAddPhoneNumber" />
+
+    <!-- TextView eventsAddTimeEnd -->
+    <TextView
+        android:id="@+id/eventsAddTimeEnd"
+        android:text="@string/end_time"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickTimeEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_below="@+id/eventsAddTimeEndTitle"
+        android:layout_alignLeft="@+id/eventsAddTimeEndTitle"
+        android:layout_alignStart="@+id/eventsAddTimeEndTitle"
+        android:layout_alignRight="@+id/eventsAddTimeEndTitle"
+        android:layout_alignEnd="@+id/eventsAddTimeEndTitle" />
+
+    <!-- TextView eventsAddTimeTotalTitle -->
+    <TextView
+        android:id="@+id/eventsAddTimeTotalTitle"
+        android:text="@string/total_time_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/eventsAddPhoneNumber" />
+
+    <!-- TextView eventsAddTimeTotal -->
+    <TextView
+        android:id="@+id/eventsAddTimeTotal"
+        android:text="@string/end_time"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickTimeTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_below="@+id/eventsAddTimeTotalTitle"
+        android:layout_alignLeft="@+id/eventsAddTimeTotalTitle"
+        android:layout_alignStart="@+id/eventsAddTimeTotalTitle"
+        android:layout_alignRight="@+id/eventsAddTimeTotalTitle"
+        android:layout_alignEnd="@+id/eventsAddTimeTotalTitle" />
 
 </RelativeLayout>

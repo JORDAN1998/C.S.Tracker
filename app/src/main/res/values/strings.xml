@@ -28,7 +28,10 @@
     <string name="location_title">Location:</string>
     <string name="location">location</string>
     <string name="name_title">Name:</string>
+    <string name="phone_number_title">Phone Number:</string>
+    <string name="people_in_charge_title">People In Charge:</string>
     <string name="name">name</string>
+    <string name="notes_title">notes:</string>
     <string name="start_time_title">Start Time:</string>
     <string name="start_time">start time</string>
     <string name="end_time_title">End Time:</string>
