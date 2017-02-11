@@ -7,11 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+
+import java.util.Calendar;
 
 // EventsAdd Class Created By Jordan Zimmitti 2-09-17//
-public class EventsAdd extends AppCompatActivity {
+public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     //<editor-fold desc="Variables">
 
@@ -19,6 +22,16 @@ public class EventsAdd extends AppCompatActivity {
 
     // Define Variable Vibrator Vibe//
     private Vibrator vibe;
+
+    //</editor-fold>
+
+    //<editor-fold desc="Strings">
+
+    // Military Start Time Int//
+    String militaryTimeStart;
+
+    //Military End Time Int//
+    String militaryTimeEnd;
 
     //</editor-fold>
 
@@ -75,6 +88,23 @@ public class EventsAdd extends AppCompatActivity {
         instantiateWidgets();
     }
 
+    // What Happens When User Picks Date//
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+        // Define And Instantiate String dateString//
+        String dateString = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
+
+        // Set eventsAddDate Text//
+        eventsAddDate.setText(dateString);
+    }
+
+    // What Happens When User Picks Time (Not Used Due To Multiple Time Pickers)//
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+
+    }
+
     // Method That Instantiates Widgets//
     private void instantiateWidgets() {
 
@@ -93,16 +123,16 @@ public class EventsAdd extends AppCompatActivity {
         // Instantiate Variable MaterialEditText eventsAddPhoneNumber//
         eventsAddPhoneNumber = (MaterialEditText) findViewById(R.id.eventsAddPhoneNumber);
 
-        // Instantiate Variable MaterialEditText eventsAddDate//
+        // Instantiate Variable TextView eventsAddDate//
         eventsAddDate = (TextView) findViewById(R.id.eventsAddDate);
 
-        // Instantiate Variable MaterialEditText eventsAddTimeEnd//
+        // Instantiate Variable TextView eventsAddTimeEnd//
         eventsAddTimeEnd = (TextView) findViewById(R.id.eventsAddTimeEnd);
 
-        // Instantiate Variable MaterialEditText eventsAddTimeStart//
+        // Instantiate Variable TextView eventsAddTimeStart//
         eventsAddTimeStart = (TextView) findViewById(R.id.eventsAddTimeStart);
 
-        // Instantiate Variable MaterialEditText eventsAddTimeTotal//
+        // Instantiate Variable TextView eventsAddTimeTotal//
         eventsAddTimeTotal = (TextView) findViewById(R.id.eventsAddTimeTotal);
 
         // Instantiate Variable Vibrator vibe//
@@ -112,11 +142,127 @@ public class EventsAdd extends AppCompatActivity {
     // What Happens When eventsAddDate Is Clicked//
     public void onClickDate(View view) {
 
-        MaterialDialog
+        // Vibrate For 50m//
+        vibe.vibrate(50);
+
+        // Define And Instantiate Variable Calendar calendar//
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+
+        // Define And Instantiate Variable DatePickerDialog datePickerDialog//
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(EventsAdd.this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+        // Show datePickerDialog//
+        datePickerDialog.show(getFragmentManager(), "datePickerDialog");
+
+        // Set Version Of datePickerDialog//
+        datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
     }
 
     // What Happens When eventsAddTimeStart Is Clicked//
     public void onClickTimeStart(View view) {
+
+        // Vibrate For 50m//
+        vibe.vibrate(50);
+
+        // Define And Instantiate Variable Calendar calendar//
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+
+        // Creates New Time Picker Dialog//
+        TimePickerDialog timePickerDialogTimeStart = TimePickerDialog.newInstance(EventsAdd.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+
+        // Show datePickerDialog//
+        timePickerDialogTimeStart.show(getFragmentManager(), "timePickerDialogTimeStart");
+
+        // Set Version Of datePickerDialog//
+        timePickerDialogTimeStart.setVersion(TimePickerDialog.Version.VERSION_2);
+
+        //<editor-fold desc="OnTimeSetListener">
+
+        // What Happens When user Picks Time//
+        timePickerDialogTimeStart.setOnTimeSetListener(new TimePickerDialog.OnTimeSetListener() {
+
+            // What Happens When Time Is Set//
+            @Override
+            public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+
+                // Define And Instantiate Variable int militaryHour//
+                int militaryHour = hourOfDay;
+
+                // Define Variable String amOrPm//
+                String amOrPm;
+
+                // Define Variable String min//
+                String min;
+
+                // Define Variable String timeStartString//
+                String timeStartString;
+
+                // What Happens If militaryHour Equals Zero//
+                if (militaryHour == 0) {
+
+                    // Sets hour to 24//
+                    militaryHour = 24;
+                }
+
+                // What Happens When hourOfDay Is Bigger Than Twelve//
+                if (hourOfDay > 12) {
+
+                    // Subtract Twelve//
+                    hourOfDay -= 12;
+
+                    // Set Equal To PM//
+                    amOrPm = "PM";
+
+                }
+
+                // What Happens When hourOfDay Equals Zero//
+                else if (hourOfDay == 0) {
+
+                    // Add Twelve//
+                    hourOfDay += 12;
+
+                    // Set Equal To AM//
+                    amOrPm = "AM";
+                }
+
+                // What Happens When hourOfDay Equals Twelve//
+                else if (hourOfDay == 12) {
+
+                    // Set Equal To PM//
+                    amOrPm = "PM";
+                }
+
+                // What Happens For Everything Else//
+                else {
+
+                    // Set Equal To AM//
+                    amOrPm = "AM";
+                }
+
+                // What Happens When minute Is Less Than Ten//
+                if (minute < 10) {
+
+                    // Add A zero To The Minute//
+                    min = "0" + minute;
+
+                } else {
+
+                    // Set min Equal To minute//
+                    min = String.valueOf(minute);
+                }
+
+                // Set Military Time Hour And Minute//
+                militaryTimeStart = String.valueOf(militaryHour) + ":" + minute;
+
+                // Set Standard Time Hour And Minute//
+                timeStartString = String.valueOf(hourOfDay) + ':' + min + " " + amOrPm;
+
+                // Set eventsAddTimeStart Text//
+                eventsAddTimeStart.setText(timeStartString);
+            }
+        });
+
+        //</editor-fold>
     }
 
     // What Happens When eventsAddTimeEnd Is Clicked//
