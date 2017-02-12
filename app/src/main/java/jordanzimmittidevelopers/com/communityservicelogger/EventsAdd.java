@@ -1,12 +1,19 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -23,8 +30,11 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
     //<editor-fold desc="Extra">
 
+    // Define Variable EventsDatabase eventsDatabase//
+    private EventsDatabase eventsDatabase;
+
     // Define Variable int timeTotalAdded//
-    int timeTotalAdded = 0;
+    private int timeTotalAdded = 0;
 
     // Define Variable Vibrator Vibe//
     private Vibrator vibe;
@@ -33,11 +43,20 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
     //<editor-fold desc="Strings">
 
-    // Military Start Time Int//
-    String militaryTimeStart;
+    // Puts Name Of Last Clicked ListView Item Into String//
+    public static final String EVENTS_ADD_NAME_USER = null;
 
-    //Military End Time Int//
-    String militaryTimeEnd;
+    // Define Variable String eventAddNameUser / String Of Name Value//
+    private String eventsViewNameUser = null;
+
+    // Define Variable String Military Time Start //
+    private String militaryTimeStart;
+
+    // Define Variable String Military Time Start//
+    private String militaryTimeEnd;
+
+    // Define Variable String usersViewNameUser / String Of Name Value//
+    private String usersViewNameUser = null;
 
     //</editor-fold>
 
@@ -90,8 +109,22 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
         // Starts UI For Activity//
         setContentView(R.layout.events_add_ui);
 
+        // Initiate eventsDatabase Open Method//
+        eventsDatabaseOpen();
+
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
+    }
+
+    // Creates Menu And All Its Components//
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflates The Menu / This Adds Items To The Action Bar If It Is Present//
+        getMenuInflater().inflate(R.menu.events_add_menu, menu);
+
+        // Kill Code//
+        return true;
     }
 
     // What Happens When User Picks Date//
@@ -103,6 +136,69 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
         // Set eventsAddDate Text//
         eventsAddDate.setText(dateString);
+    }
+
+    //Controls Back Button Functions//
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+
+            // What Happens When Back Button Is Pressed//
+            case KeyEvent.KEYCODE_BACK:
+
+                // Define Variable String workingNameUser//
+                String workingNameUser;
+
+                // Set workingNameUser Equal To eventsViewNameUser//
+                if (eventsViewNameUser != null) {
+
+                    // Set workingNameUser Equal To eventsViewNameUser//
+                    workingNameUser = eventsViewNameUser;
+
+                } else {
+
+                    // Set workingNameUser Equal To usersViewNameUser//
+                    workingNameUser = usersViewNameUser;
+                }
+
+                // Define and Instantiate Variable Intent EventsView//
+                Intent eventsView = new Intent(this, EventsView.class);
+
+                // Get Id Of Item Clicked In userListView//
+                eventsView.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
+
+                // Start Activity EventsView//
+                startActivity(eventsView);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Kill Code//
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    // What Happens When Menu Buttons Are Clicked//
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Figures Out What Menu Button Was Pressed//
+        int id = item.getItemId();
+
+        // What Happens When eventsAddSave Is Pressed//
+        if (id == R.id.eventsAddSave) {
+
+            // Initiate eventSave Method//
+            eventSave();
+
+            // Kill Code//
+            return true;
+        }
+
+        // Kill Code//
+        return super.onOptionsItemSelected(item);
     }
 
     // What Happens When User Picks Time (Not Used Due To Multiple Time Pickers)//
@@ -118,10 +214,10 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
         if (militaryTimeStart != null & militaryTimeEnd != null) {
 
             // Define Variable Date timeStartValue//
-            Date timeStartValue = null;
+            Date timeStartValue;
 
             // Define Variable Date timeEndValue//
-            Date timeEndValue = null;
+            Date timeEndValue;
 
             // Creates Simple Date Format//
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
@@ -143,6 +239,72 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
             // Set Time Difference//
             eventsAddTimeTotal.setText(timeDifference);
+        }
+    }
+
+    // Method To Open Events Database//
+    private void eventsDatabaseOpen() {
+
+        // Instantiate Variable EventsDatabase eventsDatabase//
+        eventsDatabase = new EventsDatabase(this);
+
+        // Open Database//
+        eventsDatabase.open();
+    }
+
+    // Method To Save Event//
+    private void eventSave() {
+
+        // Vibrates For 50m//
+        vibe.vibrate(50);
+
+        // What Happens When Required Fields Are Left Blank//
+        if (TextUtils.isEmpty(eventsAddName.getText().toString()) || (eventsAddDate.getText().toString().equals("mm/dd/yyyy")) || (TextUtils.isEmpty(eventsAddLocation.getText().toString())) || (eventsAddTimeStart.getText().toString().equals("0:00")) || (eventsAddTimeEnd.getText().toString().equals("0:00")) || (eventsAddTimeTotal.getText().toString().equals("0:00"))) {
+
+            // Create Dialog//
+            new MaterialDialog.Builder(EventsAdd.this)
+
+                    // Title Of Dialog//
+                    .title("Warning")
+
+                    // Content Of Dialog//
+                    .content("You can't save the event without filling out all required fields: Name, Date, Location, Start End & Total Time")
+
+                    // Negative Text Name For Button//
+                    .negativeText("Edit")
+
+                    .show();
+        } else {
+
+            // Define Variable String workingNameUser//
+            String workingNameUser;
+
+            // What Happens When eventsViewNameUser Doesn't Equal Null//
+            if (eventsViewNameUser != null) {
+
+                // Set workingNameUser Equal To eventsAddNameUser//
+                workingNameUser = eventsViewNameUser;
+
+            } else {
+
+                // Set workingNameUser Equal To eventsAddNameUser//
+                workingNameUser = usersViewNameUser;
+            }
+
+            // Inserts Values Into Database//
+            eventsDatabase.insertRow(eventsAddName.getText().toString(), workingNameUser, eventsAddDate.getText().toString(), eventsAddLocation.getText().toString(), eventsAddTimeStart.getText().toString(), eventsAddTimeEnd.getText().toString(), eventsAddTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsAddPeopleInCharge.getText().toString(), eventsAddPhoneNumber.getText().toString(), eventsAddNotes.getText().toString(), "");
+
+            // Define and Instantiate Variable Intent EventsView//
+            Intent eventsView = new Intent(this, EventsView.class);
+
+            // Get Id Of Item Clicked In userListView//
+            eventsView.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
+
+            // Start Activity EventsView//
+            startActivity(eventsView);
+
+            // Custom Transition//
+            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
         }
     }
 
@@ -175,6 +337,12 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
         // Instantiate Variable TextView eventsAddTimeTotal//
         eventsAddTimeTotal = (TextView) findViewById(R.id.eventsAddTimeTotal);
+
+        // Gets Name Of Last Clicked List View Item//
+        eventsViewNameUser = getIntent().getStringExtra(EventsView.EVENTS_ADD_NAME_USER);
+
+        // Gets Name Of Last Clicked List View Item//
+        usersViewNameUser = getIntent().getStringExtra(EventsView.USERS_VIEW_NAME_USER);
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

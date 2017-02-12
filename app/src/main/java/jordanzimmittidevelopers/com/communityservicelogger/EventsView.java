@@ -2,6 +2,7 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -22,7 +23,7 @@ public class EventsView extends AppCompatActivity {
     // Define Variable Cursor cursor//
     Cursor cursor;
 
-    // Define Variable EventsDatabaseOld eventsDatabase//
+    // Define Variable EventsDatabase eventsDatabase//
     private EventsDatabase eventsDatabase;
 
     // Define Variable EventsDatabaseOld eventsDatabaseOld//
@@ -35,8 +36,17 @@ public class EventsView extends AppCompatActivity {
 
     //<editor-fold desc="String">
 
-    // Define Variable String passedVar / String Of Name Values//
-    private String passedVar = null;
+    // Puts Name Of Last Clicked ListView Item Into String//
+    public static final String EVENTS_ADD_NAME_USER = null;
+
+    // Define Variable String eventAddNameUser / String Of Name Value//
+    private String eventAddNameUser = null;
+
+    // Puts Name Of Last Clicked ListView Item Into String//
+    public static final String USERS_VIEW_NAME_USER = null;
+
+    // Define Variable String usersViewNameUser / String Of Name Value//
+    private String usersViewNameUser = null;
 
     //</editor-fold>
 
@@ -55,10 +65,22 @@ public class EventsView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Gets Name Of Last Clicked List View Item//
-        passedVar = getIntent().getStringExtra(UsersView.KEY_NAMES);
+        usersViewNameUser = getIntent().getStringExtra(UsersView.USERS_VIEW_NAME_USER);
 
-        // Set Title Equal To PassedVAr
-        setTitle(passedVar);
+        // Gets Name Of Last Clicked List View Item//
+        eventAddNameUser = getIntent().getStringExtra(EVENTS_ADD_NAME_USER);
+
+        // What Happens When usersViewNameUser Doesn't Equals Null//
+        if (usersViewNameUser != null) {
+
+            // Set Title Equal To usersViewNameUser//
+            setTitle(usersViewNameUser);
+
+        } else {
+
+            // Set Title Equal To eventAddNameUser//
+            setTitle(eventAddNameUser);
+        }
 
         // Starts UI For Activity//
         setContentView(R.layout.events_view_ui);
@@ -106,51 +128,64 @@ public class EventsView extends AppCompatActivity {
     // Method To Take Old Database Values And Add Them Into The New Database//
     private void addToNewDatabase() {
 
-        // Query Through All Rows//
-        Cursor c = 	EventsDatabaseOld.db.query(true, EventsDatabaseOld.DATABASE_TABLE, EventsDatabaseOld.ALL_KEYS, null, null, null, null, null, null);
+        // Define String Variable FIRST_TIME//
+        final String firstTimeTrueOrFalse = "firstTime";
 
-        // Move To First Value//
-        if (c != null) {
-            c.moveToFirst();
+        // Save Preferences//
+        SharedPreferences firstTime = getSharedPreferences(firstTimeTrueOrFalse, 0);
+
+        // What Happens When Activity Runs The First Time//
+        if (firstTime.getBoolean("firstTime", true)) {
+
+            // Query Through All Rows//
+            Cursor c = 	EventsDatabaseOld.db.query(true, EventsDatabaseOld.DATABASE_TABLE, EventsDatabaseOld.ALL_KEYS, null, null, null, null, null, null);
+
+            // Move To First Value//
+            if (c != null) {
+                c.moveToFirst();
+            }
+
+            // Get Position In Database//
+            assert c != null;
+            while (!c.isAfterLast()) {
+
+                // Define And Instantiate Variable String name//
+                String name = c.getString(EventsDatabaseOld.COL_NAME);
+
+                // Define And Instantiate Variable String date//
+                String date = c.getString(EventsDatabaseOld.COL_DATE);
+
+                // Define And Instantiate Variable String location//
+                String location = c.getString(EventsDatabaseOld.COL_LOCATION);
+
+                // Define And Instantiate Variable String timeStart//
+                String timeStart = c.getString(EventsDatabaseOld.COL_STARTTIME);
+
+                // Define And Instantiate Variable String timeEnd//
+                String timeEnd = c.getString(EventsDatabaseOld.COL_ENDTIME);
+
+                // Define And Instantiate Variable String timeTotal//
+                String timeTotal = c.getString(EventsDatabaseOld.COL_TOTALTIME);
+
+                // Define And Instantiate Variable String timeTotalAdded//
+                String timeTotalAdded = c.getString(EventsDatabaseOld.COL_TOTALTIME_ADDED);
+
+                // Insert Old Values Into Database//
+                eventsDatabase.insertRow(usersViewNameUser, name, date, location, timeStart, timeEnd, timeTotal, timeTotalAdded, "", "", "","");
+
+                // Move To Next Row//
+                c.moveToNext();
+            }
+
+            // Close Cursor//
+            c.close();
+
+            // Close eventsDatabaseOld//
+            eventsDatabaseOld.close();
+
+            // Record The Fact That The Activity Has Been Started At Least Once//
+            firstTime.edit().putBoolean("firstTime", false).apply();
         }
-
-        // Get Position In Database//
-        assert c != null;
-        while (!c.isAfterLast()) {
-
-            // Define And Instantiate Variable String name//
-            String name = c.getString(EventsDatabaseOld.COL_NAME);
-
-            // Define And Instantiate Variable String date//
-            String date = c.getString(EventsDatabaseOld.COL_DATE);
-
-            // Define And Instantiate Variable String location//
-            String location = c.getString(EventsDatabaseOld.COL_LOCATION);
-
-            // Define And Instantiate Variable String timeStart//
-            String timeStart = c.getString(EventsDatabaseOld.COL_STARTTIME);
-
-            // Define And Instantiate Variable String timeEnd//
-            String timeEnd = c.getString(EventsDatabaseOld.COL_ENDTIME);
-
-            // Define And Instantiate Variable String timeTotal//
-            String timeTotal = c.getString(EventsDatabaseOld.COL_TOTALTIME);
-
-            // Define And Instantiate Variable String timeTotalAdded//
-            String timeTotalAdded = c.getString(EventsDatabaseOld.COL_TOTALTIME_ADDED);
-
-            // Insert Old Values Into Database//
-            eventsDatabase.insertRow(passedVar, name, date, location, timeStart, timeEnd, timeTotal, timeTotalAdded, "", "", "","");
-
-            // Move To Next Row//
-            c.moveToNext();
-        }
-
-        // Close Cursor//
-        c.close();
-
-        // Close eventsDatabaseOld//
-        eventsDatabaseOld.close();
     }
 
     // Method To Open Events Database//
@@ -190,10 +225,16 @@ public class EventsView extends AppCompatActivity {
         vibe.vibrate(50);
 
         // Define and Instantiate Variable Intent EventsAdd//
-        Intent EventsAdd = new Intent(this, EventsAdd.class);
+        Intent eventsAdd = new Intent(this, EventsAdd.class);
+
+        // Get Name From eventAddNameUser//
+        eventsAdd.putExtra(EVENTS_ADD_NAME_USER, eventAddNameUser);
+
+        // Get Name From usersViewNameUser//
+        eventsAdd.putExtra(USERS_VIEW_NAME_USER, usersViewNameUser);
 
         // Start Activity EventsAdd//
-        startActivity(EventsAdd);
+        startActivity(eventsAdd);
 
         // Custom Transition//
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);

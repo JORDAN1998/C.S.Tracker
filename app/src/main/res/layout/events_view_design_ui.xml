@@ -63,10 +63,10 @@
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="150dip"
-                android:layout_marginStart="150dip"
-                android:layout_toRightOf="@+id/eventsName"
-                android:layout_toEndOf="@+id/eventsName"
+                android:layout_marginLeft="-40dip"
+                android:layout_marginStart="-40dip"
+                android:layout_alignLeft="@+id/eventsDate"
+                android:layout_alignStart="@+id/eventsDate"
                 android:layout_alignParentTop="true" />
 
             <!-- TextView eventsDate -->
@@ -77,10 +77,8 @@
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dip"
-                android:layout_marginStart="5dip"
-                android:layout_toRightOf="@+id/eventsDateTitle"
-                android:layout_toEndOf="@+id/eventsDateTitle"/>
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <!-- TextView eventsLocationTitle -->
             <TextView

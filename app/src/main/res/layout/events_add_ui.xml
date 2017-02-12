@@ -175,6 +175,7 @@
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/eventsAddNotes"
         android:textSize="14sp"
+        android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/eventsAddPhoneNumberTitle"

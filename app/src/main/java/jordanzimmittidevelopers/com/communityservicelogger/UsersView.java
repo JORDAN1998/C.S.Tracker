@@ -27,6 +27,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static jordanzimmittidevelopers.com.communityservicelogger.UsersDatabase.KEY_NAMES;
+
 // UsersView Class Created By Jordan Zimmitti 1-21-17//
 public class UsersView extends AppCompatActivity {
 
@@ -38,7 +40,7 @@ public class UsersView extends AppCompatActivity {
     public final static String KEY_ROW_ID_NUMBER = UsersDatabase.KEY_ROW_ID_NUMBER;
 
     // Puts Name Of Last Clicked ListView Item Into String//
-    public final static String KEY_NAMES = UsersDatabase.KEY_NAMES;
+    public final static String USERS_VIEW_NAME_USER = null;
 
     // Define Variable UsersDatabase usersDatabase//
     private UsersDatabase usersDatabase;
@@ -307,7 +309,7 @@ public class UsersView extends AppCompatActivity {
                 Cursor cursor = usersDatabase.getRow(String.valueOf(id));
 
                 // Get Name Of Item Clicked In userListView//
-                eventsView.putExtra(KEY_NAMES, cursor.getString(UsersDatabase.COL_NAME));
+                eventsView.putExtra(USERS_VIEW_NAME_USER, cursor.getString(UsersDatabase.COL_NAME));
 
                 // Start Activity UsersAdd//
                 startActivity(eventsView);
@@ -324,9 +326,6 @@ public class UsersView extends AppCompatActivity {
         usersListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
-
-                // Vibrates For 50 Mill//
-                vibe.vibrate(50);
 
                 // Create Dialog//
                 new MaterialDialog.Builder(UsersView.this)
@@ -469,7 +468,7 @@ public class UsersView extends AppCompatActivity {
         //</editor-fold>
 
         // Puts Rows Stored On Database Into A String Shown//
-        final String[] fromFieldNames = new String[]{UsersDatabase.KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_GRADE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
+        final String[] fromFieldNames = new String[]{KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_GRADE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
 
         // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
         int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewGrade, R.id.usersViewOrganization, R.id.usersViewNameLetter};
@@ -530,7 +529,7 @@ public class UsersView extends AppCompatActivity {
             searchCursor.moveToFirst();
 
             // Puts Rows Stored On Database Into A String Shown//
-            final String[] fromFieldNames = new String[]{UsersDatabase.KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
+            final String[] fromFieldNames = new String[]{KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
 
             // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
             int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewOrganization, R.id.usersViewNameLetter};
