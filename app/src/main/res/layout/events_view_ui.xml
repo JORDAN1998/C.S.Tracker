@@ -33,7 +33,7 @@
     <!-- FAB eventsFab -->
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/eventsFab"
-        android:src="@drawable/user"
+        android:src="@drawable/event"
         android:clickable="true"
         android:onClick="onClickFab"
         android:layout_margin="16dip"

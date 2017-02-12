@@ -43,18 +43,16 @@
             android:label="@string/activity_users_edit" />
 
         <!-- Activity EventsView -->
-        <activity
-            android:name=".EventsView" />
+        <activity android:name=".EventsView" />
 
         <!-- Activity EventsAdd -->
-        <activity
-            android:name=".EventsAdd" />
+        <activity android:name=".EventsAdd" />
 
         <!-- Activity EventsExtraInformation -->
         <activity
             android:name=".EventsExtraInformation"
-            android:label="@string/activity_events_extra_information"/>
-
+            android:label="@string/activity_events_extra_information" />
+        <activity android:name=".EventsEdit"></activity>
     </application>
 
 </manifest>

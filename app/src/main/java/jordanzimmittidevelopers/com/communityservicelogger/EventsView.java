@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 // EventsView Class Created By Jordan Zimmitti 1-29-17//
 public class EventsView extends AppCompatActivity {
 
@@ -58,6 +61,10 @@ public class EventsView extends AppCompatActivity {
     // Define Variable String usersViewNameUser / String Of Name Value//
     private String usersViewNameUser = null;
 
+
+    // Define Variable String workingNameUser//
+    private String workingNameUser;
+
     //</editor-fold>
 
     //<editor-fold desc="Widgets">
@@ -92,11 +99,14 @@ public class EventsView extends AppCompatActivity {
         // Initiate listViewItemClick Method//
         listViewItemClick();
 
+        // Initiate listViewLongItemClick Method//
+        listViewItemLongClick();
+
         // Initiate addToNewDatabase Method//
         addToNewDatabase();
 
         // Initiate populateListView//
-        populateListView();
+        populateListView(workingNameUser);
     }
 
     //Controls Back Button Functions//
@@ -223,14 +233,19 @@ public class EventsView extends AppCompatActivity {
 
             // Set Title Equal To eventAddNameUser//
             setTitle(eventsAddNameUser);
+
+            // Set workingNameUser Equal To eventsAddNameUser//
+            workingNameUser = eventsAddNameUser;
         }
 
         // What Happens When eventsExtraInfNameUser Doesn't Equals Null//
         else if (eventsExtraInfNameUser != null) {
 
-            // Set Title Equal To usersViewNameUser//
+            // Set Title Equal To eventsExtraInfNameUser//
             setTitle(eventsExtraInfNameUser);
 
+            // Set workingNameUser Equal To eventsExtraInfNameUser//
+            workingNameUser = eventsExtraInfNameUser;
         }
 
         // What Happens When usersViewNameUser Doesn't Equals Null//
@@ -239,6 +254,8 @@ public class EventsView extends AppCompatActivity {
             // Set Title Equal To usersViewNameUser//
             setTitle(usersViewNameUser);
 
+            // Set workingNameUser Equal To usersViewNameUser//
+            workingNameUser = usersViewNameUser;
         }
     }
 
@@ -279,6 +296,92 @@ public class EventsView extends AppCompatActivity {
         });
     }
 
+    // Method That Runs When ListView Item Is Long Clicked//
+    public void listViewItemLongClick() {
+
+        eventsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
+
+                // Create Dialog//
+                new MaterialDialog.Builder(EventsView.this)
+
+                        // Title Of Dialog//
+                        .title("What Would You Like To Do")
+
+                        // Content Of Dialog//
+                        .content("Cancel popup, edit user, or delete user")
+
+                        // Positive Text Name For Button//
+                        .positiveText("Delete")
+
+                        // Negative Text Name For Button//
+                        .negativeText("Edit")
+
+                        // Neutral Text Name For Button//
+                        .neutralText("Cancel")
+
+                        // What Happens When Positive Button Is Pressed//
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+
+                                // Deletes Specific Item In ListView//
+                                eventsDatabase.deleteRow(id);
+
+                                // populates ListView//
+                                populateListView(workingNameUser);
+
+                                // Restart EventsView Class//
+                                Intent i = new Intent(EventsView.this, EventsView.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivityForResult(i, 0);
+                                overridePendingTransition(0, 0); //0 for no animation;
+                            }
+                        })
+
+                        //What Happens When Negative Button Is Pressed//
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+
+                                // Define and Instantiate Variable Intent UsersEdit//
+                                Intent usersEdit = new Intent(EventsView.this, EventsEdit.class);
+
+                                // Get Id Of Item Clicked In userListView//
+                                usersEdit.putExtra(KEY_ROW_ID_NUMBER, String.valueOf(id));
+
+                                // Start Activity UsersAdd//
+                                startActivity(usersEdit);
+
+                                // Custom Transition//
+                                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                            }
+                        })
+
+                        // What Happens When Neutral Button Is Pressed//
+                        .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+                            }
+
+                        }).show();
+
+                // Kill Code//
+                return true;
+            }
+        });
+    }
+
     // What Happens When Fab Btn Is Clicked//
     public void onClickFab(View view) {
 
@@ -305,24 +408,31 @@ public class EventsView extends AppCompatActivity {
     }
 
     // Method To Populate ListView//
-    private void populateListView() {
+    private void populateListView(String workingNameUser) {
 
-        // Gets All Rows Added To Database//
-        cursor = eventsDatabase.getAllRowsOldestToNewest();
+        // Gets Rows In Database Based On Name Of User//
+        cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + " ASC", null);
 
-        // Puts Rows Stored On Database Into A String Shown//
-        final String[] fromFieldNames = new String[]{EventsDatabase.KEY_NAME_EVENT, EventsDatabase.KEY_DATE, EventsDatabase.KEY_LOCATION, EventsDatabase.KEY_TIME_START, EventsDatabase.KEY_TIME_END, EventsDatabase.KEY_TIME_TOTAL};
+        // What Happens If searchCursor Has Data//
+        if (cursor != null) {
 
-        // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
-        int[] toViewIDs = new int[]{R.id.eventsName, R.id.eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
+            // Move Database To Next Value//
+            cursor.moveToFirst();
 
-        // Make Above Cursor Final//
-        final Cursor finalCursor = cursor;
+            // Puts Rows Stored On Database Into A String Shown//
+            final String[] fromFieldNames = new String[]{EventsDatabase.KEY_NAME_EVENT, EventsDatabase.KEY_DATE, EventsDatabase.KEY_LOCATION, EventsDatabase.KEY_TIME_START, EventsDatabase.KEY_TIME_END, EventsDatabase.KEY_TIME_TOTAL};
 
-        // Creates ListView Adapter Which Allows ListView Items To Be Seen//
-        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.events_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0);
+            // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
+            int[] toViewIDs = new int[]{R.id.eventsName, R.id.eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
 
-        // Sets Up Adapter Made Earlier / Shows Content From Database//
-        eventsListView.setAdapter(simpleCursorAdapter);
+            // Make Above Cursor Final//
+            final Cursor finalCursor = cursor;
+
+            // Creates ListView Adapter Which Allows ListView Items To Be Seen//
+            SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.events_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0);
+
+            // Sets Up Adapter Made Earlier / Shows Content From Database//
+            eventsListView.setAdapter(simpleCursorAdapter);
+        }
     }
 }

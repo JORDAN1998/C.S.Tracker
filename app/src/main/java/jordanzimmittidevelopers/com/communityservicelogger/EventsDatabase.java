@@ -15,8 +15,8 @@ public class EventsDatabase {
 
     // Row Names//
     public static final String KEY_ROW_ID_NUMBER = "_id";
-    public static final String KEY_NAME_USER = "nameEvent";
-    public static final String KEY_NAME_EVENT = "nameUser";
+    public static final String KEY_NAME_USER = "nameUser";
+    public static final String KEY_NAME_EVENT = "nameEvent";
     public static final String KEY_DATE = "date";
     public static final String KEY_LOCATION = "location";
     public static final String KEY_TIME_START = "timeStart";
@@ -184,6 +184,7 @@ public class EventsDatabase {
 
         // Query Database For All Rows//
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, null, null);
+
         if (c != null) {
             c.moveToFirst();
         }

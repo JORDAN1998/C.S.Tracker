@@ -353,13 +353,13 @@ public class UsersView extends AppCompatActivity {
                                 // Vibrates For 50 Mill//
                                 vibe.vibrate(50);
 
-                                // Deletes Specific ListView//
+                                // Deletes Specific Item In ListView//
                                 usersDatabase.deleteRow(id);
 
                                 // populates ListView//
                                 populateListView();
 
-                                // Restart Note Class//
+                                // Restart UsersView Class//
                                 Intent i = new Intent(UsersView.this, UsersView.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                 startActivityForResult(i, 0);
