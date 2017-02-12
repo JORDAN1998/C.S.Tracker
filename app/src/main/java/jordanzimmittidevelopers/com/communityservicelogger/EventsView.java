@@ -37,14 +37,20 @@ public class EventsView extends AppCompatActivity {
 
     //<editor-fold desc="String">
 
+    // Puts Id Of Last Clicked ListView Item Into String//
+    public static final String KEY_ROW_ID_NUMBER = EventsDatabase.KEY_ROW_ID_NUMBER;
+
+
     // Puts Name Of Last Clicked ListView Item Into String//
     public static final String EVENTS_ADD_NAME_USER = null;
 
     // Define Variable String eventAddNameUser / String Of Name Value//
-    private String eventAddNameUser = null;
+    private String eventsAddNameUser = null;
 
-    // Puts Id Of Last Clicked ListView Item Into String//
-    public final static String KEY_ROW_ID_NUMBER = EventsDatabase.KEY_ROW_ID_NUMBER;
+
+    // Define Variable String eventsExtraInfNameUser//
+    private String eventsExtraInfNameUser = null;
+
 
     // Puts Name Of Last Clicked ListView Item Into String//
     public static final String USERS_VIEW_NAME_USER = null;
@@ -204,21 +210,35 @@ public class EventsView extends AppCompatActivity {
     private void getName() {
 
         // Gets Name Of Last Clicked List View Item//
-        usersViewNameUser = getIntent().getStringExtra(UsersView.USERS_VIEW_NAME_USER);
+        eventsAddNameUser = getIntent().getStringExtra(EVENTS_ADD_NAME_USER);
 
         // Gets Name Of Last Clicked List View Item//
-        eventAddNameUser = getIntent().getStringExtra(EVENTS_ADD_NAME_USER);
+        eventsExtraInfNameUser = getIntent().getStringExtra(EventsExtraInformation.EVENTS_EXTRA_INF_NAME_USER);
+
+        // Gets Name Of Last Clicked List View Item//
+        usersViewNameUser = getIntent().getStringExtra(UsersView.USERS_VIEW_NAME_USER);
+
+        // What Happens When eventsAddNameUser Doesn't Equal Null//
+        if (eventsAddNameUser != null) {
+
+            // Set Title Equal To eventAddNameUser//
+            setTitle(eventsAddNameUser);
+        }
+
+        // What Happens When eventsExtraInfNameUser Doesn't Equals Null//
+        else if (eventsExtraInfNameUser != null) {
+
+            // Set Title Equal To usersViewNameUser//
+            setTitle(eventsExtraInfNameUser);
+
+        }
 
         // What Happens When usersViewNameUser Doesn't Equals Null//
-        if (usersViewNameUser != null) {
+        else if (usersViewNameUser != null) {
 
             // Set Title Equal To usersViewNameUser//
             setTitle(usersViewNameUser);
 
-        } else {
-
-            // Set Title Equal To eventAddNameUser//
-            setTitle(eventAddNameUser);
         }
     }
 
@@ -269,7 +289,7 @@ public class EventsView extends AppCompatActivity {
         Intent eventsAdd = new Intent(this, EventsAdd.class);
 
         // Get Name From eventAddNameUser//
-        eventsAdd.putExtra(EVENTS_ADD_NAME_USER, eventAddNameUser);
+        eventsAdd.putExtra(EVENTS_ADD_NAME_USER, eventsAddNameUser);
 
         // Get Name From usersViewNameUser//
         eventsAdd.putExtra(USERS_VIEW_NAME_USER, usersViewNameUser);

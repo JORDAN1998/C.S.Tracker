@@ -108,8 +108,8 @@ public class UsersAdd extends AppCompatActivity {
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
 
-        // Initiate databaseOpen Method//
-        databaseOpen();
+        // Initiate usersDatabaseOpen Method//
+        usersDatabaseOpen();
 
         // Initiate circleImageLongClick Method//
         onLongClickCircleImage();
@@ -172,7 +172,7 @@ public class UsersAdd extends AppCompatActivity {
     }
 
     // Method That Opens Database//
-    private void databaseOpen() {
+    private void usersDatabaseOpen() {
 
         // Instantiate Variable UsersDatabase usersDatabase//
         usersDatabase = new UsersDatabase(this);

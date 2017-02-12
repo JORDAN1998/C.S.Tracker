@@ -42,7 +42,10 @@ public class EventsDatabase {
     public static final int COL_TIME_END = 6;
     public static final int COL_TIME_TOTAL = 7;
     public static final int COL_TIME_TOTAL_ADDED = 8;
-    public static final int COL_SIGNATURE = 9;
+    public static final int COL_PEOPLE_IN_CHARGE = 9;
+    public static final int COL_PHONE_NUMBER = 10;
+    public static final int COL_NOTES = 11;
+    public static final int COL_SIGNATURE = 12;
 
     // DataBase info//
     public static final String DATABASE_NAME = "events_database";

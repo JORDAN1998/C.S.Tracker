@@ -99,8 +99,8 @@ public class UsersView extends AppCompatActivity {
         // Starts UI For Activity//
         setContentView(R.layout.users_view_ui);
 
-        // Initiate databaseOpen Method//
-        databaseOpen();
+        // Initiate usersDatabaseOpen Method//
+        usersDatabaseOpen();
 
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
@@ -254,7 +254,7 @@ public class UsersView extends AppCompatActivity {
     }
 
     // Method That Opens Database//
-    private void databaseOpen() {
+    private void usersDatabaseOpen() {
 
         // Instantiate Variable UsersDatabase usersDatabase//
         usersDatabase = new UsersDatabase(this);

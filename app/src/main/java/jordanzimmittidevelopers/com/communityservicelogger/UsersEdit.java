@@ -134,8 +134,8 @@ public class UsersEdit extends AppCompatActivity {
         // Starts UI For Activity//
         setContentView(R.layout.users_edit_ui);
 
-        // Initiate databaseOpen Method//
-        databaseOpen();
+        // Initiate usersDatabaseOpen Method//
+        usersDatabaseOpen();
 
         // Initiate getDatabaseValues Method//
         getDatabaseValues();
@@ -247,7 +247,7 @@ public class UsersEdit extends AppCompatActivity {
     }
 
     // Method That Opens Database//
-    private void databaseOpen() {
+    private void usersDatabaseOpen() {
 
         // Instantiate Variable UsersDatabase usersDatabase//
         usersDatabase = new UsersDatabase(this);
