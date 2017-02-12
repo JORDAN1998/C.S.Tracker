@@ -290,7 +290,7 @@ public class UsersView extends AppCompatActivity {
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    // Method To Set ListView OnItemClickListener//
+    // Method To Set usersListView OnItemClickListener//
     public void listViewItemClick() {
 
         // What Happens When ListView Item is Clicked//
@@ -311,7 +311,7 @@ public class UsersView extends AppCompatActivity {
                 // Get Name Of Item Clicked In userListView//
                 eventsView.putExtra(USERS_VIEW_NAME_USER, cursor.getString(UsersDatabase.COL_NAME));
 
-                // Start Activity UsersAdd//
+                // Start Activity EventsView//
                 startActivity(eventsView);
 
                 // Custom Transition//

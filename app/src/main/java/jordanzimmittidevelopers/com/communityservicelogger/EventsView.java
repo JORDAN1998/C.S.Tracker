@@ -11,6 +11,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 // EventsView Class Created By Jordan Zimmitti 1-29-17//
@@ -42,6 +43,9 @@ public class EventsView extends AppCompatActivity {
     // Define Variable String eventAddNameUser / String Of Name Value//
     private String eventAddNameUser = null;
 
+    // Puts Id Of Last Clicked ListView Item Into String//
+    public final static String KEY_ROW_ID_NUMBER = EventsDatabase.KEY_ROW_ID_NUMBER;
+
     // Puts Name Of Last Clicked ListView Item Into String//
     public static final String USERS_VIEW_NAME_USER = null;
 
@@ -64,23 +68,8 @@ public class EventsView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Gets Name Of Last Clicked List View Item//
-        usersViewNameUser = getIntent().getStringExtra(UsersView.USERS_VIEW_NAME_USER);
-
-        // Gets Name Of Last Clicked List View Item//
-        eventAddNameUser = getIntent().getStringExtra(EVENTS_ADD_NAME_USER);
-
-        // What Happens When usersViewNameUser Doesn't Equals Null//
-        if (usersViewNameUser != null) {
-
-            // Set Title Equal To usersViewNameUser//
-            setTitle(usersViewNameUser);
-
-        } else {
-
-            // Set Title Equal To eventAddNameUser//
-            setTitle(eventAddNameUser);
-        }
+        // Initiate getTitle Method//
+        getName();
 
         // Starts UI For Activity//
         setContentView(R.layout.events_view_ui);
@@ -93,6 +82,9 @@ public class EventsView extends AppCompatActivity {
 
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
+
+        // Initiate listViewItemClick Method//
+        listViewItemClick();
 
         // Initiate addToNewDatabase Method//
         addToNewDatabase();
@@ -208,6 +200,28 @@ public class EventsView extends AppCompatActivity {
         eventsDatabaseOld.open();
     }
 
+    // Method To Get User Name//
+    private void getName() {
+
+        // Gets Name Of Last Clicked List View Item//
+        usersViewNameUser = getIntent().getStringExtra(UsersView.USERS_VIEW_NAME_USER);
+
+        // Gets Name Of Last Clicked List View Item//
+        eventAddNameUser = getIntent().getStringExtra(EVENTS_ADD_NAME_USER);
+
+        // What Happens When usersViewNameUser Doesn't Equals Null//
+        if (usersViewNameUser != null) {
+
+            // Set Title Equal To usersViewNameUser//
+            setTitle(usersViewNameUser);
+
+        } else {
+
+            // Set Title Equal To eventAddNameUser//
+            setTitle(eventAddNameUser);
+        }
+    }
+
     // Method That Instantiates Widgets//
     private void instantiateWidgets() {
 
@@ -216,6 +230,33 @@ public class EventsView extends AppCompatActivity {
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+    }
+
+    // Method To Set eventsListView OnItemClickListener//
+    public void listViewItemClick() {
+
+        // What Happens When ListView Item is Clicked//
+        eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // Vibrates For 50 Mill//
+                vibe.vibrate(50);
+
+                // Define and Instantiate Variable Intent EventsView//
+                Intent eventsExtraInformation = new Intent(EventsView.this, EventsExtraInformation.class);
+
+                // Get Name Of Item Clicked In userListView//
+                eventsExtraInformation.putExtra(KEY_ROW_ID_NUMBER, String.valueOf(id));
+
+                // Start Activity EventsExtraInformation//
+                startActivity(eventsExtraInformation);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+            }
+        });
     }
 
     // What Happens When Fab Btn Is Clicked//

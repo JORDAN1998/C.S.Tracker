@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI For Activity EventsExtraInformationActivity -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/events_extra_information_ui"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dip"
+    tools:context=".EventsExtraInformation">
+
+    <!-- TextView eventsInfPeopleInChargeTitle -->
+    <TextView
+        android:id="@+id/eventsInfPeopleInChargeTitle"
+        android:text="@string/people_in_charge_title"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <!-- TextView eventsInfPeopleInCharge -->
+    <TextView
+        android:id="@+id/eventsInfPeopleInCharge"
+        android:text="@string/people_in_charge_title"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dip"
+        android:paddingStart="5dip"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/eventsInfPeopleInChargeTitle"
+        android:layout_toEndOf="@+id/eventsInfPeopleInChargeTitle" />
+
+    <!-- TextView eventsInfPhoneNumberTitle -->
+    <TextView
+        android:id="@+id/eventsInfPhoneNumberTitle"
+        android:text="@string/phone_number_title"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/eventsInfPeopleInChargeTitle" />
+
+    <!-- TextView eventsInfPhoneNumber -->
+    <TextView
+        android:id="@+id/eventsInfPhoneNumber"
+        android:text="@string/phone_number_title"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginStart="5dip"
+        android:layout_below="@+id/eventsInfPeopleInChargeTitle"
+        android:layout_toRightOf="@+id/eventsInfPhoneNumberTitle"
+        android:layout_toEndOf="@+id/eventsInfPhoneNumberTitle"/>
+
+    <!-- TextView eventsInfNotesTitle -->
+    <TextView
+        android:id="@+id/eventsInfNotesTitle"
+        android:text="@string/notes_title"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/eventsInfPhoneNumberTitle" />
+
+    <!-- TextView eventsInfNotes -->
+    <TextView
+        android:id="@+id/eventsInfNotes"
+        android:text="@string/notes_title"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginStart="5dip"
+        android:layout_below="@+id/eventsInfPhoneNumberTitle"
+        android:layout_toRightOf="@+id/eventsInfNotesTitle"
+        android:layout_toEndOf="@+id/eventsInfNotesTitle"/>
+
+</RelativeLayout>

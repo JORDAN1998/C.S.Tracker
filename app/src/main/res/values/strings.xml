@@ -7,6 +7,7 @@
     <!-- Activity Name Strings -->
     <string name="activity_users_add">Add User</string>
     <string name="activity_users_edit">Edit User</string>
+    <string name="activity_events_extra_information">Event Information</string>
 
     <!-- Menu Strings -->
     <string name="save">Save</string>

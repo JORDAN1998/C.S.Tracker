@@ -54,9 +54,9 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            fab:fab_colorNormal="@color/darkRed"
-            fab:fab_colorPressed="@color/red"
-            fab:fab_colorRipple="@color/red" />
+            fab:fab_colorNormal="?attr/colorPrimaryDark"
+            fab:fab_colorPressed="?attr/colorPrimary"
+            fab:fab_colorRipple="?attr/colorPrimary" />
 
     </RelativeLayout>
 
