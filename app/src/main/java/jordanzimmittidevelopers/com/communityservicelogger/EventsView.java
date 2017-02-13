@@ -62,6 +62,9 @@ public class EventsView extends AppCompatActivity {
     private String usersViewNameUser = null;
 
 
+    // Puts Name Of Last Clicked ListView Item Into String//
+    public static final String WORKING_NAME_USER = null;
+
     // Define Variable String workingNameUser//
     private String workingNameUser;
 
@@ -338,6 +341,7 @@ public class EventsView extends AppCompatActivity {
                                 // Restart EventsView Class//
                                 Intent i = new Intent(EventsView.this, EventsView.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                i.putExtra(WORKING_NAME_USER, workingNameUser);
                                 startActivityForResult(i, 0);
                                 overridePendingTransition(0, 0); //0 for no animation;
                             }
@@ -356,6 +360,12 @@ public class EventsView extends AppCompatActivity {
 
                                 // Get Id Of Item Clicked In userListView//
                                 usersEdit.putExtra(KEY_ROW_ID_NUMBER, String.valueOf(id));
+
+                                // Get Name From eventAddNameUser//
+                                usersEdit.putExtra(EVENTS_ADD_NAME_USER, eventsAddNameUser);
+
+                                // Get Name From usersViewNameUser//
+                                usersEdit.putExtra(USERS_VIEW_NAME_USER, usersViewNameUser);
 
                                 // Start Activity UsersAdd//
                                 startActivity(usersEdit);

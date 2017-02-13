@@ -128,7 +128,7 @@ public class EventsDatabase {
     }
 
     // Change An Existing Row To Be Equal To New Data//
-    public boolean updateRow(String id, String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded, String signature) {
+    public boolean updateRow(String id, String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded, String peopleInCharge, String phoneNumber, String notes, String signature) {
 
         // Get Current Row By ID Number//
         String where = KEY_ROW_ID_NUMBER + "=" + id;
@@ -145,6 +145,9 @@ public class EventsDatabase {
         newValues.put(KEY_TIME_END, timeEnd);
         newValues.put(KEY_TIME_TOTAL, timeTotal);
         newValues.put(KEY_TIME_TOTAL_ADDED, timeTotalAdded);
+        newValues.put(KEY_PEOPLE_IN_CHARGE, peopleInCharge);
+        newValues.put(KEY_PHONE_NUMBER, phoneNumber);
+        newValues.put(KEY_NOTES, notes);
         newValues.put(KEY_SIGNATURE, signature);
 
         // Inserts The New Value Data Into The Database//

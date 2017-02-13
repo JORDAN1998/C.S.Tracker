@@ -52,7 +52,12 @@
         <activity
             android:name=".EventsExtraInformation"
             android:label="@string/activity_events_extra_information" />
-        <activity android:name=".EventsEdit"></activity>
+
+        <!-- Activity EventsEdit -->
+        <activity
+            android:name=".EventsEdit"
+            android:label="@string/activity_events_edit"/>
+
     </application>
 
 </manifest>

@@ -219,14 +219,14 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
             // Define Variable Date timeEndValue//
             Date timeEndValue;
 
-            // Creates Simple Date Format//
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+            // Creates Simple Date Format For Military Time//
+            SimpleDateFormat militaryTimeFormat = new SimpleDateFormat("HH:mm");
 
             // Puts Military Time Start Into Time Format//
-            timeStartValue = simpleDateFormat.parse(militaryTimeStart);
+            timeStartValue = militaryTimeFormat.parse(militaryTimeStart);
 
             // Puts Military Time Start Into Time Format//
-            timeEndValue = simpleDateFormat.parse(militaryTimeEnd);
+            timeEndValue = militaryTimeFormat.parse(militaryTimeEnd);
 
             // Subtract End Time And Start Time In Military Time And Then Puts It Into Standard Time//
             long difference = timeEndValue.getTime() - timeStartValue.getTime();

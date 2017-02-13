@@ -8,8 +8,10 @@
     <string name="activity_users_add">Add User</string>
     <string name="activity_users_edit">Edit User</string>
     <string name="activity_events_extra_information">Event Information</string>
+    <string name="activity_events_edit">Edit Event</string>
 
     <!-- Menu Strings -->
+    <string name="copy">Copy</string>
     <string name="save">Save</string>
     <string name="search_by">Search By</string>
     <string name="sort_by">Sort By</string>
@@ -32,7 +34,7 @@
     <string name="phone_number_title">Phone Number:</string>
     <string name="people_in_charge_title">People In Charge:</string>
     <string name="name">name</string>
-    <string name="notes_title">notes:</string>
+    <string name="notes_title">Notes:</string>
     <string name="start_time_title">Start Time:</string>
     <string name="start_time">0:00</string>
     <string name="end_time_title">End Time:</string>

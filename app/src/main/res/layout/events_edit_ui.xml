@@ -1,13 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!-- UI For Activity EventsEdit -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/events_edit_ui"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="jordanzimmittidevelopers.com.communityservicelogger.EventsEdit">
+    android:padding="16dip"
+    tools:context=".EventsEdit">
+
+    <!-- TextView eventsEditNameTitle -->
+    <TextView
+        android:id="@+id/eventsEditNameTitle"
+        android:text="@string/name_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- MaterialEditText eventsEditName -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsEditName"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/eventsEditNameTitle"
+        android:layout_toLeftOf="@+id/eventsEditDateTitle"
+        android:layout_toStartOf="@+id/eventsEditDateTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsEditDateTitle -->
+    <TextView
+        android:id="@+id/eventsEditDateTitle"
+        android:text="@string/date_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="22dip"
+        android:paddingLeft="50dip"
+        android:paddingStart="50dip"
+        android:paddingRight="30dip"
+        android:paddingEnd="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/eventsEditDate"
+        android:layout_alignStart="@+id/eventsEditDate" />
+
+    <!-- TextView eventsEditDate -->
+    <TextView
+        android:id="@+id/eventsEditDate"
+        android:text="@string/date"
+        android:textSize="14sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="50dip"
+        android:paddingStart="50dip"
+        android:paddingRight="30dip"
+        android:paddingEnd="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/eventsEditDateTitle"/>
+
+    <!-- TextView eventsEditLocationTitle -->
+    <TextView
+        android:id="@+id/eventsEditLocationTitle"
+        android:text="@string/location_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_below="@+id/eventsEditName"/>
+
+    <!-- MaterialEditText eventsEditLocation -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsEditLocation"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/eventsEditLocationTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsEditPeopleInChargeTitle -->
+    <TextView
+        android:id="@+id/eventsEditPeopleInChargeTitle"
+        android:text="@string/people_in_charge_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/eventsEditLocation" />
+
+    <!-- MaterialEditText eventsEditPeopleInCharge -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsEditPeopleInCharge"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/eventsEditPeopleInChargeTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsEditPhoneNumberTitle -->
+    <TextView
+        android:id="@+id/eventsEditPhoneNumberTitle"
+        android:text="@string/phone_number_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/eventsEditPeopleInCharge" />
+
+    <!-- MaterialEditText eventsEditPhoneNumber -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsEditPhoneNumber"
+        android:textSize="14sp"
+        android:inputType="phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/eventsEditPhoneNumberTitle"
+        android:layout_alignRight="@+id/eventsEditPhoneNumberTitle"
+        android:layout_alignEnd="@+id/eventsEditPhoneNumberTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsEditNotesTitle -->
+    <TextView
+        android:id="@+id/eventsEditNotesTitle"
+        android:text="@string/notes_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@+id/eventsEditTimeEndTitle"
+        android:layout_alignStart="@+id/eventsEditTimeEndTitle"
+        android:layout_alignRight="@+id/eventsEditTimeEndTitle"
+        android:layout_alignEnd="@+id/eventsEditTimeEndTitle"
+        android:layout_below="@+id/eventsEditPeopleInCharge"/>
+
+    <!-- MaterialEditText eventsEditNotes -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/eventsEditNotes"
+        android:textSize="14sp"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/eventsEditPhoneNumberTitle"
+        android:layout_alignLeft="@+id/eventsEditTimeEndTitle"
+        android:layout_alignStart="@+id/eventsEditTimeEndTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView eventsEditTimeStartTitle -->
+    <TextView
+        android:id="@+id/eventsEditTimeStartTitle"
+        android:text="@string/start_time_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickTimeStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_below="@+id/eventsEditPhoneNumber"/>
+
+    <!-- TextView eventsEditTimeStart -->
+    <TextView
+        android:id="@+id/eventsEditTimeStart"
+        android:text="@string/start_time"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickTimeStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_below="@+id/eventsEditTimeStartTitle"
+        android:layout_alignLeft="@+id/eventsEditTimeStartTitle"
+        android:layout_alignStart="@+id/eventsEditTimeStartTitle"
+        android:layout_alignRight="@+id/eventsEditTimeStartTitle"
+        android:layout_alignEnd="@+id/eventsEditTimeStartTitle" />
+
+    <!-- TextView eventsEditTimeEndTitle -->
+    <TextView
+        android:id="@+id/eventsEditTimeEndTitle"
+        android:text="@string/end_time_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickTimeEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/eventsEditPhoneNumber" />
+
+    <!-- TextView eventsEditTimeEnd -->
+    <TextView
+        android:id="@+id/eventsEditTimeEnd"
+        android:text="@string/end_time"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickTimeEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_below="@+id/eventsEditTimeEndTitle"
+        android:layout_alignLeft="@+id/eventsEditTimeEndTitle"
+        android:layout_alignStart="@+id/eventsEditTimeEndTitle"
+        android:layout_alignRight="@+id/eventsEditTimeEndTitle"
+        android:layout_alignEnd="@+id/eventsEditTimeEndTitle" />
+
+    <!-- TextView eventsEditTimeTotalTitle -->
+    <TextView
+        android:id="@+id/eventsEditTimeTotalTitle"
+        android:text="@string/total_time_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/eventsEditPhoneNumber" />
+
+    <!-- TextView eventsEditTimeTotal -->
+    <TextView
+        android:id="@+id/eventsEditTimeTotal"
+        android:text="@string/end_time"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_below="@+id/eventsEditTimeTotalTitle"
+        android:layout_alignLeft="@+id/eventsEditTimeTotalTitle"
+        android:layout_alignStart="@+id/eventsEditTimeTotalTitle"
+        android:layout_alignRight="@+id/eventsEditTimeTotalTitle"
+        android:layout_alignEnd="@+id/eventsEditTimeTotalTitle" />
 
 </RelativeLayout>
