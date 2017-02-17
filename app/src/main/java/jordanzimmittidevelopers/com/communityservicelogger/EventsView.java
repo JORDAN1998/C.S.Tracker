@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -70,6 +72,31 @@ public class EventsView extends AppCompatActivity {
 
     //</editor-fold>
 
+    //<editor-fold desc="Shared Preference">
+
+    // Saves Sort Preference To String//
+    public static final String SORT_TYPE = "sort_type";
+
+    // Apply Sort Preference//
+    public static int SORT_BY;
+
+    // Sort By Name//
+    public final static int SORT_BY_NAME = 1;
+
+    // Sort By Date//
+    public final static int SORT_BY_DATE = 2;
+
+    // Sort By Location//
+    public final static int SORT_BY_LOCATION = 3;
+
+    // Sort By Newest To Oldest//
+    public final static int SORT_BY_NEWEST_TO_OLDEST = 4;
+
+    // Sort By Newest To Oldest//
+    public final static int SORT_BY_OLDEST_TO_NEWEST = 5;
+
+    //</editor-fold>
+
     //<editor-fold desc="Widgets">
 
     // Define Variable ListView eventsListViews//
@@ -112,6 +139,17 @@ public class EventsView extends AppCompatActivity {
         populateListView(workingNameUser);
     }
 
+    // Creates Menu And All Its Components//
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflates The Menu / This Adds Items To The Action Bar If It Is Present//
+        getMenuInflater().inflate(R.menu.events_view_menu, menu);
+
+        // Kill Code//
+        return true;
+    }
+
     //Controls Back Button Functions//
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
@@ -134,6 +172,34 @@ public class EventsView extends AppCompatActivity {
             default:
                 return false;
         }
+    }
+
+    // What Happens When Menu Buttons Are Clicked//
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Figures Out What Menu Button Was Pressed//
+        int id = item.getItemId();
+
+        // What Happens When home Is Pressed//
+        if (id == android.R.id.home) {
+
+            // Vibrate For 50m//
+            vibe.vibrate(50);
+        }
+
+        // What Happens When eventsSortBy Is Pressed//
+        if (id == R.id.eventsSortBy) {
+
+            // Initiate Method orderBy//
+            sortBy();
+
+            // Kill Code//
+            return true;
+        }
+
+        // Kill Code//
+        return super.onOptionsItemSelected(item);
     }
 
     // Method To Take Old Database Values And Add Them Into The New Database//
@@ -445,4 +511,170 @@ public class EventsView extends AppCompatActivity {
             eventsListView.setAdapter(simpleCursorAdapter);
         }
     }
+
+    // Method To Sort Events By User Preference//
+    private void sortBy() {
+
+        // Vibrates For 50 Mill//
+        vibe.vibrate(50);
+
+        // Title String//
+        String dialogTitle = "Sort Users By...";
+
+        // Order By... Strings//
+        final String[] orderByString = {"Sort By Name", "Sort By Date", "Sort By Location", "Sort By Newest To Oldest", "Sort By Oldest To Newest"};
+
+        // Positive Btn String//
+        String positiveBtn = "Ok";
+
+        new MaterialDialog.Builder(this)
+                .title(dialogTitle)
+                .items((CharSequence[]) orderByString)
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+
+                        // Sets Sort Preference By Name//
+                        if (i == 0) {
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Saves Sort Preference Of Events//
+                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences.Editor edit;
+                            edit = settings.edit();
+
+                            // Sets Sort For Events//
+                            SORT_BY = SORT_BY_NAME;
+                            edit.clear();
+                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.apply();
+
+                            // Define and Instantiate Variable Intent EventsView//
+                            Intent eventsView = new Intent(EventsView.this, EventsView.class);
+
+                            // Start Activity EventsView//
+                            startActivity(eventsView);
+
+                            // Custom Transition//
+                            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                        }
+
+                        // Sets Sort Preference By Newest To Oldest//
+                        if (i == 1) {
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Saves Sort Preference Of Events//
+                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences.Editor edit;
+                            edit = settings.edit();
+
+                            // Saves Sort Preference Of Events//
+                            SORT_BY = SORT_BY_DATE;
+                            edit.clear();
+                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.apply();
+
+                            // Define and Instantiate Variable Intent eventsView//
+                            Intent eventsView = new Intent(EventsView.this, EventsView.class);
+
+                            // Start Activity EventsView//
+                            startActivity(eventsView);
+
+                            // Custom Transition//
+                            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                        }
+
+                        // Sets Sort Preference By Oldest To Newest//
+                        if (i == 2) {
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Saves Sort Preference Of Events//
+                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences.Editor edit;
+                            edit = settings.edit();
+
+                            // Sets Save Preference For Events//
+                            SORT_BY = SORT_BY_LOCATION;
+                            edit.clear();
+                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.apply();
+
+                            // Define and Instantiate Variable Intent eventsView//
+                            Intent eventsView = new Intent(EventsView.this, EventsView.class);
+
+                            // Start Activity UsersView//
+                            startActivity(eventsView);
+
+                            // Custom Transition//
+                            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                        }
+
+                        // Sets Sort Preference By Oldest To Newest//
+                        if (i == 3) {
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Saves Sort Preference Of Events//
+                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences.Editor edit;
+                            edit = settings.edit();
+
+                            // Sets Save Preference For Events//
+                            SORT_BY = SORT_BY_NEWEST_TO_OLDEST;
+                            edit.clear();
+                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.apply();
+
+                            // Define and Instantiate Variable Intent eventsView//
+                            Intent eventsView = new Intent(EventsView.this, EventsView.class);
+
+                            // Start Activity EventsView//
+                            startActivity(eventsView);
+
+                            // Custom Transition//
+                            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                        }
+
+                        // Sets Sort Preference By Oldest To Newest//
+                        if (i == 4) {
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                            // Saves Sort Preference Of Events//
+                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences.Editor edit;
+                            edit = settings.edit();
+
+                            // Sets Save Preference For Events//
+                            SORT_BY = SORT_BY_OLDEST_TO_NEWEST;
+                            edit.clear();
+                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.apply();
+
+                            // Define and Instantiate Variable Intent eventsView//
+                            Intent eventsView = new Intent(EventsView.this, EventsView.class);
+
+                            // Start Activity EventsView//
+                            startActivity(eventsView);
+
+                            // Custom Transition//
+                            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                        }
+
+                        // Kill Code//
+                        return false;
+                    }
+                })
+                .positiveText(positiveBtn)
+                .show();
+    }
+
 }

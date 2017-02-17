@@ -182,7 +182,7 @@ public class EventsDatabase {
         c.close();
     }
 
-    // Get All Rows In The Database From Newest To Oldest//
+    // Get All Rows In The Database From Oldest To Newest//
     public Cursor getAllRowsOldestToNewest() {
 
         // Query Database For All Rows//

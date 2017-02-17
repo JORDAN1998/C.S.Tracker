@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Menu For Activity EventsView -->
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".EventsView">
+
+    <!-- Item eventsSortBy -->
+    <item
+        android:id="@+id/eventsSortBy"
+        android:title="@string/sort_by"
+        android:icon="@drawable/sort"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom" />
+
+    <!-- Item eventsSearch -->
+    <item
+        android:id="@+id/eventsSearch"
+        android:title="@string/search_by"
+        android:icon="@drawable/search"
+        android:orderInCategory="1"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom" />
+
+</menu>

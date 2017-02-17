@@ -192,7 +192,7 @@ public class UsersView extends AppCompatActivity {
             usersNavigationDrawer.buttonToggle();
         }
 
-        // What Happens When usersAddSave Is Pressed//
+        // What Happens When usersSortBy Is Pressed//
         if (id == R.id.usersSortBy) {
 
             // Initiate Method orderBy//
