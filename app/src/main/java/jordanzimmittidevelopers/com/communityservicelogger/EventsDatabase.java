@@ -188,7 +188,10 @@ public class EventsDatabase {
         // Query Database For All Rows//
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, null, null);
 
+        // What Happens When c Doesn't Equal Null//
         if (c != null) {
+
+            // Move To First Row//
             c.moveToFirst();
         }
 
@@ -213,21 +216,28 @@ public class EventsDatabase {
     }
 
     // Get All Community Service Times//
-    public Cursor totalTimeAdded() {
+    public Cursor totalTimeAdded(String workingNameUser) {
 
         // Set Total Time Added To Zero//
         totalTimeAdded = 0;
 
-        // Query Through All Rows//
-        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, null, null);
+        // Gets Rows In Database Based On Name Of User//
+        Cursor c = db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'", null);
+
+        // What Happens When c Doesn't Equal Null//
         if (c != null) {
+
+            // Move To First Row//
             c.moveToFirst();
         }
-        assert c != null;
+
+        // What Happens If There Is Another Row//
         while (!c.isAfterLast()) {
 
             // Get Total Time Added//
             totalTimeAdded  = totalTimeAdded + c.getInt(COL_TIME_TOTAL_ADDED);
+
+            // Move To Next Row//
             c.moveToNext();
         }
 

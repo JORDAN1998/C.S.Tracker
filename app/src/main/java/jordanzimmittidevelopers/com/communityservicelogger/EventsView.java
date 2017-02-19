@@ -111,6 +111,9 @@ public class EventsView extends AppCompatActivity {
     // Define Variable ListView eventsListViews//
     private ListView eventsListView;
 
+    // Define Variable MenuItem timeTotalAdded//
+    private MenuItem timeTotalAdded;
+
     //</editor-fold>
 
     //</editor-fold>
@@ -258,6 +261,45 @@ public class EventsView extends AppCompatActivity {
 
         // Kill Code//
         return super.onOptionsItemSelected(item);
+    }
+
+    // Prepares Options Menu//
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        // Get Total Added Time//
+        eventsDatabase.totalTimeAdded(workingNameUser);
+
+        // Instantiate Variable MenuItem timeTotalAdded//
+        timeTotalAdded = menu.findItem(R.id.timeTotalAdded);
+
+        // Convert Minutes Into Hours//
+        int hours = EventsDatabase.totalTimeAdded / 60;
+
+        //Convert Hours Into Minutes//
+        int minutes = EventsDatabase.totalTimeAdded % 60;
+
+        // If Minutes Is Less Than Ten Add A Zero//
+        if (minutes < 10) {
+
+            // Define And Instantiate Variable String timeTotal//
+            String timeTotal = hours + ":" + "0" + minutes;
+
+            // Set Text Equal To timeTotal//
+            timeTotalAdded.setTitle(String.valueOf(timeTotal));
+        }
+
+        // Don't Add A Zero//
+        else {
+
+            // Define And Instantiate Variable String timeTotal//
+            String timeTotal = hours + ":" + minutes;
+
+            // Set Text Equal To timeTotal//
+            timeTotalAdded.setTitle(String.valueOf(timeTotal));
+        }
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     // Method To Take Old Database Values And Add Them Into The New Database//
