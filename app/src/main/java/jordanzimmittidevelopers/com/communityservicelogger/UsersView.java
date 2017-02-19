@@ -63,19 +63,19 @@ public class UsersView extends AppCompatActivity {
     //<editor-fold desc="Shared Preference">
 
     // Saves Sort Preference To String//
-    public static final String SORT_TYPE = "sort_type";
+    private static final String USER_SORT_TYPE = "user_sort_type";
 
     // Apply Sort Preference//
-    public static int SORT_BY;
+    private static int SORT_BY_USER;
 
     // Sort By Name//
-    public final static int SORT_BY_NAME = 1;
+    private final static int SORT_BY_NAME = 1;
 
     // Sort By Newest To Oldest//
-    public final static int SORT_BY_NEWEST_TO_OLDEST = 2;
+    private final static int SORT_BY_NEWEST_TO_OLDEST = 2;
 
     // Sort By Newest To Oldest//
-    public final static int SORT_BY_OLDEST_TO_NEWEST = 3;
+    private final static int SORT_BY_OLDEST_TO_NEWEST = 3;
 
     //</editor-fold>
 
@@ -122,7 +122,7 @@ public class UsersView extends AppCompatActivity {
         // Inflates The Menu / This Adds Items To The Action Bar If It Is Present//
         getMenuInflater().inflate(R.menu.users_view_menu, menu);
 
-        // Define And Instantiate Search View searchView//
+        // Define And Instantiate SearchView usersSearch//
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.usersSearch));
 
         // Set Query Hint For User//
@@ -429,8 +429,8 @@ public class UsersView extends AppCompatActivity {
     // Method To Populate ListView//
     private void populateListView() {
 
-        // Define And Instantiate Variable SharedPreferences order//
-        SharedPreferences sort = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+        // Define And Instantiate Variable SharedPreferences userSort//
+        SharedPreferences userSort = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
 
         // Define Variable Cursor cursor//
         Cursor cursor;
@@ -438,23 +438,21 @@ public class UsersView extends AppCompatActivity {
         //<editor-fold desc="User Order Save Preference">
 
         // What Happens When User Wants Database Sorted By Name//
-        if (sort.getInt("Custom_Order_By", 0) == 1) {
+        if (userSort.getInt("user_sort_by", 0) == 1) {
 
             // Gets All Rows Added To Database From Name//
             cursor = usersDatabase.getAllRowsName();
-
         }
 
         // What Happens When User Wants Database Sorted By Newest To Oldest//
-        else if (sort.getInt("Custom_Order_By", 0) == 2) {
+        else if (userSort.getInt("user_sort_by", 0) == 2) {
 
                 // Gets All Rows Added To Database From Name//
                 cursor = usersDatabase.getAllRowsNewestToOldest();
-
-            }
+         }
 
         // What Happens When User Wants Database Sorted By Oldest To Newest//
-         else if (sort.getInt("Custom_Order_By", 0) == 3) {
+         else if (userSort.getInt("user_sort_by", 0) == 3) {
 
             // Gets All Rows Added To Database From Oldest To Newest//
             cursor = usersDatabase.getAllRowsOldestToNewest();
@@ -604,7 +602,7 @@ public class UsersView extends AppCompatActivity {
                             vibe.vibrate(50);
 
                             // Saves Sort Preference Of Users//
-                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences settings = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
                             SharedPreferences.Editor edit;
                             edit = settings.edit();
 
@@ -612,9 +610,9 @@ public class UsersView extends AppCompatActivity {
                             vibe.vibrate(50);
 
                             // Sets Sort For Users//
-                            SORT_BY = SORT_BY_NAME;
+                            SORT_BY_USER = SORT_BY_NAME;
                             edit.clear();
-                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.putInt("user_sort_by", SORT_BY_USER);
                             edit.apply();
 
                             // Define and Instantiate Variable Intent UsersView//
@@ -634,7 +632,7 @@ public class UsersView extends AppCompatActivity {
                             vibe.vibrate(50);
 
                             // Saves Sort Preference Of Users//
-                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences settings = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
                             SharedPreferences.Editor edit;
                             edit = settings.edit();
 
@@ -642,9 +640,9 @@ public class UsersView extends AppCompatActivity {
                             vibe.vibrate(50);
 
                             // Saves Sort Preference Of Users//
-                            SORT_BY = SORT_BY_NEWEST_TO_OLDEST;
+                            SORT_BY_USER = SORT_BY_NEWEST_TO_OLDEST;
                             edit.clear();
-                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.putInt("user_sort_by", SORT_BY_USER);
                             edit.apply();
 
                             // Define and Instantiate Variable Intent UsersView//
@@ -664,7 +662,7 @@ public class UsersView extends AppCompatActivity {
                             vibe.vibrate(50);
 
                             // Saves Sort Preference Of Users//
-                            SharedPreferences settings = getSharedPreferences(SORT_TYPE, MODE_PRIVATE);
+                            SharedPreferences settings = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
                             SharedPreferences.Editor edit;
                             edit = settings.edit();
 
@@ -672,9 +670,9 @@ public class UsersView extends AppCompatActivity {
                             vibe.vibrate(50);
 
                             // Sets Save Preference For Users//
-                            SORT_BY = SORT_BY_OLDEST_TO_NEWEST;
+                            SORT_BY_USER = SORT_BY_OLDEST_TO_NEWEST;
                             edit.clear();
-                            edit.putInt("Custom_Order_By", SORT_BY);
+                            edit.putInt("user_sort_by", SORT_BY_USER);
                             edit.apply();
 
                             // Define and Instantiate Variable Intent UsersView//
