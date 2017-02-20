@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 // Settings Class Created By Jordan Zimmitti 2-19-17//
 public class Settings extends AppCompatActivity {
@@ -32,6 +33,12 @@ public class Settings extends AppCompatActivity {
 
         // Starts UI For Activity//
         setContentView(R.layout.settings_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.settings_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
 
         // Initiate instantiateWidgets Method//
         instantiateWidgets();

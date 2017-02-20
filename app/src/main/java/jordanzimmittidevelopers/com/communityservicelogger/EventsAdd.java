@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -114,6 +115,12 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
         // Starts UI For Activity//
         setContentView(R.layout.events_add_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_add_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
 
         // Initiate eventsDatabase Open Method//
         eventsDatabaseOpen();

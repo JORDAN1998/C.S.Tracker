@@ -4,6 +4,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/theme_picker_ui"
     android:fitsSystemWindows="true"
@@ -165,7 +166,8 @@
         android:paddingTop="18dip"
         android:paddingBottom="18dip"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        app:theme="@style/SwitchColor"/>
 
     <!-- View view2 -->
     <View

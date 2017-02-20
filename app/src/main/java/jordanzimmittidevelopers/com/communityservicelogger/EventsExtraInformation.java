@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 // EventsView Class Created By Jordan Zimmitti 2-11-17//
@@ -37,6 +38,12 @@ public class EventsExtraInformation extends AppCompatActivity {
 
         // Starts UI For Activity//
         setContentView(R.layout.events_extra_information_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_extra_information_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
 
         // Initiate eventsDatabase Open Method//
         eventsDatabaseOpen();

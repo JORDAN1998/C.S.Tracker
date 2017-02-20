@@ -17,6 +17,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 
 // ThemePicker Class Created By Jordan Zimmitti 2-19-17//
 public class ThemePicker extends AppCompatActivity {
@@ -90,6 +91,12 @@ public class ThemePicker extends AppCompatActivity {
         // Starts UI For Activity//
         setContentView(R.layout.theme_picker_ui);
 
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.theme_picker_ui);
+
+        // Night Mode Theme Extension Options//
+        activityNightModeExtension(this, relativeLayout);
+
         // Initiate instantiateWidgets Method//
         instantiateWidgets();
 
@@ -161,6 +168,37 @@ public class ThemePicker extends AppCompatActivity {
 
                 // Kill Code//
                 break;
+            }
+        }
+    }
+
+    // Method For Black Background In Night Mode//
+    public void activityNightModeExtension(Context context, RelativeLayout relativeLayout) {
+
+        // Define And Instantiate Variable SharedPreferences switchState//
+        SharedPreferences switchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
+
+        // What Happens When Switch Is Checked//
+        if (switchState.getInt("switch_state", 0) == 2) {
+
+            // Find Night Mode Automatically//
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+
+            // Checks Whether app Is In Night Mode Or Not//
+            int currentNightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+            // Checks All Scenarios//
+            switch (currentNightMode) {
+
+                // Night Mode Is Active, We're At Night!//
+                case Configuration.UI_MODE_NIGHT_YES: {
+
+                    // Set Black Background To Overall Night Theme//
+                    relativeLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
+
+                    // Kill Code//
+                    break;
+                }
             }
         }
     }

@@ -3,20 +3,26 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -134,6 +140,12 @@ public class EventsView extends AppCompatActivity {
 
         // Starts UI For Activity//
         setContentView(R.layout.events_view_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_view_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
 
         // Initiate eventsDatabase Open Method//
         eventsDatabaseOpen();
@@ -662,7 +674,45 @@ public class EventsView extends AppCompatActivity {
             final Cursor finalCursor = cursor;
 
             // Creates ListView Adapter Which Allows ListView Items To Be Seen//
-            SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.events_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0);
+            SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.events_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0) {
+
+                // Access users_view_design_ui Widgets//
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+
+                    // Get Cursor Position//
+                    finalCursor.moveToPosition(position);
+
+                    // Get Row Of Database//
+                    final View row = super.getView(position, convertView, parent);
+
+                    // Find Night Mode Automatically//
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+
+                    // Checks Whether app Is In Night Mode Or Not//
+                    int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+                    // Checks All Scenarios//
+                    switch (currentNightMode) {
+
+                        // Night Mode Is Active, We're At Night!//
+                        case Configuration.UI_MODE_NIGHT_YES: {
+
+                            // Define And Instantiate Variable CardView cardView//
+                            CardView cardView = (CardView) row.findViewById(R.id.cardView);
+
+                            // Set Card Background Color To Gray//
+                            cardView.setCardBackgroundColor(ContextCompat.getColor(EventsView.this, R.color.grey));
+
+                            // Kill Code//
+                            break;
+                        }
+                    }
+
+                    // Kill Code//
+                    return row;
+                }
+            };
 
             // Sets Up Adapter Made Earlier / Shows Content From Database//
             eventsListView.setAdapter(simpleCursorAdapter);
