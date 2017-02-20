@@ -27,7 +27,7 @@
     <TextView
         android:id="@+id/usersEditNameLetter"
         android:text="@string/name_letter"
-        android:textColor="@color/darkRed"
+        android:textColor="?attr/colorPrimaryDark"
         android:textSize="40sp"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -51,8 +51,8 @@
         android:layout_marginStart="16dip"
         android:layout_toRightOf="@+id/usersEditCircleImage"
         android:layout_toEndOf="@+id/usersEditCircleImage"
-        app:met_baseColor="@color/darkRed"
-        app:met_primaryColor="@color/darkRed"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark"
         app:met_floatingLabel="highlight"
         app:met_singleLineEllipsis="true"/>
 
@@ -71,8 +71,8 @@
         android:layout_alignRight="@+id/usersEditCircleImage"
         android:layout_alignEnd="@+id/usersEditCircleImage"
         android:layout_below="@+id/usersEditCircleImage"
-        app:met_baseColor="@color/darkRed"
-        app:met_primaryColor="@color/darkRed"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark"
         app:met_floatingLabel="highlight" />
 
     <!-- MaterialEditText UsersEditGrade -->
@@ -90,8 +90,8 @@
         android:layout_below="@+id/usersEditCircleImage"
         android:layout_toRightOf="@+id/usersEditAge"
         android:layout_toEndOf="@+id/usersEditAge"
-        app:met_baseColor="@color/darkRed"
-        app:met_primaryColor="@color/darkRed"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark"
         app:met_floatingLabel="highlight" />
 
     <!-- MaterialEditText UsersEditOrganization -->
@@ -107,8 +107,8 @@
         android:layout_below="@+id/usersEditCircleImage"
         android:layout_toRightOf="@+id/usersEditGrade"
         android:layout_toEndOf="@+id/usersEditGrade"
-        app:met_baseColor="@color/darkRed"
-        app:met_primaryColor="@color/darkRed"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark"
         app:met_floatingLabel="highlight"
         app:met_singleLineEllipsis="true"
         android:layout_alignParentRight="true"

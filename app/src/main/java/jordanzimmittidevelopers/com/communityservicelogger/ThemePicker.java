@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 
 // ThemePicker Class Created By Jordan Zimmitti 2-19-17//
@@ -59,13 +61,37 @@ public class ThemePicker extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Initiate userTheme Method//
-        userTheme();
+        userTheme(this);
 
         // Starts UI For Activity//
         setContentView(R.layout.themes_ui);
 
         // Initiate instantiateWidgets Method//
         instantiateWidgets();
+    }
+
+    //Controls Back Button Functions//
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+
+            // What Happens When Back Button Is Pressed//
+            case KeyEvent.KEYCODE_BACK:
+
+                // Define and Instantiate Variable Intent settings//
+                Intent settings = new Intent(this, Settings.class);
+
+                // Start Activity settings//
+                startActivity(settings);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Kill Code//
+                return false;
+            default:
+                return false;
+        }
     }
 
     // Method That Instantiates Widgets//
@@ -292,65 +318,65 @@ public class ThemePicker extends AppCompatActivity {
     }
 
     // Method That Sets Theme Based On User Preference//
-    public void userTheme() {
+    public void userTheme(Context context) {
 
         // Define And Instantiate Variable SharedPreferences theme//
-        SharedPreferences theme = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
+        SharedPreferences theme = context.getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
 
         // What Happens When User Wants Theme Red//
         if (theme.getInt("theme_picker", 0) == 1) {
 
             // Apply Theme Red//
-            setTheme(R.style.RedTheme);
+            context.setTheme(R.style.RedTheme);
         }
 
         // What Happens When User Wants Theme Orange//
         if (theme.getInt("theme_picker", 0) == 2) {
 
             // Apply Theme Orange//
-            setTheme(R.style.OrangeTheme);
+            context.setTheme(R.style.OrangeTheme);
         }
 
         // What Happens When User Wants Theme Yellow//
         if (theme.getInt("theme_picker", 0) == 3) {
 
             // Apply Theme Yellow//
-            setTheme(R.style.YellowTheme);
+            context.setTheme(R.style.YellowTheme);
         }
 
         // What Happens When User Wants Theme Green//
         if (theme.getInt("theme_picker", 0) == 4) {
 
             // Apply Theme Green//
-            setTheme(R.style.GreenTheme);
+            context.setTheme(R.style.GreenTheme);
         }
 
         // What Happens When User Wants Theme Blue//
         if (theme.getInt("theme_picker", 0) == 5) {
 
             // Apply Theme Blue//
-            setTheme(R.style.BlueTheme);
+            context.setTheme(R.style.BlueTheme);
         }
 
         // What Happens When User Wants Theme Indigo//
         if (theme.getInt("theme_picker", 0) == 6) {
 
             // Apply Theme Indigo//
-            setTheme(R.style.IndigoTheme);
+            context.setTheme(R.style.IndigoTheme);
         }
 
         // What Happens When User Wants Theme Violet//
         if (theme.getInt("theme_picker", 0) == 7) {
 
             // Apply Theme Violet//
-            setTheme(R.style.VioletTheme);
+            context.setTheme(R.style.VioletTheme);
         }
 
         // What Happens When User Wants Theme Pink//
         if (theme.getInt("theme_picker", 0) == 8) {
 
             // Apply Theme Pink//
-            setTheme(R.style.PinkTheme);
+            context.setTheme(R.style.PinkTheme);
         }
     }
 }

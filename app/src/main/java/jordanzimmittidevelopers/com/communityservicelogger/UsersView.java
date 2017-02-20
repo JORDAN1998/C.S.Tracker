@@ -7,12 +7,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -92,6 +90,12 @@ public class UsersView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Define And Instantiate Variable ThemePicker pickTheme//
+        ThemePicker pickTheme = new ThemePicker();
+
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
 
         // Set Title To Users//
         setTitle("Users");
@@ -556,12 +560,6 @@ public class UsersView extends AppCompatActivity {
 
                     // Get Row Of Database//
                     final View row = super.getView(position, convertView, parent);
-
-                    // Define And Instantiate Variable CardView cardView//
-                    CardView cardView = (CardView) row.findViewById(R.id.cardView);
-
-                    // Set Background Color For cardView//
-                    cardView.setCardBackgroundColor(ContextCompat.getColor(UsersView.this, R.color.red));
 
                     // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
                     CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);

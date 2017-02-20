@@ -29,6 +29,12 @@ public class EventsExtraInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Define And Instantiate Variable ThemePicker pickTheme//
+        ThemePicker pickTheme = new ThemePicker();
+
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
+
         // Starts UI For Activity//
         setContentView(R.layout.events_extra_information_ui);
 
