@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Red Theme -->
-    <style name="RedTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="RedTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Main App Color -->
         <item name="colorPrimary">@color/red</item>
@@ -37,7 +37,7 @@
     </style>
 
     <!-- Orange Theme -->
-    <style name="OrangeTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="OrangeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Main App Color -->
         <item name="colorPrimary">@color/orange</item>
@@ -72,7 +72,7 @@
     </style>
 
     <!-- Yellow Theme -->
-    <style name="YellowTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="YellowTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Main App Color -->
         <item name="colorPrimary">@color/yellow</item>
@@ -107,7 +107,7 @@
     </style>
 
     <!-- Green Theme -->
-    <style name="GreenTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="GreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Main App Color -->
         <item name="colorPrimary">@color/green</item>
@@ -142,7 +142,7 @@
     </style>
 
     <!-- Blue Theme -->
-    <style name="BlueTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="BlueTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Main App Color -->
         <item name="colorPrimary">@color/blue</item>
@@ -177,7 +177,7 @@
     </style>
 
     <!-- Indigo Theme -->
-    <style name="IndigoTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="IndigoTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Main App Color -->
         <item name="colorPrimary">@color/indigo</item>
@@ -212,7 +212,7 @@
     </style>
 
     <!-- Violet Theme -->
-    <style name="VioletTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="VioletTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Main App Color -->
         <item name="colorPrimary">@color/violet</item>
@@ -247,7 +247,7 @@
     </style>
 
     <!-- Pink Theme -->
-    <style name="PinkTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="PinkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Main App Color -->
         <item name="colorPrimary">@color/pink</item>
@@ -275,6 +275,41 @@
 
         <!-- Material Dialog Content Color -->
         <item name="md_content_color">@color/black</item>
+
+        <!-- this makes sure the action mode is painted over not above the action bar -->
+        <item name="windowActionModeOverlay">true</item>
+
+    </style>
+
+    <!-- Night Theme -->
+    <style name="NightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- Main App Color -->
+        <item name="colorPrimary">@color/black</item>
+
+        <!-- Dark App Color -->
+        <item name="colorPrimaryDark">@color/black</item>
+
+        <!-- Accent App Color -->
+        <item name="colorAccent">@color/black</item>
+
+        <!-- Theme UI Controls For Android Widget Pressed Color -->
+        <item name="colorControlActivated">@color/black</item>
+
+        <!-- Theme UI Controls For Android Highlighted Text -->
+        <item name="colorControlHighlight">@color/black</item>
+
+        <!-- Text Color -->
+        <item name="android:textColorPrimary">@color/black</item>
+
+        <!-- Material Dialog Background Color -->
+        <item name="md_background_color">@color/black</item>
+
+        <!-- Material Dialog Title Color -->
+        <item name="md_title_color">@color/white</item>
+
+        <!-- Material Dialog Content Color -->
+        <item name="md_content_color">@color/white</item>
 
         <!-- this makes sure the action mode is painted over not above the action bar -->
         <item name="windowActionModeOverlay">true</item>

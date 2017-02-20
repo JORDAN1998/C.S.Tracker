@@ -561,6 +561,8 @@ public class UsersView extends AppCompatActivity {
                     // Get Row Of Database//
                     final View row = super.getView(position, convertView, parent);
 
+
+
                     // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
                     CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
 

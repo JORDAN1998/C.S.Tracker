@@ -43,7 +43,7 @@
             <TextView
                 android:id="@+id/usersViewNameLetter"
                 android:text="@string/name_letter"
-                android:textColor="@color/red"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="40sp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
