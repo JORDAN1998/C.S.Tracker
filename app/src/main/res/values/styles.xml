@@ -36,4 +36,249 @@
 
     </style>
 
+    <!-- Orange Theme -->
+    <style name="OrangeTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+
+        <!-- Main App Color -->
+        <item name="colorPrimary">@color/orange</item>
+
+        <!-- Dark App Color -->
+        <item name="colorPrimaryDark">@color/darkOrange</item>
+
+        <!-- Accent App Color -->
+        <item name="colorAccent">@color/darkOrange</item>
+
+        <!-- Theme UI Controls For Android Widget Pressed Color -->
+        <item name="colorControlActivated">@color/darkOrange</item>
+
+        <!-- Theme UI Controls For Android Highlighted Text -->
+        <item name="colorControlHighlight">@color/darkOrange</item>
+
+        <!-- Text Color -->
+        <item name="android:textColorPrimary">@color/darkOrange</item>
+
+        <!-- Material Dialog Background Color -->
+        <item name="md_background_color">@color/white</item>
+
+        <!-- Material Dialog Title Color -->
+        <item name="md_title_color">@color/darkOrange</item>
+
+        <!-- Material Dialog Content Color -->
+        <item name="md_content_color">@color/black</item>
+
+        <!-- this makes sure the action mode is painted over not above the action bar -->
+        <item name="windowActionModeOverlay">true</item>
+
+    </style>
+
+    <!-- Yellow Theme -->
+    <style name="YellowTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+
+        <!-- Main App Color -->
+        <item name="colorPrimary">@color/yellow</item>
+
+        <!-- Dark App Color -->
+        <item name="colorPrimaryDark">@color/darkYellow</item>
+
+        <!-- Accent App Color -->
+        <item name="colorAccent">@color/darkYellow</item>
+
+        <!-- Theme UI Controls For Android Widget Pressed Color -->
+        <item name="colorControlActivated">@color/darkYellow</item>
+
+        <!-- Theme UI Controls For Android Highlighted Text -->
+        <item name="colorControlHighlight">@color/darkYellow</item>
+
+        <!-- Text Color -->
+        <item name="android:textColorPrimary">@color/darkYellow</item>
+
+        <!-- Material Dialog Background Color -->
+        <item name="md_background_color">@color/white</item>
+
+        <!-- Material Dialog Title Color -->
+        <item name="md_title_color">@color/darkYellow</item>
+
+        <!-- Material Dialog Content Color -->
+        <item name="md_content_color">@color/black</item>
+
+        <!-- this makes sure the action mode is painted over not above the action bar -->
+        <item name="windowActionModeOverlay">true</item>
+
+    </style>
+
+    <!-- Green Theme -->
+    <style name="GreenTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+
+        <!-- Main App Color -->
+        <item name="colorPrimary">@color/green</item>
+
+        <!-- Dark App Color -->
+        <item name="colorPrimaryDark">@color/darkGreen</item>
+
+        <!-- Accent App Color -->
+        <item name="colorAccent">@color/darkGreen</item>
+
+        <!-- Theme UI Controls For Android Widget Pressed Color -->
+        <item name="colorControlActivated">@color/darkGreen</item>
+
+        <!-- Theme UI Controls For Android Highlighted Text -->
+        <item name="colorControlHighlight">@color/darkGreen</item>
+
+        <!-- Text Color -->
+        <item name="android:textColorPrimary">@color/darkGreen</item>
+
+        <!-- Material Dialog Background Color -->
+        <item name="md_background_color">@color/white</item>
+
+        <!-- Material Dialog Title Color -->
+        <item name="md_title_color">@color/darkGreen</item>
+
+        <!-- Material Dialog Content Color -->
+        <item name="md_content_color">@color/black</item>
+
+        <!-- this makes sure the action mode is painted over not above the action bar -->
+        <item name="windowActionModeOverlay">true</item>
+
+    </style>
+
+    <!-- Blue Theme -->
+    <style name="BlueTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+
+        <!-- Main App Color -->
+        <item name="colorPrimary">@color/blue</item>
+
+        <!-- Dark App Color -->
+        <item name="colorPrimaryDark">@color/darkBlue</item>
+
+        <!-- Accent App Color -->
+        <item name="colorAccent">@color/darkBlue</item>
+
+        <!-- Theme UI Controls For Android Widget Pressed Color -->
+        <item name="colorControlActivated">@color/darkBlue</item>
+
+        <!-- Theme UI Controls For Android Highlighted Text -->
+        <item name="colorControlHighlight">@color/darkBlue</item>
+
+        <!-- Text Color -->
+        <item name="android:textColorPrimary">@color/darkBlue</item>
+
+        <!-- Material Dialog Background Color -->
+        <item name="md_background_color">@color/white</item>
+
+        <!-- Material Dialog Title Color -->
+        <item name="md_title_color">@color/darkBlue</item>
+
+        <!-- Material Dialog Content Color -->
+        <item name="md_content_color">@color/black</item>
+
+        <!-- this makes sure the action mode is painted over not above the action bar -->
+        <item name="windowActionModeOverlay">true</item>
+
+    </style>
+
+    <!-- Indigo Theme -->
+    <style name="IndigoTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+
+        <!-- Main App Color -->
+        <item name="colorPrimary">@color/indigo</item>
+
+        <!-- Dark App Color -->
+        <item name="colorPrimaryDark">@color/darkIndigo</item>
+
+        <!-- Accent App Color -->
+        <item name="colorAccent">@color/darkIndigo</item>
+
+        <!-- Theme UI Controls For Android Widget Pressed Color -->
+        <item name="colorControlActivated">@color/darkIndigo</item>
+
+        <!-- Theme UI Controls For Android Highlighted Text -->
+        <item name="colorControlHighlight">@color/darkIndigo</item>
+
+        <!-- Text Color -->
+        <item name="android:textColorPrimary">@color/darkIndigo</item>
+
+        <!-- Material Dialog Background Color -->
+        <item name="md_background_color">@color/white</item>
+
+        <!-- Material Dialog Title Color -->
+        <item name="md_title_color">@color/darkIndigo</item>
+
+        <!-- Material Dialog Content Color -->
+        <item name="md_content_color">@color/black</item>
+
+        <!-- this makes sure the action mode is painted over not above the action bar -->
+        <item name="windowActionModeOverlay">true</item>
+
+    </style>
+
+    <!-- Violet Theme -->
+    <style name="VioletTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+
+        <!-- Main App Color -->
+        <item name="colorPrimary">@color/violet</item>
+
+        <!-- Dark App Color -->
+        <item name="colorPrimaryDark">@color/darkViolet</item>
+
+        <!-- Accent App Color -->
+        <item name="colorAccent">@color/darkViolet</item>
+
+        <!-- Theme UI Controls For Android Widget Pressed Color -->
+        <item name="colorControlActivated">@color/darkViolet</item>
+
+        <!-- Theme UI Controls For Android Highlighted Text -->
+        <item name="colorControlHighlight">@color/darkViolet</item>
+
+        <!-- Text Color -->
+        <item name="android:textColorPrimary">@color/darkViolet</item>
+
+        <!-- Material Dialog Background Color -->
+        <item name="md_background_color">@color/white</item>
+
+        <!-- Material Dialog Title Color -->
+        <item name="md_title_color">@color/darkViolet</item>
+
+        <!-- Material Dialog Content Color -->
+        <item name="md_content_color">@color/black</item>
+
+        <!-- this makes sure the action mode is painted over not above the action bar -->
+        <item name="windowActionModeOverlay">true</item>
+
+    </style>
+
+    <!-- Pink Theme -->
+    <style name="PinkTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+
+        <!-- Main App Color -->
+        <item name="colorPrimary">@color/pink</item>
+
+        <!-- Dark App Color -->
+        <item name="colorPrimaryDark">@color/darkPink</item>
+
+        <!-- Accent App Color -->
+        <item name="colorAccent">@color/darkPink</item>
+
+        <!-- Theme UI Controls For Android Widget Pressed Color -->
+        <item name="colorControlActivated">@color/darkPink</item>
+
+        <!-- Theme UI Controls For Android Highlighted Text -->
+        <item name="colorControlHighlight">@color/darkPink</item>
+
+        <!-- Text Color -->
+        <item name="android:textColorPrimary">@color/darkPink</item>
+
+        <!-- Material Dialog Background Color -->
+        <item name="md_background_color">@color/white</item>
+
+        <!-- Material Dialog Title Color -->
+        <item name="md_title_color">@color/darkPink</item>
+
+        <!-- Material Dialog Content Color -->
+        <item name="md_content_color">@color/black</item>
+
+        <!-- this makes sure the action mode is painted over not above the action bar -->
+        <item name="windowActionModeOverlay">true</item>
+
+    </style>
+
 </resources>

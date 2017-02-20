@@ -182,6 +182,36 @@ public class EventsDatabase {
         c.close();
     }
 
+    // Delete All Events For Specific User//
+    public void deleteAllUserEvents(String workingNameUser) {
+
+        // Gets Rows In Database Based On Name Of User//
+        Cursor c = db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'", null);
+
+        // What Happens When c Doesn't Equal Null//
+        if (c != null) {
+
+            // Move To First Row//
+            c.moveToFirst();
+        }
+
+        // What Happens If There Is Another Row//
+        while (!c.isAfterLast()) {
+
+            // Define Variable int id / Get Row Id//
+            int id = c.getInt(c.getColumnIndex(KEY_ROW_ID_NUMBER));
+
+            // Get Specific Row ID//
+            String where = KEY_ROW_ID_NUMBER + "=" + id;
+
+            // Delete Row//
+            db.delete(DATABASE_TABLE, where, null);
+
+            // Move To Next Row//
+            c.moveToNext();
+        }
+    }
+
     // Get All Rows In The Database From Oldest To Newest//
     public Cursor getAllRowsOldestToNewest() {
 

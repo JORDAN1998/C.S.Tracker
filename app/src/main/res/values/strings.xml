@@ -8,7 +8,9 @@
     <string name="activity_users_add">Add User</string>
     <string name="activity_users_edit">Edit User</string>
     <string name="activity_events_extra_information">Event Information</string>
+    <string name="activity_events_add">Add Event</string>
     <string name="activity_events_edit">Edit Event</string>
+    <string name="activity_settings">Settings</string>
 
     <!-- Menu Strings -->
     <string name="copy">Copy</string>
@@ -45,5 +47,6 @@
     <!-- Events Navigation Drawer Values Strings -->
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="themes">Themes</string>
 
 </resources>

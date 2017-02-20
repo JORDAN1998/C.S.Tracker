@@ -1,6 +1,7 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
@@ -119,6 +120,15 @@ public class UsersNavigationDrawer extends Fragment {
 
                         // Vibrate For 50 Mil//
                         vibe.vibrate(50);
+
+                        // Define and Instantiate Variable Intent settings//
+                        Intent settings = new Intent(context, Settings.class);
+
+                        // Start Activity Settings//
+                        startActivity(settings);
+
+                        // Custom Transition//
+                        getActivity().overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
 
                         break;
                     }

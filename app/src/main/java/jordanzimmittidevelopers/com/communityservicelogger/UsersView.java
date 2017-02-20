@@ -353,6 +353,21 @@ public class UsersView extends AppCompatActivity {
                                 // Vibrates For 50 Mill//
                                 vibe.vibrate(50);
 
+                                // Gets Row From UsersDatabase//
+                                Cursor cursor = usersDatabase.getRow(String.valueOf(id));
+
+                                // Define And Instantiate Variable String workingNameUser//
+                                String workingNameUser = cursor.getString(UsersDatabase.COL_NAME);
+
+                                // Define And Instantiate Variable EventsDatabase eventsDatabase//
+                                EventsDatabase eventsDatabase = new EventsDatabase(UsersView.this);
+
+                                // Open Database//
+                                eventsDatabase.open();
+
+                                // Delete All Events Of Specified User//
+                                eventsDatabase.deleteAllUserEvents(workingNameUser);
+
                                 // Deletes Specific Item In ListView//
                                 usersDatabase.deleteRow(id);
 
