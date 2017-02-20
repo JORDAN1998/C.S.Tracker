@@ -8,9 +8,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/usersDrawerLayout"
     android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkWhite"
     tools:context=".UsersView">
 
     <!-- UI For Activity UsersView -->

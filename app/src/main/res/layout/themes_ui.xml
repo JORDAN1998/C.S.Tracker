@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI For Activity ThemePicker -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/themes_ui"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dip"
+    tools:context=".ThemePicker">
+
+    <!-- FAB fabRed -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fabRed"
+        android:clickable="true"
+        android:onClick="onClickFabRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        fab:fab_colorNormal="@color/red"
+        fab:fab_colorPressed="@color/darkRed"
+        fab:fab_colorRipple="@color/red" />
+
+    <!-- FAB fabOrange -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fabOrange"
+        android:clickable="true"
+        android:onClick="onClickFabOrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginStart="30dip"
+        android:layout_toRightOf="@+id/fabRed"
+        android:layout_toEndOf="@+id/fabRed"
+        fab:fab_colorNormal="@color/orange"
+        fab:fab_colorPressed="@color/darkOrange"
+        fab:fab_colorRipple="@color/orange" />
+
+    <!-- FAB fabYellow -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fabYellow"
+        android:clickable="true"
+        android:onClick="onClickFabYellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dip"
+        android:layout_marginEnd="30dip"
+        android:layout_toLeftOf="@+id/fabGreen"
+        android:layout_toStartOf="@+id/fabGreen"
+        fab:fab_colorNormal="@color/yellow"
+        fab:fab_colorPressed="@color/darkYellow"
+        fab:fab_colorRipple="@color/yellow" />
+
+    <!-- FAB fabGreen -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fabGreen"
+        android:clickable="true"
+        android:onClick="onClickFabGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_colorNormal="@color/green"
+        fab:fab_colorPressed="@color/darkGreen"
+        fab:fab_colorRipple="@color/green" />
+
+    <!-- FAB fabBlue -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fabBlue"
+        android:clickable="true"
+        android:onClick="onClickFabBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/fabRed"
+        fab:fab_colorNormal="@color/blue"
+        fab:fab_colorPressed="@color/darkBlue"
+        fab:fab_colorRipple="@color/blue" />
+
+    <!-- FAB fabIndigo -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fabIndigo"
+        android:clickable="true"
+        android:onClick="onClickFabIndigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dip"
+        android:layout_marginLeft="30dip"
+        android:layout_marginStart="30dip"
+        android:layout_toRightOf="@+id/fabBlue"
+        android:layout_toEndOf="@+id/fabBlue"
+        android:layout_below="@+id/fabRed"
+        fab:fab_colorNormal="@color/indigo"
+        fab:fab_colorPressed="@color/darkIndigo"
+        fab:fab_colorRipple="@color/indigo" />
+
+    <!-- FAB fabViolet -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fabViolet"
+        android:clickable="true"
+        android:onClick="onClickFabViolet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dip"
+        android:layout_marginRight="30dip"
+        android:layout_marginEnd="30dip"
+        android:layout_toLeftOf="@+id/fabPink"
+        android:layout_toStartOf="@+id/fabPink"
+        android:layout_below="@+id/fabRed"
+        fab:fab_colorNormal="@color/violet"
+        fab:fab_colorPressed="@color/darkViolet"
+        fab:fab_colorRipple="@color/violet" />
+
+    <!-- FAB fabPink -->
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fabPink"
+        android:clickable="true"
+        android:onClick="onClickFabPink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/fabRed"
+        fab:fab_colorNormal="@color/pink"
+        fab:fab_colorPressed="@color/darkPink"
+        fab:fab_colorRipple="@color/pink" />
+
+    <!-- View view1 -->
+    <View
+        android:id="@+id/view1"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginTop="16dip"
+        android:layout_below="@+id/fabBlue"/>
+
+    <!-- TextView eventsAddNameTitle -->
+    <TextView
+        android:id="@+id/nightModeText"
+        android:text="@string/night_mode"
+        android:textSize="20sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="13dip"
+        android:paddingBottom="13dip"
+        android:paddingLeft="50dip"
+        android:paddingStart="50dip"
+        android:layout_below="@+id/view1"/>
+
+    <!-- Switch nightModeSwitch -->
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/nightModeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view1"
+        android:paddingTop="18dip"
+        android:paddingBottom="18dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <!-- View view2 -->
+    <View
+        android:id="@+id/view2"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/nightModeSwitch"/>
+
+</RelativeLayout>

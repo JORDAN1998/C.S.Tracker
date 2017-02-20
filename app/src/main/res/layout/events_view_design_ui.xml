@@ -18,7 +18,7 @@
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardBackgroundColor="@color/red"
+        card_view:cardBackgroundColor="?attr/colorPrimary"
         card_view:cardCornerRadius="10dp"
         card_view:cardElevation="0dp">
 

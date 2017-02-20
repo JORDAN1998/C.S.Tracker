@@ -48,5 +48,6 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="themes">Themes</string>
+    <string name="night_mode">Night Mode</string>
 
 </resources>

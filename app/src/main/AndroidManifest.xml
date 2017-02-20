@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!-- Log Of All Activities, Broadcasts, And Permissions, Used By The App -->
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!-- Log Of All Activities, Broadcasts, And Permissions, Used By The App -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jordanzimmittidevelopers.com.communityservicelogger">
 
     <!-- Allows App To Write To External Storage For Backup, Restore, And Print Features -->
@@ -46,13 +43,12 @@
             android:label="@string/activity_users_edit" />
 
         <!-- Activity EventsView -->
-        <activity
-            android:name=".EventsView" />
+        <activity android:name=".EventsView" />
 
         <!-- Activity EventsAdd -->
         <activity
             android:name=".EventsAdd"
-            android:label="@string/activity_events_add"/>
+            android:label="@string/activity_events_add" />
 
         <!-- Activity EventsExtraInformation -->
         <activity
@@ -67,8 +63,8 @@
         <!-- Activity Settings -->
         <activity
             android:name=".Settings"
-            android:label="@string/activity_settings"/>
-
+            android:label="@string/activity_settings" />
+        <activity android:name=".ThemePicker"></activity>
     </application>
 
 </manifest>

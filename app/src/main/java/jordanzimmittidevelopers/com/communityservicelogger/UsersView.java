@@ -62,7 +62,7 @@ public class UsersView extends AppCompatActivity {
 
     //<editor-fold desc="Shared Preference">
 
-    // Saves Sort Preference To String//
+    // Name Of Preference And What Its Saving The Integer To//
     private static final String USER_SORT_TYPE = "user_sort_type";
 
     // Apply Sort Preference//
@@ -501,12 +501,6 @@ public class UsersView extends AppCompatActivity {
 
                 // Get Row Of Database//
                 final View row = super.getView(position, convertView, parent);
-
-                // Define And Instantiate Variable CardView cardView//
-                CardView cardView = (CardView) row.findViewById(R.id.cardView);
-
-                // Set Background Color For cardView//
-                cardView.setCardBackgroundColor(ContextCompat.getColor(UsersView.this, R.color.red));
 
                 // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
                 CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);

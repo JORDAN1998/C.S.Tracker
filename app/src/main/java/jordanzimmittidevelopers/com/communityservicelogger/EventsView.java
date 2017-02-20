@@ -83,7 +83,7 @@ public class EventsView extends AppCompatActivity {
 
     //<editor-fold desc="Shared Preference">
 
-    // Saves Sort Preference To String//
+    // Name Of Preference And What Its Saving The Integer To//
     private static final String EVENT_SORT_TYPE = "event_sort_type";
 
     // Apply Sort Preference//
