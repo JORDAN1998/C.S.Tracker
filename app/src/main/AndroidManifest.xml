@@ -5,6 +5,9 @@
     <!-- Allows App To Write To External Storage For Backup, Restore, And Print Features -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- Allows App To Get Users Location -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <!-- Allows App To Vibrate -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -64,7 +67,12 @@
         <activity
             android:name=".Settings"
             android:label="@string/activity_settings" />
-        <activity android:name=".ThemePicker"></activity>
+
+        <!-- Activity ThemePicker -->
+        <activity
+            android:name=".ThemePicker"
+            android:label="@string/activity_theme_picker"/>
+
     </application>
 
 </manifest>

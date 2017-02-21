@@ -11,6 +11,9 @@
     <string name="activity_events_add">Add Event</string>
     <string name="activity_events_edit">Edit Event</string>
     <string name="activity_settings">Settings</string>
+    <string name="activity_theme_picker">Pick Your Theme</string>
+
+    activity_theme_picker
 
     <!-- Menu Strings -->
     <string name="copy">Copy</string>

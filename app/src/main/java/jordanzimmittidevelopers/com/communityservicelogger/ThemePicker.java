@@ -97,6 +97,9 @@ public class ThemePicker extends AppCompatActivity {
         // Night Mode Theme Extension Options//
         activityNightModeExtension(this, relativeLayout);
 
+        // Initiate getLocationPermission Method//
+        getLocationPermission();
+
         // Initiate instantiateWidgets Method//
         instantiateWidgets();
 
@@ -208,7 +211,7 @@ public class ThemePicker extends AppCompatActivity {
 
         // Get Current Activity//
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CONTACTS)
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Checks If App Has Access To Specified Permission//
@@ -221,6 +224,8 @@ public class ThemePicker extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         GET_LOCATION);
+
+
             }
         }
     }
@@ -278,9 +283,6 @@ public class ThemePicker extends AppCompatActivity {
 
                     // Save Value//
                     edit.apply();
-
-                    // Initiate getLocationPermission Method//
-                    getLocationPermission();
 
                     // Initiate activityNightModeMethod//
                     activityNightMode(ThemePicker.this);
