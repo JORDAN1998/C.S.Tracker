@@ -12,37 +12,24 @@
     android:layout_height="match_parent"
     tools:context=".Settings">
 
-    <!-- ImageView colorImage -->
-    <ImageView
-        android:id="@+id/colorImage"
-        app:srcCompat="@drawable/color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dip"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <!-- TextView eventsAddNameTitle -->
+    <!-- TextView themes -->
     <TextView
         android:id="@+id/themes"
         android:text="@string/themes"
         android:textSize="20sp"
         android:clickable="true"
         android:onClick="onClickThemes"
+        android:gravity="center"
         android:textColor="?android:attr/textColorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="13dip"
-        android:paddingBottom="13dip"
-        android:paddingLeft="50dip"
-        android:paddingStart="50dip"
+        android:paddingTop="16dip"
+        android:paddingBottom="16dip"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/colorImage" />
+        android:layout_alignParentEnd="true" />
 
     <!-- View view1 -->
     <View
@@ -51,5 +38,42 @@
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:layout_below="@+id/themes"/>
+
+    <!-- TextView usersMode -->
+    <TextView
+        android:id="@+id/usersMode"
+        android:text="@string/users_mode"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dip"
+        android:paddingBottom="16dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/themes"/>
+
+    <!-- Switch usersModeSwitch -->
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/usersModeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view1"
+        android:paddingTop="20dip"
+        android:paddingBottom="20dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        app:theme="@style/SwitchColor"/>
+
+    <!-- View view2 -->
+    <View
+        android:id="@+id/view2"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/usersMode"/>
 
 </RelativeLayout>

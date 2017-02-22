@@ -236,22 +236,8 @@ public class ThemePicker extends AppCompatActivity {
         // Instantiate Variable SwitchCompat nightModeSwitch//
         nightModeSwitch = (SwitchCompat) findViewById(R.id.nightModeSwitch);
 
-        // Define And Instantiate Variable SharedPreferences switchState//
-        SharedPreferences switchState = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
-
-        // What Happens When Switch Is Un-Checked//
-        if (switchState.getInt("switch_state", 0) == 1) {
-
-            // Un-Check Switch//
-            nightModeSwitch.setChecked(false);
-        }
-
-        // What Happens When Switch Is Checked//
-        if (switchState.getInt("switch_state", 0) == 2) {
-
-            // Check Switch//
-            nightModeSwitch.setChecked(true);
-        }
+        // Initiate switchPreference Method/
+        switchPreference();
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -536,6 +522,27 @@ public class ThemePicker extends AppCompatActivity {
         finish();
         startActivity(intent);
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+    }
+
+    // Method To Set Switch Preference//
+    private void switchPreference() {
+
+        // Define And Instantiate Variable SharedPreferences switchState//
+        SharedPreferences switchState = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
+
+        // What Happens When Switch Is Un-Checked//
+        if (switchState.getInt("switch_state", 0) == 1) {
+
+            // Un-Check Switch//
+            nightModeSwitch.setChecked(false);
+        }
+
+        // What Happens When Switch Is Checked//
+        if (switchState.getInt("switch_state", 0) == 2) {
+
+            // Check Switch//
+            nightModeSwitch.setChecked(true);
+        }
     }
 
     // Method That Sets Theme Based On User Preference//
