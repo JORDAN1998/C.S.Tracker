@@ -53,8 +53,8 @@ public class UsersEdit extends AppCompatActivity {
 
     //<editor-fold desc="String">
 
-    // Define Variable String passedVar / String Of Id Values//
-    private String passedVar = null;
+    // Define Variable String listViewItemId / String Of Id Values//
+    private String listViewItemId;
 
     // Define Variable String userEditAgeString//
     private String usersEditAgeString;
@@ -132,20 +132,8 @@ public class UsersEdit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Define And Instantiate Variable ThemePicker pickTheme//
-        ThemePicker pickTheme = new ThemePicker();
-
-        // Set Theme Based On User Preference//
-        pickTheme.userTheme(this);
-
-        // Starts UI For Activity//
-        setContentView(R.layout.users_edit_ui);
-
-        // Define And Instantiate RelativeLayout relativeLayout//
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.users_edit_ui);
-
-        // Night Mode Theme Extension Options//
-        pickTheme.activityNightModeExtension(this, relativeLayout);
+        // Initiate applyTheme Method//
+        applyTheme();
 
         // Initiate usersDatabaseOpen Method//
         usersDatabaseOpen();
@@ -216,6 +204,25 @@ public class UsersEdit extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Method That Applies Theme By User Preference//
+    private void applyTheme() {
+
+        // Define And Instantiate Variable ThemePicker pickTheme//
+        ThemePicker pickTheme = new ThemePicker();
+
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
+
+        // Starts UI For Activity//
+        setContentView(R.layout.users_edit_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.users_edit_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
+    }
+
     // What Happens When usersViewCircleImage Is Clicked//
     public void onClickCircleImage(View view) {
 
@@ -273,10 +280,10 @@ public class UsersEdit extends AppCompatActivity {
     private void getDatabaseValues() {
 
         // Gets Id Of Last Clicked List View Item//
-        passedVar = getIntent().getStringExtra(UsersView.LIST_VIEW_ITEM_ID);
+        listViewItemId = getIntent().getStringExtra(UsersView.LIST_VIEW_ITEM_ID);
 
         // Gets Row//
-        cursor = usersDatabase.getRow(passedVar);
+        cursor = usersDatabase.getRow(listViewItemId);
 
         // Define And Instantiate Variable Byte byteImage//
         byteImage = cursor.getBlob(UsersDatabase.COL_IMAGE);
@@ -415,7 +422,7 @@ public class UsersEdit extends AppCompatActivity {
             if (usersEditNameLetter.getVisibility() == View.INVISIBLE) {
 
                 // Update Values Without usersEditNameLetter Into Database//
-                usersDatabase.updateRow(passedVar, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditGrade.getText().toString(), usersEditOrganization.getText().toString(), "", getBytes(bitmap));
+                usersDatabase.updateRow(listViewItemId, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditGrade.getText().toString(), usersEditOrganization.getText().toString(), "", getBytes(bitmap));
 
                 // Close Database When Finished/
                 usersDatabase.close();
@@ -423,7 +430,7 @@ public class UsersEdit extends AppCompatActivity {
             } else {
 
                 // Update Values With usersEditNameLetter Into Database//
-                usersDatabase.updateRow(passedVar, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditGrade.getText().toString(), usersEditOrganization.getText().toString(), usersEditNameLetter.getText().toString(), getBytes(bitmap));
+                usersDatabase.updateRow(listViewItemId, usersEditName.getText().toString(), usersEditAge.getText().toString(), usersEditGrade.getText().toString(), usersEditOrganization.getText().toString(), usersEditNameLetter.getText().toString(), getBytes(bitmap));
 
                 // Close Database When Finished/
                 usersDatabase.close();
