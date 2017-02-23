@@ -344,7 +344,7 @@ public class UsersView extends AppCompatActivity {
                                 // Deletes Specific Item In ListView//
                                 usersDatabase.deleteRow(id);
 
-                                // populates ListView//
+                                // Populates ListView Based On User Sort Preference//
                                 sortByPreference();
 
                                 // Restart UsersView Class//
@@ -455,28 +455,39 @@ public class UsersView extends AppCompatActivity {
                 // Get Row Of Database//
                 final View row = super.getView(position, convertView, parent);
 
-                // Find Night Mode Automatically//
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+                //<editor-fold desc="Night Mode">
 
-                // Checks Whether app Is In Night Mode Or Not//
-                int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                // Define And Instantiate Variable SharedPreferences switchState//
+                SharedPreferences switchState = getSharedPreferences("switch_state", MODE_PRIVATE);
 
-                // Checks All Scenarios//
-                switch (currentNightMode) {
+                // What Happens When Night Mode Switch Is Checked//
+                if (switchState.getInt("switch_state", 0) == 2) {
 
-                    // Night Mode Is Active, We're At Night!//
-                    case Configuration.UI_MODE_NIGHT_YES: {
+                    // Find Night Mode Automatically//
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
 
-                        // Define And Instantiate Variable CardView cardView//
-                        CardView cardView = (CardView) row.findViewById(R.id.cardView);
+                    // Checks Whether app Is In Night Mode Or Not//
+                    int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
-                        // Set Card Background Color To Gray//
-                        cardView.setCardBackgroundColor(ContextCompat.getColor(UsersView.this, R.color.grey));
+                    // Checks All Scenarios//
+                    switch (currentNightMode) {
 
-                        // Kill Code//
-                        break;
+                        // Night Mode Is Active, We're At Night!//
+                        case Configuration.UI_MODE_NIGHT_YES: {
+
+                            // Define And Instantiate Variable CardView cardView//
+                            CardView cardView = (CardView) row.findViewById(R.id.cardView);
+
+                            // Set Card Background Color To Gray//
+                            cardView.setCardBackgroundColor(ContextCompat.getColor(UsersView.this, R.color.grey));
+
+                            // Kill Code//
+                            break;
+                        }
                     }
                 }
+
+                //</editor-fold>
 
                 // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
                 CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
@@ -550,6 +561,40 @@ public class UsersView extends AppCompatActivity {
 
                                 // Get Row Of Database//
                                 final View row = super.getView(position, convertView, parent);
+
+                                //<editor-fold desc="Night Mode">
+
+                                // Define And Instantiate Variable SharedPreferences switchState//
+                                SharedPreferences switchState = getSharedPreferences("switch_state", MODE_PRIVATE);
+
+                                // What Happens When Night Mode Switch Is Checked//
+                                if (switchState.getInt("switch_state", 0) == 2) {
+
+                                    // Find Night Mode Automatically//
+                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+
+                                    // Checks Whether app Is In Night Mode Or Not//
+                                    int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+                                    // Checks All Scenarios//
+                                    switch (currentNightMode) {
+
+                                        // Night Mode Is Active, We're At Night!//
+                                        case Configuration.UI_MODE_NIGHT_YES: {
+
+                                            // Define And Instantiate Variable CardView cardView//
+                                            CardView cardView = (CardView) row.findViewById(R.id.cardView);
+
+                                            // Set Card Background Color To Gray//
+                                            cardView.setCardBackgroundColor(ContextCompat.getColor(UsersView.this, R.color.grey));
+
+                                            // Kill Code//
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                //</editor-fold>
 
                                 // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
                                 CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
@@ -627,7 +672,7 @@ public class UsersView extends AppCompatActivity {
                             userSortType.edit().clear().apply();
 
                             // Save New Value Into Shared Preference//
-                            userSortType.edit().putInt("user_sort_by", SORT_BY_NAME).apply();
+                            userSortType.edit().putInt(USER_SORT_TYPE, SORT_BY_NAME).apply();
 
                             // Define and Instantiate Variable Intent UsersView//
                             Intent usersView = new Intent(UsersView.this, UsersView.class);
@@ -649,7 +694,7 @@ public class UsersView extends AppCompatActivity {
                             userSortType.edit().clear().apply();
 
                             // Save New Value Into Shared Preference//
-                            userSortType.edit().putInt("user_sort_by", SORT_BY_NEWEST_TO_OLDEST).apply();
+                            userSortType.edit().putInt(USER_SORT_TYPE, SORT_BY_NEWEST_TO_OLDEST).apply();
 
                             // Define and Instantiate Variable Intent UsersView//
                             Intent usersView = new Intent(UsersView.this, UsersView.class);
@@ -671,7 +716,7 @@ public class UsersView extends AppCompatActivity {
                             userSortType.edit().clear().apply();
 
                             // Save New Value Into Shared Preference//
-                            userSortType.edit().putInt("user_sort_by", SORT_BY_OLDEST_TO_NEWEST).apply();
+                            userSortType.edit().putInt(USER_SORT_TYPE, SORT_BY_OLDEST_TO_NEWEST).apply();
 
                             // Define and Instantiate Variable Intent UsersView//
                             Intent usersView = new Intent(UsersView.this, UsersView.class);
@@ -694,7 +739,7 @@ public class UsersView extends AppCompatActivity {
     private void sortByPreference() {
 
         // What Happens When User Wants Database Sorted By Name//
-        if (userSortType.getInt("user_sort_by", 0) == 0) {
+        if (userSortType.getInt(USER_SORT_TYPE, 0) == 0) {
 
             // Gets All Rows Added To Database From Name//
             cursor = usersDatabase.getAllRowsName();
@@ -704,7 +749,7 @@ public class UsersView extends AppCompatActivity {
         }
 
         // What Happens When User Wants Database Sorted By Newest To Oldest//
-        else if (userSortType.getInt("user_sort_by", 0) == 1) {
+        else if (userSortType.getInt(USER_SORT_TYPE, 0) == 1) {
 
             // Gets All Rows Added To Database From Name//
             cursor = usersDatabase.getAllRowsNewestToOldest();
@@ -714,7 +759,7 @@ public class UsersView extends AppCompatActivity {
         }
 
         // What Happens When User Wants Database Sorted By Oldest To Newest//
-        else if (userSortType.getInt("user_sort_by", 0) == 2) {
+        else if (userSortType.getInt(USER_SORT_TYPE, 0) == 2) {
 
             // Gets All Rows Added To Database From Oldest To Newest//
             cursor = usersDatabase.getAllRowsOldestToNewest();
