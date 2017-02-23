@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 // Settings Class Created By Jordan Zimmitti 2-19-17//
 public class Settings extends AppCompatActivity {
 
@@ -148,12 +151,38 @@ public class Settings extends AppCompatActivity {
 
                     // Save Value//
                     edit.apply();
+
+                    // Creates Dialog//
+                    new MaterialDialog.Builder(Settings.this)
+
+                            // Title Of Dialog//
+                            .title("Warning")
+
+                            // Content Of Dialog//
+                            .content("Turning off users will get rid of all users but the one you choose; this cannot be undone. After clicking Ok, click the user profile that you want to save for single user mode")
+
+                            // Positive Text Name For Button//
+                            .positiveText("Yes")
+
+                            // What Happens When Positive Button Is Pressed//
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                    // Vibrates For 50 Mill//
+                                    vibe.vibrate(50);
+
+
+
+                                }
+                            }).show();
                 }
             }
         });
     }
 
-    // Method To Set Switch Preference//
+    // Method To Apply Switch Preference//
     private void switchPreference() {
 
         // Default Switch To Checked//

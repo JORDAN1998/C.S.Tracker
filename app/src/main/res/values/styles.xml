@@ -291,7 +291,7 @@
         <item name="colorPrimaryDark">@color/grey</item>
 
         <!-- Accent App Color -->
-        <item name="colorAccent">@color/grey</item>
+        <item name="colorAccent">@color/black</item>
 
         <!-- Theme UI Controls For Android Widget Pressed Color -->
         <item name="colorControlActivated">@color/black</item>

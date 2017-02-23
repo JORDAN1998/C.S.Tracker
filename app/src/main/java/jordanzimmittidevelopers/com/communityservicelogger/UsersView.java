@@ -40,10 +40,13 @@ public class UsersView extends AppCompatActivity {
     //<editor-fold desc="Extra">
 
     // Puts Id Of Last Clicked ListView Item Into String//
-    public final static String KEY_ROW_ID_NUMBER = UsersDatabase.KEY_ROW_ID_NUMBER;
+    public final static String LIST_VIEW_ITEM_ID = null;
 
     // Puts Name Of Last Clicked ListView Item Into String//
     public final static String USERS_VIEW_NAME_USER = null;
+
+    // Define Variable Cursor cursor//
+    private Cursor cursor;
 
     // Define Variable UsersDatabase usersDatabase//
     private UsersDatabase usersDatabase;
@@ -55,30 +58,30 @@ public class UsersView extends AppCompatActivity {
 
     //<editor-fold desc="Navigation Drawer Variables">
 
-    // Define Variable NavigationDrawer navigationDrawer//
+    // Define Variable UsersNavigationDrawer usersNavigationDrawer//
     private UsersNavigationDrawer usersNavigationDrawer;
 
-    // NavigationDrawer Items//
+    // UsersNavigationDrawer Items//
     private String[] items = new String[] {"Reminders", "Settings"};
 
     //</editor-fold>
 
     //<editor-fold desc="Shared Preference">
 
+    // Define Variable SharedPreference userSortType//
+    private SharedPreferences userSortType;
+
     // Name Of Preference And What Its Saving The Integer To//
     private static final String USER_SORT_TYPE = "user_sort_type";
 
-    // Apply Sort Preference//
-    private static int SORT_BY_USER;
+    // Apply Sort By Name//
+    private final static int SORT_BY_NAME = 0;
 
-    // Sort By Name//
-    private final static int SORT_BY_NAME = 1;
+    // Apply Sort By Newest To Oldest//
+    private final static int SORT_BY_NEWEST_TO_OLDEST = 1;
 
-    // Sort By Newest To Oldest//
-    private final static int SORT_BY_NEWEST_TO_OLDEST = 2;
-
-    // Sort By Newest To Oldest//
-    private final static int SORT_BY_OLDEST_TO_NEWEST = 3;
+    // Apply Sort By Newest To Oldest//
+    private final static int SORT_BY_OLDEST_TO_NEWEST = 2;
 
     //</editor-fold>
 
@@ -96,26 +99,8 @@ public class UsersView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Define And Instantiate Variable ThemePicker pickTheme//
-        ThemePicker pickTheme = new ThemePicker();
-
-        // Set Theme Based On User Preference//
-        pickTheme.userTheme(this);
-
-        // Set Title To Users//
-        setTitle("Users");
-
-        // Starts UI For Activity//
-        setContentView(R.layout.users_view_ui);
-
-        // Define And Instantiate RelativeLayout relativeLayout//
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.users_view_ui);
-
-        // Night Mode Theme Extension Options//
-        pickTheme.activityNightModeExtension(this, relativeLayout);
-
-        // Initiate usersDatabaseOpen Method//
-        usersDatabaseOpen();
+        // Initiate applyTheme Method//
+        applyTheme();
 
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
@@ -126,8 +111,14 @@ public class UsersView extends AppCompatActivity {
         // Initiate listViewItemLongClick Method//
         listViewItemLongClick();
 
-        // Initiate populateListView//
-        populateListView();
+        // Initiate navigationDrawer Method//
+        navigationDrawer();
+
+        // Initiate usersDatabaseOpen Method//
+        usersDatabaseOpen();
+
+        // Initiate sortByPreference Method//
+        sortByPreference();
     }
 
     // Creates Menu And All Its Components//
@@ -137,54 +128,8 @@ public class UsersView extends AppCompatActivity {
         // Inflates The Menu / This Adds Items To The Action Bar If It Is Present//
         getMenuInflater().inflate(R.menu.users_view_menu, menu);
 
-        // Define And Instantiate SearchView usersSearch//
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.usersSearch));
-
-        // Set Query Hint For User//
-        searchView.setQueryHint("Search Users");
-
-        // Runs When Text Is Being Entered Into Search Box//
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            // Runs When user Submits Text //
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                // Kill Code//
-                return false;
-            }
-
-            // Runs Each Time User Adds Letter In Search Box//
-            @Override
-            public boolean onQueryTextChange(String searchText) {
-
-                // Checks If Search Is Empty//
-                if (!searchText.isEmpty()) {
-
-                    // Initiate Search Title Method//
-                    searchTitle(searchText);
-                }
-
-                // Kill Code//
-                return true;
-            }
-        });
-
-        // Runs When SearchView Is Closed//
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-
-                // Repopulate Original ListView//
-                populateListView();
-
-                // Close Search Box//
-                searchView.onActionViewCollapsed();
-
-                // Kill Code//
-                return true;
-            }
-        });
+        // Initiate searchUser Method//
+        searchUser(menu);
 
         // Kill Code//
         return true;
@@ -205,12 +150,18 @@ public class UsersView extends AppCompatActivity {
 
             // Toggle Navigation Drawer//
             usersNavigationDrawer.buttonToggle();
+
+            // Kill Code//
+            return true;
         }
 
         // What Happens When usersSortBy Is Pressed//
         if (id == R.id.usersSortBy) {
 
-            // Initiate Method orderBy//
+            // Vibrates For 50 Mill//
+            vibe.vibrate(50);
+
+            // Initiate Method sortBy//
             sortBy();
 
             // Kill Code//
@@ -252,6 +203,9 @@ public class UsersView extends AppCompatActivity {
                                 // Vibrates For 50 Mill//
                                 vibe.vibrate(50);
 
+                                // Close usersDatabase//
+                                usersDatabase.close();
+
                                 // Intent To Kill app//
                                 Intent killApp = new Intent(Intent.ACTION_MAIN);
                                 killApp.addCategory(Intent.CATEGORY_HOME);
@@ -268,38 +222,39 @@ public class UsersView extends AppCompatActivity {
         }
     }
 
-    // Method That Opens Database//
-    private void usersDatabaseOpen() {
+    // Method That Applies Theme By User Preference//
+    private void applyTheme() {
 
-        // Instantiate Variable UsersDatabase usersDatabase//
-        usersDatabase = new UsersDatabase(this);
+        // Define And Instantiate Variable ThemePicker pickTheme//
+        ThemePicker pickTheme = new ThemePicker();
 
-        // Open Database//
-        usersDatabase.open();
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
+
+        // Set Activity Title//
+        setTitle("Users");
+
+        // Starts UI For Activity//
+        setContentView(R.layout.users_view_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.users_view_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
     }
 
     // Method That Instantiates Widgets//
     private void instantiateWidgets() {
 
-        // Instantiate / Set Up Navigation Drawer//
-        //<editor-fold desc="Navigation Drawer">
+        // Instantiate Variable ListView usersListView//
+        usersListView = (ListView) findViewById(R.id.usersListView);
 
         // Instantiate NavigationDrawer navigationDrawer//
         usersNavigationDrawer = (UsersNavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.noteNavigationDrawer);
 
-        // Sets Up NavigationDrawer//
-        usersNavigationDrawer.setUp((DrawerLayout) findViewById(R.id.usersDrawerLayout), R.id.noteNavigationDrawer);
-
-        // Add NavigationDrawer Items//
-        usersNavigationDrawer.addItems(this, items);
-
-        // Show Hamburger Icon//
-        usersNavigationDrawer.showHamburgerIcon(true);
-
-        //</editor-fold>
-
-        // Instantiate Variable ListView usersListView//
-        usersListView = (ListView) findViewById(R.id.usersListView);
+        // Instantiate Variable SharedPreference userSortType//
+        userSortType = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -321,7 +276,7 @@ public class UsersView extends AppCompatActivity {
                 Intent eventsView = new Intent(UsersView.this, EventsView.class);
 
                 // Gets Row//
-                Cursor cursor = usersDatabase.getRow(String.valueOf(id));
+                cursor = usersDatabase.getRow(String.valueOf(id));
 
                 // Get Name Of Item Clicked In userListView//
                 eventsView.putExtra(USERS_VIEW_NAME_USER, cursor.getString(UsersDatabase.COL_NAME));
@@ -331,6 +286,12 @@ public class UsersView extends AppCompatActivity {
 
                 // Custom Transition//
                 overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Close Cursor//
+                cursor.close();
+
+                // Close usersDatabase//
+                usersDatabase.close();
             }
         });
     }
@@ -369,10 +330,7 @@ public class UsersView extends AppCompatActivity {
                                 vibe.vibrate(50);
 
                                 // Gets Row From UsersDatabase//
-                                Cursor cursor = usersDatabase.getRow(String.valueOf(id));
-
-                                // Define And Instantiate Variable String workingNameUser//
-                                String workingNameUser = cursor.getString(UsersDatabase.COL_NAME);
+                                cursor = usersDatabase.getRow(String.valueOf(id));
 
                                 // Define And Instantiate Variable EventsDatabase eventsDatabase//
                                 EventsDatabase eventsDatabase = new EventsDatabase(UsersView.this);
@@ -381,19 +339,22 @@ public class UsersView extends AppCompatActivity {
                                 eventsDatabase.open();
 
                                 // Delete All Events Of Specified User//
-                                eventsDatabase.deleteAllUserEvents(workingNameUser);
+                                eventsDatabase.deleteAllUserEvents(cursor.getString(UsersDatabase.COL_NAME));
 
                                 // Deletes Specific Item In ListView//
                                 usersDatabase.deleteRow(id);
 
                                 // populates ListView//
-                                populateListView();
+                                sortByPreference();
 
                                 // Restart UsersView Class//
                                 Intent i = new Intent(UsersView.this, UsersView.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                 startActivityForResult(i, 0);
                                 overridePendingTransition(0, 0); //0 for no animation;
+
+                                // Close Cursor//
+                                cursor.close();
                             }
                         })
 
@@ -409,7 +370,7 @@ public class UsersView extends AppCompatActivity {
                                 Intent usersEdit = new Intent(UsersView.this, UsersEdit.class);
 
                                 // Get Id Of Item Clicked In userListView//
-                                usersEdit.putExtra(KEY_ROW_ID_NUMBER, String.valueOf(id));
+                                usersEdit.putExtra(LIST_VIEW_ITEM_ID, String.valueOf(id));
 
                                 // Start Activity UsersAdd//
                                 startActivity(usersEdit);
@@ -417,6 +378,8 @@ public class UsersView extends AppCompatActivity {
                                 // Custom Transition//
                                 overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
 
+                                // Close usersDatabase//
+                                usersDatabase.close();
                             }
                         })
 
@@ -427,6 +390,7 @@ public class UsersView extends AppCompatActivity {
 
                                 // Vibrates For 50 Mill//
                                 vibe.vibrate(50);
+
                             }
 
                         }).show();
@@ -437,7 +401,20 @@ public class UsersView extends AppCompatActivity {
         });
     }
 
-    // What Happens When Fab Btn Is Clicked//
+    // Method That Controls The Navigation Drawer//
+    private void navigationDrawer() {
+
+        // Sets Up NavigationDrawer//
+        usersNavigationDrawer.setUp((DrawerLayout) findViewById(R.id.usersDrawerLayout), R.id.noteNavigationDrawer);
+
+        // Add NavigationDrawer Items//
+        usersNavigationDrawer.addItems(this, items);
+
+        // Show Hamburger Icon//
+        usersNavigationDrawer.showHamburgerIcon(true);
+    }
+
+    // What Happens When Fab Button Is Clicked//
     public void onClickFab(View view) {
 
         // Vibrate For 50m//
@@ -457,43 +434,7 @@ public class UsersView extends AppCompatActivity {
     }
 
     // Method To Populate ListView//
-    private void populateListView() {
-
-        // Define And Instantiate Variable SharedPreferences userSort//
-        SharedPreferences userSort = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
-
-        // Define Variable Cursor cursor//
-        Cursor cursor;
-
-        //<editor-fold desc="User Order Save Preference">
-
-        // What Happens When User Wants Database Sorted By Name//
-        if (userSort.getInt("user_sort_by", 0) == 1) {
-
-            // Gets All Rows Added To Database From Name//
-            cursor = usersDatabase.getAllRowsName();
-        }
-
-        // What Happens When User Wants Database Sorted By Newest To Oldest//
-        else if (userSort.getInt("user_sort_by", 0) == 2) {
-
-                // Gets All Rows Added To Database From Name//
-                cursor = usersDatabase.getAllRowsNewestToOldest();
-         }
-
-        // What Happens When User Wants Database Sorted By Oldest To Newest//
-         else if (userSort.getInt("user_sort_by", 0) == 3) {
-
-            // Gets All Rows Added To Database From Oldest To Newest//
-            cursor = usersDatabase.getAllRowsOldestToNewest();
-
-        } else {
-
-            // Gets All Rows Added To Database From Oldest To Newest//
-            cursor = usersDatabase.getAllRowsOldestToNewest();
-        }
-
-        //</editor-fold>
+    private void populateListView(final Cursor cursor) {
 
         // Puts Rows Stored On Database Into A String Shown//
         final String[] fromFieldNames = new String[]{KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_GRADE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
@@ -501,18 +442,15 @@ public class UsersView extends AppCompatActivity {
         // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
         int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewGrade, R.id.usersViewOrganization, R.id.usersViewNameLetter};
 
-        // Make Above Cursor Final//
-        final Cursor finalCursor = cursor;
-
         // Creates ListView Adapter Which Allows ListView Items To Be Seen//
-        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.users_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0) {
+        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.users_view_design_ui, cursor, fromFieldNames, toViewIDs, 0) {
 
             // Access users_view_design_ui Widgets//
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
                 // Get Cursor Position//
-                finalCursor.moveToPosition(position);
+                cursor.moveToPosition(position);
 
                 // Get Row Of Database//
                 final View row = super.getView(position, convertView, parent);
@@ -544,7 +482,7 @@ public class UsersView extends AppCompatActivity {
                 CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
 
                 // Define And Instantiate Variable Byte byteImage//
-                byte[] byteImage = finalCursor.getBlob(UsersDatabase.COL_IMAGE);
+                byte[] byteImage = cursor.getBlob(UsersDatabase.COL_IMAGE);
 
                 // Get Image From Database And Display It In ListView//
                 usersDatabase.getImage(UsersView.this, byteImage, usersViewCircleImage);
@@ -558,80 +496,123 @@ public class UsersView extends AppCompatActivity {
         usersListView.setAdapter(simpleCursorAdapter);
     }
 
-    // Method That Searches Database By Title//
-    public void searchTitle(String names) {
+    // Method That Searches For Specific User//
+    private void searchUser(Menu menu) {
 
-        // What And How The Database Is Searching//
-        String query = "SELECT * FROM users where names LIKE '%" + names + "%'";
+        // Define And Instantiate SearchView usersSearch//
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.usersSearch));
 
-        // Query Database For What User Searched//
-        Cursor searchCursor = UsersDatabase.db.rawQuery(query, null);
+        // Set Query Hint For User//
+        searchView.setQueryHint("Search Users");
 
-        // What Happens If searchCursor Has Data//
-        if (searchCursor != null) {
+        // Runs When Text Is Being Entered Into Search Box//
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-            // Move Database To Next Value//
-            searchCursor.moveToFirst();
+            // Runs When user Submits Text //
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
-            // Puts Rows Stored On Database Into A String Shown//
-            final String[] fromFieldNames = new String[]{KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
+                // Kill Code//
+                return false;
+            }
 
-            // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
-            int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewOrganization, R.id.usersViewNameLetter};
+            // Runs Each Time User Adds Letter In Search Box//
+            @Override
+            public boolean onQueryTextChange(String searchText) {
 
-            // Make Above Cursor Final//
-            final Cursor finalCursor = searchCursor;
+                // Checks If Search Is Empty//
+                if (!searchText.isEmpty()) {
 
-            // Creates ListView Adapter Which Allows ListView Items To Be Seen//
-            SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.users_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0) {
+                    // Query Database For What User Searched//
+                    cursor = UsersDatabase.db.rawQuery("SELECT * FROM users where names LIKE '%" + searchText + "%'", null);
 
-                // Access users_view_design_ui Widgets//
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
+                    // What Happens If searchCursor Has Data//
+                    if (cursor != null) {
 
-                    // Get Cursor Position//
-                    finalCursor.moveToPosition(position);
+                        // Move Database To Next Value//
+                        cursor.moveToFirst();
 
-                    // Get Row Of Database//
-                    final View row = super.getView(position, convertView, parent);
+                        // Puts Rows Stored On Database Into A String Shown//
+                        final String[] fromFieldNames = new String[]{KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};
 
-                    // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
-                    CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
+                        // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
+                        int[] toViewIDs = new int[]{R.id.usersViewName, R.id.usersViewAge, R.id.usersViewOrganization, R.id.usersViewNameLetter};
 
-                    // Define And Instantiate Variable Byte byteImage//
-                    byte[] byteImage = finalCursor.getBlob(UsersDatabase.COL_IMAGE);
+                        // Creates ListView Adapter Which Allows ListView Items To Be Seen//
+                        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(UsersView.this, R.layout.users_view_design_ui, cursor, fromFieldNames, toViewIDs, 0) {
 
-                    // Get Image From Database And Display It In ListView//
-                    usersDatabase.getImage(UsersView.this, byteImage, usersViewCircleImage);
+                            // Access users_view_design_ui Widgets//
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
 
-                    // Kill Code//
-                    return row;
+                                // Get Cursor Position//
+                                cursor.moveToPosition(position);
+
+                                // Get Row Of Database//
+                                final View row = super.getView(position, convertView, parent);
+
+                                // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
+                                CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
+
+                                // Define And Instantiate Variable Byte byteImage//
+                                byte[] byteImage = cursor.getBlob(UsersDatabase.COL_IMAGE);
+
+                                // Get Image From Database And Display It In ListView//
+                                usersDatabase.getImage(UsersView.this, byteImage, usersViewCircleImage);
+
+                                // Kill Code//
+                                return row;
+                            }
+                        };
+
+                        // Sets Up Adapter Made Earlier / Shows Content From Database//
+                        usersListView.setAdapter(simpleCursorAdapter);
+                    }
                 }
-            };
 
-            // Sets Up Adapter Made Earlier / Shows Content From Database//
-            usersListView.setAdapter(simpleCursorAdapter);
-        }
+                // Kill Code//
+                return true;
+            }
+        });
+
+        //<editor-fold desc="Runs When SearchView Is Closed">
+
+        // Runs When SearchView Is Closed//
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+
+            @Override
+            public boolean onClose() {
+
+                // Go Back To Original ListView//
+                sortByPreference();
+
+                // Close Search Box//
+                searchView.onActionViewCollapsed();
+
+                // Kill Code//
+                return true;
+            }
+        });
+
+        //</editor-fold>
     }
 
-    // Method To Sort Users By User Preference//
+    // Method That Lets User Pick Their Sort Preference//
     private void sortBy() {
 
-        // Vibrates For 50 Mill//
-        vibe.vibrate(50);
-
-        // Title String//
-        String dialogTitle = "Sort Users By...";
-
-        // Order By... Strings//
-        final String[] orderByString = {"Sort By Name", "Sort By Newest To Oldest", "Sort By Oldest To Newest"};
-
-        // Positive Btn String//
-        String positiveBtn = "Ok";
-
+        // Creates Dialog//
         new MaterialDialog.Builder(this)
-                .title(dialogTitle)
-                .items((CharSequence[]) orderByString)
+
+                // Title Of Dialog//
+                .title("Sort Users By...")
+
+                // Items Of Dialog//
+                .items("Sort By Name", "Sort By Newest To Oldest", "Sort By Oldest To Newest")
+
+                // Positive Text Name For Button//
+                .positiveText("Ok")
+
+                // What Happens When Item Is Clicked//
                 .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
@@ -642,19 +623,11 @@ public class UsersView extends AppCompatActivity {
                             // Vibrates For 50 Mill//
                             vibe.vibrate(50);
 
-                            // Saves Sort Preference Of Users//
-                            SharedPreferences settings = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
-                            SharedPreferences.Editor edit;
-                            edit = settings.edit();
+                            // Clear Saved Value//
+                            userSortType.edit().clear().apply();
 
-                            // Vibrates For 50 Mill//
-                            vibe.vibrate(50);
-
-                            // Sets Sort For Users//
-                            SORT_BY_USER = SORT_BY_NAME;
-                            edit.clear();
-                            edit.putInt("user_sort_by", SORT_BY_USER);
-                            edit.apply();
+                            // Save New Value Into Shared Preference//
+                            userSortType.edit().putInt("user_sort_by", SORT_BY_NAME).apply();
 
                             // Define and Instantiate Variable Intent UsersView//
                             Intent usersView = new Intent(UsersView.this, UsersView.class);
@@ -672,19 +645,11 @@ public class UsersView extends AppCompatActivity {
                             // Vibrates For 50 Mill//
                             vibe.vibrate(50);
 
-                            // Saves Sort Preference Of Users//
-                            SharedPreferences settings = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
-                            SharedPreferences.Editor edit;
-                            edit = settings.edit();
+                            // Clear Saved Value//
+                            userSortType.edit().clear().apply();
 
-                            // Vibrates For 50 Mill//
-                            vibe.vibrate(50);
-
-                            // Saves Sort Preference Of Users//
-                            SORT_BY_USER = SORT_BY_NEWEST_TO_OLDEST;
-                            edit.clear();
-                            edit.putInt("user_sort_by", SORT_BY_USER);
-                            edit.apply();
+                            // Save New Value Into Shared Preference//
+                            userSortType.edit().putInt("user_sort_by", SORT_BY_NEWEST_TO_OLDEST).apply();
 
                             // Define and Instantiate Variable Intent UsersView//
                             Intent usersView = new Intent(UsersView.this, UsersView.class);
@@ -702,19 +667,11 @@ public class UsersView extends AppCompatActivity {
                             // Vibrates For 50 Mill//
                             vibe.vibrate(50);
 
-                            // Saves Sort Preference Of Users//
-                            SharedPreferences settings = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
-                            SharedPreferences.Editor edit;
-                            edit = settings.edit();
+                            // Clear Saved Value//
+                            userSortType.edit().clear().apply();
 
-                            // Vibrates For 50 Mill//
-                            vibe.vibrate(50);
-
-                            // Sets Save Preference For Users//
-                            SORT_BY_USER = SORT_BY_OLDEST_TO_NEWEST;
-                            edit.clear();
-                            edit.putInt("user_sort_by", SORT_BY_USER);
-                            edit.apply();
+                            // Save New Value Into Shared Preference//
+                            userSortType.edit().putInt("user_sort_by", SORT_BY_OLDEST_TO_NEWEST).apply();
 
                             // Define and Instantiate Variable Intent UsersView//
                             Intent usersView = new Intent(UsersView.this, UsersView.class);
@@ -728,9 +685,62 @@ public class UsersView extends AppCompatActivity {
 
                         // Kill Code//
                         return false;
+
                     }
-                })
-                .positiveText(positiveBtn)
-                .show();
+                }).show();
+    }
+
+    // Method To Apply Sort By User Preference//
+    private void sortByPreference() {
+
+        // What Happens When User Wants Database Sorted By Name//
+        if (userSortType.getInt("user_sort_by", 0) == 0) {
+
+            // Gets All Rows Added To Database From Name//
+            cursor = usersDatabase.getAllRowsName();
+
+            // Initiate populateListView Method//
+            populateListView(cursor);
+        }
+
+        // What Happens When User Wants Database Sorted By Newest To Oldest//
+        else if (userSortType.getInt("user_sort_by", 0) == 1) {
+
+            // Gets All Rows Added To Database From Name//
+            cursor = usersDatabase.getAllRowsNewestToOldest();
+
+            // Initiate populateListView Method//
+            populateListView(cursor);
+        }
+
+        // What Happens When User Wants Database Sorted By Oldest To Newest//
+        else if (userSortType.getInt("user_sort_by", 0) == 2) {
+
+            // Gets All Rows Added To Database From Oldest To Newest//
+            cursor = usersDatabase.getAllRowsOldestToNewest();
+
+            // Initiate populateListView Method//
+            populateListView(cursor);
+        }
+
+        // What Happens When User Has No Preference//
+        else {
+
+            // Gets All Rows Added To Database From Oldest To Newest//
+            cursor = usersDatabase.getAllRowsOldestToNewest();
+
+            // Initiate populateListView Method//
+            populateListView(cursor);
+        }
+    }
+
+    // Method That Opens Database//
+    private void usersDatabaseOpen() {
+
+        // Instantiate Variable UsersDatabase usersDatabase//
+        usersDatabase = new UsersDatabase(this);
+
+        // Open Database//
+        usersDatabase.open();
     }
 }

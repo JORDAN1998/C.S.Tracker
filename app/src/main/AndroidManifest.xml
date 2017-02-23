@@ -25,14 +25,10 @@
         android:theme="@style/RedTheme">
 
         <!-- Activity UsersView -->
-        <activity android:name=".UsersView">
+        <activity
+            android:name=".UsersView">
 
-            <!-- Tell The App To Launch Activity At Start -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- Activity UsersAdd -->
@@ -46,7 +42,8 @@
             android:label="@string/activity_users_edit" />
 
         <!-- Activity EventsView -->
-        <activity android:name=".EventsView" />
+        <activity
+            android:name=".EventsView" />
 
         <!-- Activity EventsAdd -->
         <activity
@@ -72,6 +69,18 @@
         <activity
             android:name=".ThemePicker"
             android:label="@string/activity_theme_picker"/>
+
+        <!-- Activity ThemePicker -->
+        <activity
+            android:name=".Launch"
+            android:label="@string/activity_theme_picker">
+            <!-- Tell The App To Launch Activity At Start -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 
