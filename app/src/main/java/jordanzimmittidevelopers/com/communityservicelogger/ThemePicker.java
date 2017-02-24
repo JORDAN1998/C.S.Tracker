@@ -39,42 +39,48 @@ public class ThemePicker extends AppCompatActivity {
 
     //<editor-fold desc="Shared Preference">
 
+    // Define Variable SharedPreference themePicker//
+    private SharedPreferences themePicker;
+
     // Name Of Preference And What Its Saving The Integer To//
     private static final String THEME_PICKER = "theme_picker";
 
     // Apply Theme Red //
-    private final static int THEME_RED = 1;
+    private final static int THEME_RED = 0;
 
     // Apply Theme Orange //
-    private final static int THEME_ORANGE = 2;
+    private final static int THEME_ORANGE = 1;
 
     // Apply Theme Yellow //
-    private final static int THEME_YELLOW = 3;
+    private final static int THEME_YELLOW = 2;
 
     // Apply Theme Green //
-    private final static int THEME_GREEN = 4;
+    private final static int THEME_GREEN = 3;
 
     // Apply Theme Blue //
-    private final static int THEME_BLUE = 5;
+    private final static int THEME_BLUE = 4;
 
     // Apply Theme Indigo //
-    private final static int THEME_INDIGO = 6;
+    private final static int THEME_INDIGO = 5;
 
     // Apply Theme Violet //
-    private final static int THEME_VIOLET = 7;
+    private final static int THEME_VIOLET = 6;
 
     // Apply Theme Pink //
-    private final static int THEME_PINK = 8;
+    private final static int THEME_PINK = 7;
 
+
+    // Define Variable SharedPreference switchState//
+    private SharedPreferences switchState;
 
     // Name Of Preference And What Its Saving The Integer To//
-    private static final String SWITCH_STATE = "switch_state";
+    private static final String SWITCH_STATE = "night_mode_switch_state";
 
     // Apply Switch Checked //
-    private final static int UNCHECKED = 1;
+    private final static int UNCHECKED = 0;
 
     // Apply Switch Un-Checked //
-    private final static int CHECKED = 2;
+    private final static int CHECKED = 1;
 
     //</editor-fold>
 
@@ -85,17 +91,8 @@ public class ThemePicker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initiate userTheme Method//
-        userTheme(this);
-
-        // Starts UI For Activity//
-        setContentView(R.layout.theme_picker_ui);
-
-        // Define And Instantiate RelativeLayout relativeLayout//
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.theme_picker_ui);
-
-        // Night Mode Theme Extension Options//
-        activityNightModeExtension(this, relativeLayout);
+        // Initiate applyTheme Method//
+        applyTheme();
 
         // Initiate getLocationPermission Method//
         getLocationPermission();
@@ -131,13 +128,29 @@ public class ThemePicker extends AppCompatActivity {
         }
     }
 
+    // Method That Applies Theme By User Preference//
+    private void applyTheme() {
+
+        // Initiate userTheme Method//
+        userTheme(this);
+
+        // Starts UI For Activity//
+        setContentView(R.layout.theme_picker_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.theme_picker_ui);
+
+        // Night Mode Theme Extension Options//
+        activityNightModeExtension(this, relativeLayout);
+    }
+
     // Method For Toggling On And Off Night Mode For Activity//
     private void activityNightMode(Context context) {
 
         // Find Night Mode Automatically//
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
 
-        // Checks Whether app Is In Night Mode Or Not//
+        // Checks Whether The App Is In Night Mode Or Not//
         int currentNightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         // Checks All Scenarios//
@@ -163,7 +176,7 @@ public class ThemePicker extends AppCompatActivity {
                 break;
             }
 
-            // We Don't Know What Mode We're In, Assume Notnight//
+            // We Don't Know What Mode We're In, Assume Not Night//
             case Configuration.UI_MODE_NIGHT_UNDEFINED: {
 
                 // Initiate themeColors Method//
@@ -178,11 +191,11 @@ public class ThemePicker extends AppCompatActivity {
     // Method For Black Background In Night Mode//
     public void activityNightModeExtension(Context context, RelativeLayout relativeLayout) {
 
-        // Define And Instantiate Variable SharedPreferences switchState//
-        SharedPreferences switchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
+        // Instantiate Variable SharedPreference switchState//
+        switchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
 
         // What Happens When Switch Is Checked//
-        if (switchState.getInt("switch_state", 0) == 2) {
+        if (switchState.getInt(SWITCH_STATE, 0) == 1) {
 
             // Find Night Mode Automatically//
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
@@ -210,22 +223,13 @@ public class ThemePicker extends AppCompatActivity {
     private void getLocationPermission() {
 
         // Get Current Activity//
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            // Checks If App Has Access To Specified Permission//
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-            } else {
+            // What Happens If User Did Not Give Permission For App To Use Location//
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Ask For Permission//
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        GET_LOCATION);
-
-
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GET_LOCATION);
             }
         }
     }
@@ -238,6 +242,12 @@ public class ThemePicker extends AppCompatActivity {
 
         // Initiate switchPreference Method/
         switchPreference();
+
+        // Instantiate Variable SharedPreference switchState//
+        switchState = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
+
+        // Instantiate Variable SharedPreferences themePicker//
+        themePicker = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -255,55 +265,40 @@ public class ThemePicker extends AppCompatActivity {
                 // What Happens If Switch Is Checked//
                 if(isChecked) {
 
-                    // Saves Switch State To Shared Preference//
-                    SharedPreferences settings = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
-                    SharedPreferences.Editor edit;
-                    edit = settings.edit();
-                    Intent intent = getIntent();
-
                     // Clear Saved Value//
-                    edit.clear();
+                    switchState.edit().clear().apply();
 
-                    // Put New Value Into Shared Preference//
-                    edit.putInt("switch_state", CHECKED);
-
-                    // Save Value//
-                    edit.apply();
-
-                    // Initiate activityNightModeMethod//
-                    activityNightMode(ThemePicker.this);
-
-                    // Restart The Activity//
-                    finish();
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
-
-                } else {
-
-                    // Saves Switch State To Shared Preference//
-                    SharedPreferences settings = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
-                    SharedPreferences.Editor edit;
-                    edit = settings.edit();
-                    Intent intent = getIntent();
-
-                    // Clear Saved Value//
-                    edit.clear();
-
-                    // Put New Value Into Shared Preference//
-                    edit.putInt("switch_state", UNCHECKED);
-
-                    // Save Value//
-                    edit.apply();
+                    // Save New Value Into Shared Preference//
+                    switchState.edit().putInt(SWITCH_STATE, CHECKED).apply();
 
                     // Initiate userTheme Method//
                     userTheme(ThemePicker.this);
 
                     // Restart The Activity//
                     finish();
+                    Intent intent = getIntent();
                     startActivity(intent);
                     overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
                 }
 
+                // What Happens When Switch Is Not Checked//
+                else {
+
+                    // Clear Saved Value//
+                    switchState.edit().clear().apply();
+
+                    // Save New Value Into Shared Preference//
+                    switchState.edit().putInt(SWITCH_STATE, UNCHECKED).apply();
+
+                    // Initiate userTheme Method//
+                    userTheme(ThemePicker.this);
+
+                    // Restart The Activity//
+                    finish();
+                    Intent intent = getIntent();
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                }
             }
         });
     }
@@ -314,23 +309,15 @@ public class ThemePicker extends AppCompatActivity {
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
 
-        // Saves Theme To Shared Preference//
-        SharedPreferences settings = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
-        SharedPreferences.Editor edit;
-        edit = settings.edit();
-        Intent intent = getIntent();
-
         // Clear Saved Value//
-        edit.clear();
+        themePicker.edit().clear().apply();
 
-        // Put New Value Into Shared Preference//
-        edit.putInt("theme_picker", THEME_RED);
-
-        // Save Value//
-        edit.apply();
+        // Save New Value Into Shared Preference//
+        themePicker.edit().putInt(THEME_PICKER, THEME_RED).apply();
 
         // Restart The Activity//
         finish();
+        Intent intent = getIntent();
         startActivity(intent);
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
     }
@@ -341,23 +328,15 @@ public class ThemePicker extends AppCompatActivity {
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
 
-        // Saves Theme To Shared Preference//
-        SharedPreferences settings = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
-        SharedPreferences.Editor edit;
-        edit = settings.edit();
-        Intent intent = getIntent();
-
         // Clear Saved Value//
-        edit.clear();
+        themePicker.edit().clear().apply();
 
-        // Put New Value Into Shared Preference//
-        edit.putInt("theme_picker", THEME_ORANGE);
-
-        // Save Value//
-        edit.apply();
+        // Save New Value Into Shared Preference//
+        themePicker.edit().putInt(THEME_PICKER, THEME_ORANGE).apply();
 
         // Restart The Activity//
         finish();
+        Intent intent = getIntent();
         startActivity(intent);
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
     }
@@ -368,23 +347,15 @@ public class ThemePicker extends AppCompatActivity {
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
 
-        // Saves Theme To Shared Preference//
-        SharedPreferences settings = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
-        SharedPreferences.Editor edit;
-        edit = settings.edit();
-        Intent intent = getIntent();
-
         // Clear Saved Value//
-        edit.clear();
+        themePicker.edit().clear().apply();
 
-        // Put New Value Into Shared Preference//
-        edit.putInt("theme_picker", THEME_YELLOW);
-
-        // Save Value//
-        edit.apply();
+        // Save New Value Into Shared Preference//
+        themePicker.edit().putInt(THEME_PICKER, THEME_YELLOW).apply();
 
         // Restart The Activity//
         finish();
+        Intent intent = getIntent();
         startActivity(intent);
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
     }
@@ -395,23 +366,15 @@ public class ThemePicker extends AppCompatActivity {
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
 
-        // Saves Theme To Shared Preference//
-        SharedPreferences settings = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
-        SharedPreferences.Editor edit;
-        edit = settings.edit();
-        Intent intent = getIntent();
-
         // Clear Saved Value//
-        edit.clear();
+        themePicker.edit().clear().apply();
 
-        // Put New Value Into Shared Preference//
-        edit.putInt("theme_picker", THEME_GREEN);
-
-        // Save Value//
-        edit.apply();
+        // Save New Value Into Shared Preference//
+        themePicker.edit().putInt(THEME_PICKER, THEME_GREEN).apply();
 
         // Restart The Activity//
         finish();
+        Intent intent = getIntent();
         startActivity(intent);
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
     }
@@ -422,23 +385,15 @@ public class ThemePicker extends AppCompatActivity {
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
 
-        // Saves Theme To Shared Preference//
-        SharedPreferences settings = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
-        SharedPreferences.Editor edit;
-        edit = settings.edit();
-        Intent intent = getIntent();
-
         // Clear Saved Value//
-        edit.clear();
+        themePicker.edit().clear().apply();
 
-        // Put New Value Into Shared Preference//
-        edit.putInt("theme_picker", THEME_BLUE);
-
-        // Save Value//
-        edit.apply();
+        // Save New Value Into Shared Preference//
+        themePicker.edit().putInt(THEME_PICKER, THEME_BLUE).apply();
 
         // Restart The Activity//
         finish();
+        Intent intent = getIntent();
         startActivity(intent);
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
     }
@@ -449,23 +404,15 @@ public class ThemePicker extends AppCompatActivity {
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
 
-        // Saves Theme To Shared Preference//
-        SharedPreferences settings = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
-        SharedPreferences.Editor edit;
-        edit = settings.edit();
-        Intent intent = getIntent();
-
         // Clear Saved Value//
-        edit.clear();
+        themePicker.edit().clear().apply();
 
-        // Put New Value Into Shared Preference//
-        edit.putInt("theme_picker", THEME_INDIGO);
-
-        // Save Value//
-        edit.apply();
+        // Save New Value Into Shared Preference//
+        themePicker.edit().putInt(THEME_PICKER, THEME_INDIGO).apply();
 
         // Restart The Activity//
         finish();
+        Intent intent = getIntent();
         startActivity(intent);
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
     }
@@ -476,23 +423,15 @@ public class ThemePicker extends AppCompatActivity {
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
 
-        // Saves Theme To Shared Preference//
-        SharedPreferences settings = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
-        SharedPreferences.Editor edit;
-        edit = settings.edit();
-        Intent intent = getIntent();
-
         // Clear Saved Value//
-        edit.clear();
+        themePicker.edit().clear().apply();
 
-        // Put New Value Into Shared Preference//
-        edit.putInt("theme_picker", THEME_VIOLET);
-
-        // Save Value//
-        edit.apply();
+        // Save New Value Into Shared Preference//
+        themePicker.edit().putInt(THEME_PICKER, THEME_VIOLET).apply();
 
         // Restart The Activity//
         finish();
+        Intent intent = getIntent();
         startActivity(intent);
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
     }
@@ -503,23 +442,15 @@ public class ThemePicker extends AppCompatActivity {
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
 
-        // Saves Theme To Shared Preference//
-        SharedPreferences settings = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
-        SharedPreferences.Editor edit;
-        edit = settings.edit();
-        Intent intent = getIntent();
-
         // Clear Saved Value//
-        edit.clear();
+        themePicker.edit().clear().apply();
 
-        // Put New Value Into Shared Preference//
-        edit.putInt("theme_picker", THEME_PINK);
-
-        // Save Value//
-        edit.apply();
+        // Save New Value Into Shared Preference//
+        themePicker.edit().putInt(THEME_PICKER, THEME_PINK).apply();
 
         // Restart The Activity//
         finish();
+        Intent intent = getIntent();
         startActivity(intent);
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
     }
@@ -527,18 +458,15 @@ public class ThemePicker extends AppCompatActivity {
     // Method To Set Switch Preference//
     private void switchPreference() {
 
-        // Define And Instantiate Variable SharedPreferences switchState//
-        SharedPreferences switchState = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
-
         // What Happens When Switch Is Un-Checked//
-        if (switchState.getInt("switch_state", 0) == 1) {
+        if (switchState.getInt(SWITCH_STATE, 0) == 0) {
 
             // Un-Check Switch//
             nightModeSwitch.setChecked(false);
         }
 
         // What Happens When Switch Is Checked//
-        if (switchState.getInt("switch_state", 0) == 2) {
+        if (switchState.getInt(SWITCH_STATE, 0) == 1) {
 
             // Check Switch//
             nightModeSwitch.setChecked(true);
@@ -548,18 +476,18 @@ public class ThemePicker extends AppCompatActivity {
     // Method That Sets Theme Based On User Preference//
     public void userTheme(Context context) {
 
-        // Define And Instantiate Variable SharedPreferences switchState//
-        SharedPreferences switchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
+        // Instantiate Variable SharedPreference switchState//
+        switchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
 
         // What Happens When Switch Is Un-Checked//
-        if (switchState.getInt("switch_state", 0) == 1) {
+        if (switchState.getInt(SWITCH_STATE, 0) == 0) {
 
             // Initiate themeColors Method//
             themeColors(context);
         }
 
         // What Happens When Switch Is Checked//
-        else if (switchState.getInt("switch_state", 0) == 2) {
+        else if (switchState.getInt(SWITCH_STATE, 0) == 1) {
 
             // Initiate activityNightMode Method//
             activityNightMode(context);
@@ -576,60 +504,60 @@ public class ThemePicker extends AppCompatActivity {
     // Method That Chooses User Specified Theme Color//
     private void themeColors(Context context) {
 
-        // Define And Instantiate Variable SharedPreferences theme//
-        SharedPreferences themePicker = context.getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
+        // Instantiate Variable SharedPreferences themePicker//
+        themePicker = context.getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
 
         // What Happens When User Wants Theme Red//
-        if (themePicker.getInt("theme_picker", 0) == 1) {
+        if (themePicker.getInt(THEME_PICKER, 0) == 0) {
 
             // Apply Theme Red//
             context.setTheme(R.style.RedTheme);
         }
 
         // What Happens When User Wants Theme Orange//
-        if (themePicker.getInt("theme_picker", 0) == 2) {
+        if (themePicker.getInt(THEME_PICKER, 0) == 1) {
 
             // Apply Theme Orange//
             context.setTheme(R.style.OrangeTheme);
         }
 
         // What Happens When User Wants Theme Yellow//
-        if (themePicker.getInt("theme_picker", 0) == 3) {
+        if (themePicker.getInt(THEME_PICKER, 0) == 2) {
 
             // Apply Theme Yellow//
             context.setTheme(R.style.YellowTheme);
         }
 
         // What Happens When User Wants Theme Green//
-        if (themePicker.getInt("theme_picker", 0) == 4) {
+        if (themePicker.getInt(THEME_PICKER, 0) == 3) {
 
             // Apply Theme Green//
             context.setTheme(R.style.GreenTheme);
         }
 
         // What Happens When User Wants Theme Blue//
-        if (themePicker.getInt("theme_picker", 0) == 5) {
+        if (themePicker.getInt(THEME_PICKER, 0) == 4) {
 
             // Apply Theme Blue//
             context.setTheme(R.style.BlueTheme);
         }
 
         // What Happens When User Wants Theme Indigo//
-        if (themePicker.getInt("theme_picker", 0) == 6) {
+        if (themePicker.getInt(THEME_PICKER, 0) == 5) {
 
             // Apply Theme Indigo//
             context.setTheme(R.style.IndigoTheme);
         }
 
         // What Happens When User Wants Theme Violet//
-        if (themePicker.getInt("theme_picker", 0) == 7) {
+        if (themePicker.getInt(THEME_PICKER, 0) == 6) {
 
             // Apply Theme Violet//
             context.setTheme(R.style.VioletTheme);
         }
 
         // What Happens When User Wants Theme Pink//
-        if (themePicker.getInt("theme_picker", 0) == 8) {
+        if (themePicker.getInt(THEME_PICKER, 0) == 7) {
 
             // Apply Theme Pink//
             context.setTheme(R.style.PinkTheme);

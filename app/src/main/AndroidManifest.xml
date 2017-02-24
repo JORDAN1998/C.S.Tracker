@@ -28,7 +28,6 @@
         <activity
             android:name=".UsersView">
 
-
         </activity>
 
         <!-- Activity UsersAdd -->
