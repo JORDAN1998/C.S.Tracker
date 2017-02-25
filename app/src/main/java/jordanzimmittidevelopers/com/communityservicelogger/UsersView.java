@@ -251,7 +251,7 @@ public class UsersView extends AppCompatActivity {
         usersListView = (ListView) findViewById(R.id.usersListView);
 
         // Instantiate NavigationDrawer navigationDrawer//
-        usersNavigationDrawer = (UsersNavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.noteNavigationDrawer);
+        usersNavigationDrawer = (UsersNavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.usersNavigationDrawer);
 
         // Instantiate Variable SharedPreference userSortType//
         userSortType = getSharedPreferences(USER_SORT_TYPE, MODE_PRIVATE);
@@ -405,7 +405,7 @@ public class UsersView extends AppCompatActivity {
     private void navigationDrawer() {
 
         // Sets Up NavigationDrawer//
-        usersNavigationDrawer.setUp((DrawerLayout) findViewById(R.id.usersDrawerLayout), R.id.noteNavigationDrawer);
+        usersNavigationDrawer.setUp((DrawerLayout) findViewById(R.id.usersDrawerLayout), R.id.usersNavigationDrawer);
 
         // Add NavigationDrawer Items//
         usersNavigationDrawer.addItems(this, items);

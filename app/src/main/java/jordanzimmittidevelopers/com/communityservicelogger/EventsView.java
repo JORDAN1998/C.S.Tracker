@@ -10,6 +10,7 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -45,6 +46,16 @@ public class EventsView extends AppCompatActivity {
 
     // Define Variable Vibrator vibe//
     private Vibrator vibe;
+
+    //</editor-fold>
+
+    //<editor-fold desc="Navigation Drawer Variables">
+
+    // Define Variable UsersNavigationDrawer usersNavigationDrawer//
+    private UsersNavigationDrawer eventsNavigationDrawer;
+
+    // UsersNavigationDrawer Items//
+    private String[] items = new String[] {"Reminders", "Settings"};
 
     //</editor-fold>
 
@@ -149,6 +160,9 @@ public class EventsView extends AppCompatActivity {
 
         // Initiate listViewLongItemClick Method//
         listViewItemLongClick();
+
+        // Initiate navigationDrawer Method//
+        navigationDrawer();
 
         // Initiate sortByPreference Method//
         sortByPreference(workingNameUser);
@@ -263,6 +277,12 @@ public class EventsView extends AppCompatActivity {
 
             // Vibrate For 50m//
             vibe.vibrate(50);
+
+            // Toggle Navigation Drawer//
+            eventsNavigationDrawer.buttonToggle();
+
+            // Kill Code//
+            return true;
         }
 
         // What Happens When eventsSortBy Is Pressed//
@@ -488,6 +508,9 @@ public class EventsView extends AppCompatActivity {
         // Instantiate Variable ListView usersListView//
         eventsListView = (ListView) findViewById(R.id.eventsListView);
 
+        // Instantiate NavigationDrawer navigationDrawer//
+        eventsNavigationDrawer = (UsersNavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.eventsNavigationDrawer);
+
         // Instantiate Variable SharedPreference eventsSortType//
         eventsSortType = getSharedPreferences(EVENT_SORT_TYPE, MODE_PRIVATE);
 
@@ -614,6 +637,26 @@ public class EventsView extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    // Method That Controls The Navigation Drawer//
+    private void navigationDrawer() {
+
+        // Instantiate Variable SharedPreferences userSwitchState//
+        SharedPreferences userSwitchState = getSharedPreferences("user_switch_state", MODE_PRIVATE);
+
+        // What Happens When Switch Is Un-Checked//
+        if (userSwitchState.getInt("user_switch_state", 0) == 0) {
+
+            // Sets Up NavigationDrawer//
+            eventsNavigationDrawer.setUp((DrawerLayout) findViewById(R.id.eventsDrawerLayout), R.id.eventsNavigationDrawer);
+
+            // Add NavigationDrawer Items//
+            eventsNavigationDrawer.addItems(this, items);
+
+            // Show Hamburger Icon//
+            eventsNavigationDrawer.showHamburgerIcon(true);
+        }
     }
 
     // What Happens When Fab Btn Is Clicked//

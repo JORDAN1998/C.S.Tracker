@@ -1,49 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- UI For Activity EventsView -->
-<RelativeLayout
+<!-- Base UI For Activity EventsView -->
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/events_view_ui"
+    android:id="@+id/eventsDrawerLayout"
     android:fitsSystemWindows="true"
-    android:background="@color/darkWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EventsView">
 
-    <!-- ListView eventsListView -->
-    <ListView
-        android:id="@+id/eventsListView"
-        android:divider="@android:color/transparent"
-        android:drawSelectorOnTop="true"
-        android:dividerHeight="30.0sp"
-        android:scrollbars="none"
-        android:clipToPadding="false"
+    <!-- UI For Activity EventsView -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/events_view_ui"
+        android:fitsSystemWindows="true"
+        android:background="@color/darkWhite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="16dip"
-        android:paddingBottom="85dip"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        tools:context=".EventsView">
 
-    <!-- FAB eventsFab -->
-    <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/eventsFab"
-        android:src="@drawable/event"
-        android:clickable="true"
-        android:onClick="onClickFab"
-        android:layout_margin="16dip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        fab:fab_colorNormal="?attr/colorPrimaryDark"
-        fab:fab_colorPressed="?attr/colorPrimary"
-        fab:fab_colorRipple="?attr/colorPrimaryDark" />
+        <!-- ListView eventsListView -->
+        <ListView
+            android:id="@+id/eventsListView"
+            android:divider="@android:color/transparent"
+            android:drawSelectorOnTop="true"
+            android:dividerHeight="30.0sp"
+            android:scrollbars="none"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="16dip"
+            android:paddingBottom="85dip"
+            android:paddingLeft="16dip"
+            android:paddingRight="16dip"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-</RelativeLayout>
+        <!-- FAB eventsFab -->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/eventsFab"
+            android:src="@drawable/event"
+            android:clickable="true"
+            android:onClick="onClickFab"
+            android:layout_margin="16dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            fab:fab_colorNormal="?attr/colorPrimaryDark"
+            fab:fab_colorPressed="?attr/colorPrimary"
+            fab:fab_colorRipple="?attr/colorPrimaryDark" />
+
+    </RelativeLayout>
+
+    <!-- Navigation Drawer -->
+    <fragment
+        android:id="@+id/eventsNavigationDrawer"
+        android:layout_gravity="start"
+        android:layout_width="280dip"
+        android:layout_height="match_parent"
+        app:layout="@layout/navigation_drawer_ui"
+        android:name="jordanzimmittidevelopers.com.communityservicelogger.UsersNavigationDrawer"
+        tools:layout="@layout/navigation_drawer_ui" />
+
+</android.support.v4.widget.DrawerLayout>

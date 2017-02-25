@@ -61,7 +61,7 @@
 
     <!-- Navigation Drawer -->
     <fragment
-        android:id="@+id/noteNavigationDrawer"
+        android:id="@+id/usersNavigationDrawer"
         android:layout_gravity="start"
         android:layout_width="280dip"
         android:layout_height="match_parent"
