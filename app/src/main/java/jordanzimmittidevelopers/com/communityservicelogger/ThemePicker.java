@@ -70,8 +70,8 @@ public class ThemePicker extends AppCompatActivity {
     private final static int THEME_PINK = 7;
 
 
-    // Define Variable SharedPreference switchState//
-    private SharedPreferences switchState;
+    // Define Variable SharedPreference nightModeSwitchState//
+    private SharedPreferences nightModeSwitchState;
 
     // Name Of Preference And What Its Saving The Integer To//
     private static final String SWITCH_STATE = "night_mode_switch_state";
@@ -191,11 +191,11 @@ public class ThemePicker extends AppCompatActivity {
     // Method For Black Background In Night Mode//
     public void activityNightModeExtension(Context context, RelativeLayout relativeLayout) {
 
-        // Instantiate Variable SharedPreference switchState//
-        switchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
+        // Instantiate Variable SharedPreference nightModeSwitchState//
+        nightModeSwitchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
 
         // What Happens When Switch Is Checked//
-        if (switchState.getInt(SWITCH_STATE, 0) == 1) {
+        if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 1) {
 
             // Find Night Mode Automatically//
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
@@ -243,8 +243,8 @@ public class ThemePicker extends AppCompatActivity {
         // Initiate switchPreference Method/
         switchPreference();
 
-        // Instantiate Variable SharedPreference switchState//
-        switchState = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
+        // Instantiate Variable SharedPreference nightModeSwitchState//
+        nightModeSwitchState = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
 
         // Instantiate Variable SharedPreferences themePicker//
         themePicker = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
@@ -266,10 +266,10 @@ public class ThemePicker extends AppCompatActivity {
                 if(isChecked) {
 
                     // Clear Saved Value//
-                    switchState.edit().clear().apply();
+                    nightModeSwitchState.edit().clear().apply();
 
                     // Save New Value Into Shared Preference//
-                    switchState.edit().putInt(SWITCH_STATE, CHECKED).apply();
+                    nightModeSwitchState.edit().putInt(SWITCH_STATE, CHECKED).apply();
 
                     // Initiate userTheme Method//
                     userTheme(ThemePicker.this);
@@ -285,10 +285,10 @@ public class ThemePicker extends AppCompatActivity {
                 else {
 
                     // Clear Saved Value//
-                    switchState.edit().clear().apply();
+                    nightModeSwitchState.edit().clear().apply();
 
                     // Save New Value Into Shared Preference//
-                    switchState.edit().putInt(SWITCH_STATE, UNCHECKED).apply();
+                    nightModeSwitchState.edit().putInt(SWITCH_STATE, UNCHECKED).apply();
 
                     // Initiate userTheme Method//
                     userTheme(ThemePicker.this);
@@ -459,14 +459,14 @@ public class ThemePicker extends AppCompatActivity {
     private void switchPreference() {
 
         // What Happens When Switch Is Un-Checked//
-        if (switchState.getInt(SWITCH_STATE, 0) == 0) {
+        if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 0) {
 
             // Un-Check Switch//
             nightModeSwitch.setChecked(false);
         }
 
         // What Happens When Switch Is Checked//
-        if (switchState.getInt(SWITCH_STATE, 0) == 1) {
+        if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 1) {
 
             // Check Switch//
             nightModeSwitch.setChecked(true);
@@ -476,18 +476,18 @@ public class ThemePicker extends AppCompatActivity {
     // Method That Sets Theme Based On User Preference//
     public void userTheme(Context context) {
 
-        // Instantiate Variable SharedPreference switchState//
-        switchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
+        // Instantiate Variable SharedPreference nightModeSwitchState//
+        nightModeSwitchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
 
         // What Happens When Switch Is Un-Checked//
-        if (switchState.getInt(SWITCH_STATE, 0) == 0) {
+        if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 0) {
 
             // Initiate themeColors Method//
             themeColors(context);
         }
 
         // What Happens When Switch Is Checked//
-        else if (switchState.getInt(SWITCH_STATE, 0) == 1) {
+        else if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 1) {
 
             // Initiate activityNightMode Method//
             activityNightMode(context);

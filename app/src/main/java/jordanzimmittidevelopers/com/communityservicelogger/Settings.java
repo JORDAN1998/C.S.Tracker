@@ -33,14 +33,17 @@ public class Settings extends AppCompatActivity {
 
     //<editor-fold desc="Shared Preference">
 
+    // Define Variable SharedPreferences userSwitchState//
+    private SharedPreferences userSwitchState;
+
     // Name Of Preference And What Its Saving The Integer To//
     private static final String SWITCH_STATE = "user_switch_state";
 
     // Apply Switch Checked //
-    private final static int UNCHECKED = 1;
+    private final static int UNCHECKED = 0;
 
     // Apply Switch Un-Checked //
-    private final static int CHECKED = 2;
+    private final static int CHECKED = 1;
 
     //</editor-fold>
 
@@ -51,20 +54,8 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Define And Instantiate Variable ThemePicker pickTheme//
-        ThemePicker pickTheme = new ThemePicker();
-
-        // Set Theme Based On User Preference//
-        pickTheme.userTheme(this);
-
-        // Starts UI For Activity//
-        setContentView(R.layout.settings_ui);
-
-        // Define And Instantiate RelativeLayout relativeLayout//
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.settings_ui);
-
-        // Night Mode Theme Extension Options//
-        pickTheme.activityNightModeExtension(this, relativeLayout);
+        // Initiate applyTheme Method//
+        applyTheme();
 
         // Initiate instantiateWidgets Method//
         instantiateWidgets();
@@ -97,11 +88,33 @@ public class Settings extends AppCompatActivity {
         }
     }
 
+    // Method That Applies Theme By User Preference//
+    private void applyTheme() {
+
+        // Define And Instantiate Variable ThemePicker pickTheme//
+        ThemePicker pickTheme = new ThemePicker();
+
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
+
+        // Starts UI For Activity//
+        setContentView(R.layout.settings_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.settings_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
+    }
+
     // Method That Instantiates Widgets//
     private void instantiateWidgets() {
 
         // Instantiate Variable SwitchCompat usersModeSwitch//
         usersModeSwitch = (SwitchCompat) findViewById(R.id.usersModeSwitch);
+
+        // Instantiate Variable SharedPreferences userSwitchState//
+        userSwitchState = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
 
         // Initiate switchPreference Method/
         switchPreference();
@@ -122,35 +135,25 @@ public class Settings extends AppCompatActivity {
                 // What Happens If Switch Is Checked//
                 if(isChecked) {
 
-                    // Saves Switch State To Shared Preference//
-                    SharedPreferences settings = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
-                    SharedPreferences.Editor edit;
-                    edit = settings.edit();
+                    // Vibrate For 50m//
+                    vibe.vibrate(50);
 
                     // Clear Saved Value//
-                    edit.clear();
+                    userSwitchState.edit().clear().apply();
 
-                    // Put New Value Into Shared Preference//
-                    edit.putInt("switch_state", CHECKED);
-
-                    // Save Value//
-                    edit.apply();
+                    // Save New Value Into Shared Preference//
+                    userSwitchState.edit().putInt(SWITCH_STATE, CHECKED).apply();
 
                 } else {
 
-                    // Saves Switch State To Shared Preference//
-                    SharedPreferences settings = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
-                    SharedPreferences.Editor edit;
-                    edit = settings.edit();
+                    // Vibrate For 50m//
+                    vibe.vibrate(50);
 
                     // Clear Saved Value//
-                    edit.clear();
+                    userSwitchState.edit().clear().apply();
 
-                    // Put New Value Into Shared Preference//
-                    edit.putInt("switch_state", UNCHECKED);
-
-                    // Save Value//
-                    edit.apply();
+                    // Save New Value Into Shared Preference//
+                    userSwitchState.edit().putInt(SWITCH_STATE, UNCHECKED).apply();
 
                     // Creates Dialog//
                     new MaterialDialog.Builder(Settings.this)
@@ -162,7 +165,10 @@ public class Settings extends AppCompatActivity {
                             .content("Turning off users will get rid of all users but the one you choose; this cannot be undone. After clicking Ok, click the user profile that you want to save for single user mode")
 
                             // Positive Text Name For Button//
-                            .positiveText("Yes")
+                            .positiveText("Ok")
+
+                            // Negative Text Name For Button//
+                            .negativeText("Cancel")
 
                             // What Happens When Positive Button Is Pressed//
                             .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -173,7 +179,17 @@ public class Settings extends AppCompatActivity {
                                     // Vibrates For 50 Mill//
                                     vibe.vibrate(50);
 
+                                }
+                            })
 
+                            // What Happens When Negative Button Is Pressed//
+                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                    // Vibrates For 50 Mill//
+                                    vibe.vibrate(50);
 
                                 }
                             }).show();
@@ -185,23 +201,24 @@ public class Settings extends AppCompatActivity {
     // Method To Apply Switch Preference//
     private void switchPreference() {
 
-        // Default Switch To Checked//
-        usersModeSwitch.setChecked(true);
-
-        // Define And Instantiate Variable SharedPreferences switchState//
-        SharedPreferences switchState = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
-
         // What Happens When Switch Is Un-Checked//
-        if (switchState.getInt("switch_state", 0) == 1) {
+        if (userSwitchState.getInt(SWITCH_STATE, 0) == 0) {
 
             // Un-Check Switch//
             usersModeSwitch.setChecked(false);
         }
 
         // What Happens When Switch Is Checked//
-        if (switchState.getInt("switch_state", 0) == 2) {
+        else if (userSwitchState.getInt(SWITCH_STATE, 0) == 1) {
 
             // Check Switch//
+            usersModeSwitch.setChecked(true);
+        }
+
+        // What Happens When No User Preference Is Saved//
+        else {
+
+            // Default Switch To Checked//
             usersModeSwitch.setChecked(true);
         }
     }
