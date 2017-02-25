@@ -508,9 +508,6 @@ public class EventsView extends AppCompatActivity {
         // Instantiate Variable ListView usersListView//
         eventsListView = (ListView) findViewById(R.id.eventsListView);
 
-        // Instantiate NavigationDrawer navigationDrawer//
-        eventsNavigationDrawer = (UsersNavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.eventsNavigationDrawer);
-
         // Instantiate Variable SharedPreference eventsSortType//
         eventsSortType = getSharedPreferences(EVENT_SORT_TYPE, MODE_PRIVATE);
 
@@ -648,6 +645,9 @@ public class EventsView extends AppCompatActivity {
         // What Happens When Switch Is Un-Checked//
         if (userSwitchState.getInt("user_switch_state", 0) == 0) {
 
+            // Instantiate NavigationDrawer navigationDrawer//
+            eventsNavigationDrawer = (UsersNavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.eventsNavigationDrawer);
+
             // Sets Up NavigationDrawer//
             eventsNavigationDrawer.setUp((DrawerLayout) findViewById(R.id.eventsDrawerLayout), R.id.eventsNavigationDrawer);
 
@@ -656,6 +656,15 @@ public class EventsView extends AppCompatActivity {
 
             // Show Hamburger Icon//
             eventsNavigationDrawer.showHamburgerIcon(true);
+        }
+
+        else {
+
+            // Define And Instantiate Variable DrawerLayout drawerLayout//
+            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.eventsDrawerLayout);
+
+            // Stop Navigation Drawer From Sliding Open//
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
     }
 
