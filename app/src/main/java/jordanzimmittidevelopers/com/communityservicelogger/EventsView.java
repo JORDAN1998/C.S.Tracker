@@ -176,14 +176,73 @@ public class EventsView extends AppCompatActivity {
             // What Happens When Back Button Is Pressed//
             case KeyEvent.KEYCODE_BACK:
 
-                // Define and Instantiate Variable Intent DefaultActivity//
-                Intent defaultActivity = new Intent(this, DefaultActivity.class);
+                // Instantiate Variable SharedPreferences userSwitchState//
+                SharedPreferences userSwitchState = getSharedPreferences("user_switch_state", MODE_PRIVATE);
 
-                // Start Activity DefaultActivity//
-                startActivity(defaultActivity);
+                // What Happens When Switch Is Un-Checked//
+                if (userSwitchState.getInt("user_switch_state", 0) == 0) {
 
-                // Custom Transition//
-                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                    // Create Dialog//
+                    new MaterialDialog.Builder(EventsView.this)
+
+                            // Title Of Dialog//
+                            .title("Exit")
+
+                            // Content Of Dialog//
+                            .content("Would you like to exit the app?")
+
+                            // Positive Text Name For Button//
+                            .positiveText("Yes")
+
+                            // Negative Text Name For Button//
+                            .negativeText("No")
+
+                            // What Happens When Positive Button Is Pressed//
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                    // Vibrates For 50 Mill//
+                                    vibe.vibrate(50);
+
+                                    // Close usersDatabase//
+                                    eventsDatabase.close();
+
+                                    // Intent To Kill app//
+                                    Intent killApp = new Intent(Intent.ACTION_MAIN);
+                                    killApp.addCategory(Intent.CATEGORY_HOME);
+                                    killApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(killApp);
+
+                                }
+                            }).show();
+                }
+
+                // What Happens When Switch Is Checked//
+                else if (userSwitchState.getInt("user_switch_state", 0) == 1) {
+
+                    // Define and Instantiate Variable Intent DefaultActivity//
+                    Intent defaultActivity = new Intent(this, DefaultActivity.class);
+
+                    // Start Activity DefaultActivity//
+                    startActivity(defaultActivity);
+
+                    // Custom Transition//
+                    overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                }
+
+                // What Happens When No User Preference Is Saved//
+                else {
+
+                    // Define and Instantiate Variable Intent DefaultActivity//
+                    Intent defaultActivity = new Intent(this, DefaultActivity.class);
+
+                    // Start Activity DefaultActivity//
+                    startActivity(defaultActivity);
+
+                    // Custom Transition//
+                    overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                }
 
                 // Kill Code//
                 return false;

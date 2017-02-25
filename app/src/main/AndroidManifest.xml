@@ -73,6 +73,7 @@
         <activity
             android:name=".DefaultActivity"
             android:label="@string/activity_theme_picker">
+
             <!-- Tell The App To DefaultActivity Activity At Start -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
