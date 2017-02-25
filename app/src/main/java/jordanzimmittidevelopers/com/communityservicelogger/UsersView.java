@@ -231,9 +231,6 @@ public class UsersView extends AppCompatActivity {
         // Set Theme Based On User Preference//
         pickTheme.userTheme(this);
 
-        // Set Activity Title//
-        setTitle("Users");
-
         // Starts UI For Activity//
         setContentView(R.layout.users_view_ui);
 

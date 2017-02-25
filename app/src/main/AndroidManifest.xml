@@ -26,7 +26,8 @@
 
         <!-- Activity UsersView -->
         <activity
-            android:name=".UsersView">
+            android:name=".UsersView"
+            android:label="@string/activity_users_view">
 
         </activity>
 
@@ -69,10 +70,10 @@
             android:name=".ThemePicker"
             android:label="@string/activity_theme_picker"/>
 
-        <!-- Activity ThemePicker -->
+        <!-- Activity DefaultActivity -->
         <activity
             android:name=".DefaultActivity"
-            android:label="@string/activity_theme_picker">
+            android:label="@string/app_name">
 
             <!-- Tell The App To DefaultActivity Activity At Start -->
             <intent-filter>
