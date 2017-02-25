@@ -176,11 +176,11 @@ public class EventsView extends AppCompatActivity {
             // What Happens When Back Button Is Pressed//
             case KeyEvent.KEYCODE_BACK:
 
-                // Define and Instantiate Variable Intent UsersView//
-                Intent usersView = new Intent(this, UsersView.class);
+                // Define and Instantiate Variable Intent DefaultActivity//
+                Intent defaultActivity = new Intent(this, DefaultActivity.class);
 
-                // Start Activity UsersView//
-                startActivity(usersView);
+                // Start Activity DefaultActivity//
+                startActivity(defaultActivity);
 
                 // Custom Transition//
                 overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
