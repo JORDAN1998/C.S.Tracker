@@ -89,26 +89,26 @@ public class EventsView extends AppCompatActivity {
 
     //<editor-fold desc="Shared Preference">
 
+    // Define Variable SharedPreferences eventsSortType//
+    private SharedPreferences eventsSortType;
+
     // Name Of Preference And What Its Saving The Integer To//
     private static final String EVENT_SORT_TYPE = "event_sort_type";
 
-    // Apply Sort Preference//
-    private static int SORT_BY_EVENT;
-
     // Sort By Name//
-    private final static int SORT_BY_NAME = 1;
+    private final static int SORT_BY_NAME = 0;
 
     // Sort By Date//
-    private final static int SORT_BY_DATE = 2;
+    private final static int SORT_BY_DATE = 1;
 
     // Sort By Location//
-    private final static int SORT_BY_LOCATION = 3;
+    private final static int SORT_BY_LOCATION = 2;
 
     // Sort By Newest To Oldest//
-    private final static int SORT_BY_NEWEST_TO_OLDEST = 4;
+    private final static int SORT_BY_NEWEST_TO_OLDEST = 3;
 
     // Sort By Newest To Oldest//
-    private final static int SORT_BY_OLDEST_TO_NEWEST = 5;
+    private final static int SORT_BY_OLDEST_TO_NEWEST = 4;
 
     //</editor-fold>
 
@@ -129,29 +129,17 @@ public class EventsView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Define And Instantiate Variable ThemePicker pickTheme//
-        ThemePicker pickTheme = new ThemePicker();
-
-        // Set Theme Based On User Preference//
-        pickTheme.userTheme(this);
-
-        // Initiate getTitle Method//
-        getName();
-
-        // Starts UI For Activity//
-        setContentView(R.layout.events_view_ui);
-
-        // Define And Instantiate RelativeLayout relativeLayout//
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_view_ui);
-
-        // Night Mode Theme Extension Options//
-        pickTheme.activityNightModeExtension(this, relativeLayout);
+        // Initiate applyTheme Method//
+        applyTheme();
 
         // Initiate eventsDatabase Open Method//
         eventsDatabaseOpen();
 
         // Initiate eventsDatabaseOld Open Method//
         eventsDatabaseOldOpen();
+
+        // Initiate addToNewDatabase Method//
+        addToNewDatabase();
 
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
@@ -162,11 +150,8 @@ public class EventsView extends AppCompatActivity {
         // Initiate listViewLongItemClick Method//
         listViewItemLongClick();
 
-        // Initiate addToNewDatabase Method//
-        addToNewDatabase();
-
-        // Initiate populateListView//
-        populateListView(workingNameUser);
+        // Initiate sortByPreference Method//
+        sortByPreference(workingNameUser);
     }
 
     // Creates Menu And All Its Components//
@@ -176,54 +161,8 @@ public class EventsView extends AppCompatActivity {
         // Inflates The Menu / This Adds Items To The Action Bar If It Is Present//
         getMenuInflater().inflate(R.menu.events_view_menu, menu);
 
-        // Define And Instantiate SearchView eventsSearch//
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.eventsSearch));
-
-        // Set Query Hint For User//
-        searchView.setQueryHint("Search Events");
-
-        // Runs When Text Is Being Entered Into Search Box//
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            // Runs When user Submits Text //
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                // Kill Code//
-                return false;
-            }
-
-            // Runs Each Time User Adds Letter In Search Box//
-            @Override
-            public boolean onQueryTextChange(String searchText) {
-
-                // Checks If Search Is Empty//
-                if (!searchText.isEmpty()) {
-
-                    // Initiate Search Title Method//
-                    searchTitle(searchText);
-                }
-
-                // Kill Code//
-                return true;
-            }
-        });
-
-        // Runs When SearchView Is Closed//
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-
-                // Repopulate Original ListView//
-                populateListView(workingNameUser);
-
-                // Close Search Box//
-                searchView.onActionViewCollapsed();
-
-                // Kill Code//
-                return true;
-            }
-        });
+        // Initiate searchUser Method//
+        searchEvent(menu);
 
         // Kill Code//
         return true;
@@ -269,6 +208,9 @@ public class EventsView extends AppCompatActivity {
 
         // What Happens When eventsSortBy Is Pressed//
         if (id == R.id.eventsSortBy) {
+
+            // Vibrates For 50 Mill//
+            vibe.vibrate(50);
 
             // Initiate Method orderBy//
             sortBy(workingNameUser);
@@ -383,6 +325,28 @@ public class EventsView extends AppCompatActivity {
         }
     }
 
+    // Method That Applies Theme By User Preference//
+    private void applyTheme() {
+
+        // Define And Instantiate Variable ThemePicker pickTheme//
+        ThemePicker pickTheme = new ThemePicker();
+
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
+
+        // Initiate getTitle Method//
+        getName();
+
+        // Starts UI For Activity//
+        setContentView(R.layout.events_view_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_view_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
+    }
+
     // Method To Open Events Database//
     private void eventsDatabaseOpen() {
 
@@ -465,6 +429,9 @@ public class EventsView extends AppCompatActivity {
         // Instantiate Variable ListView usersListView//
         eventsListView = (ListView) findViewById(R.id.eventsListView);
 
+        // Instantiate Variable SharedPreference eventsSortType//
+        eventsSortType = getSharedPreferences(EVENT_SORT_TYPE, MODE_PRIVATE);
+
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
@@ -532,8 +499,8 @@ public class EventsView extends AppCompatActivity {
                                 // Deletes Specific Item In ListView//
                                 eventsDatabase.deleteRow(id);
 
-                                // populates ListView//
-                                populateListView(workingNameUser);
+                                // Initiate sortByPreference Method//
+                                sortByPreference(workingNameUser);
 
                                 // Restart EventsView Class//
                                 Intent i = new Intent(EventsView.this, EventsView.class);
@@ -579,6 +546,7 @@ public class EventsView extends AppCompatActivity {
 
                                 // Vibrates For 50 Mill//
                                 vibe.vibrate(50);
+
                             }
 
                         }).show();
@@ -615,48 +583,7 @@ public class EventsView extends AppCompatActivity {
     }
 
     // Method To Populate ListView//
-    private void populateListView(String workingNameUser) {
-
-        // Define And Instantiate Variable SharedPreferences eventSort//
-        SharedPreferences eventSort = getSharedPreferences(EVENT_SORT_TYPE, MODE_PRIVATE);
-
-        //<editor-fold desc="User Order Save Preference">
-
-        // What Happens When User Wants Database Sorted By Name//
-        if (eventSort.getInt("event_sort_by", 0) == 1) {
-
-            // Gets Rows In Database Based On Name Of User//
-            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + " ASC", null);
-        }
-
-        // What Happens When User Wants Database Sorted By Date//
-        else if (eventSort.getInt("event_sort_by", 0) == 2) {
-
-            // Gets Rows In Database Based On Date Of User//
-            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_DATE + " ASC", null);
-        }
-
-        // What Happens When User Wants Database Sorted By Location//
-        else if (eventSort.getInt("event_sort_by", 0) == 3) {
-
-            // Gets Rows In Database Based On Date Of User//
-            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_LOCATION + " COLLATE NOCASE" + " ASC", null);
-
-        }
-
-        // What Happens When User Wants Database Sorted By Newest To Oldest//
-        else if (eventSort.getInt("event_sort_by", 0) == 4) {
-
-            // Gets Rows In Database Based On Date Of User//
-            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_ROW_ID_NUMBER + " DESC", null);
-
-        } else {
-
-            // Gets Rows In Database Based On Date Of User//
-            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'", null);
-        }
-
-        //</editor-fold>
+    private void populateListView(final Cursor cursor) {
 
         // What Happens If searchCursor Has Data//
         if (cursor != null) {
@@ -670,44 +597,52 @@ public class EventsView extends AppCompatActivity {
             // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
             int[] toViewIDs = new int[]{R.id.eventsName, R.id.eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
 
-            // Make Above Cursor Final//
-            final Cursor finalCursor = cursor;
-
             // Creates ListView Adapter Which Allows ListView Items To Be Seen//
-            SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.events_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0) {
+            SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.events_view_design_ui, cursor, fromFieldNames, toViewIDs, 0) {
 
                 // Access users_view_design_ui Widgets//
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
 
                     // Get Cursor Position//
-                    finalCursor.moveToPosition(position);
+                    cursor.moveToPosition(position);
 
                     // Get Row Of Database//
                     final View row = super.getView(position, convertView, parent);
 
-                    // Find Night Mode Automatically//
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+                    //<editor-fold desc="Night Mode">
 
-                    // Checks Whether app Is In Night Mode Or Not//
-                    int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    // Define And Instantiate Variable SharedPreferences switchState//
+                    SharedPreferences switchState = getSharedPreferences("switch_state", MODE_PRIVATE);
 
-                    // Checks All Scenarios//
-                    switch (currentNightMode) {
+                    // What Happens When Night Mode Switch Is Checked//
+                    if (switchState.getInt("switch_state", 0) == 1) {
 
-                        // Night Mode Is Active, We're At Night!//
-                        case Configuration.UI_MODE_NIGHT_YES: {
+                        // Find Night Mode Automatically//
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
 
-                            // Define And Instantiate Variable CardView cardView//
-                            CardView cardView = (CardView) row.findViewById(R.id.cardView);
+                        // Checks Whether app Is In Night Mode Or Not//
+                        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
-                            // Set Card Background Color To Gray//
-                            cardView.setCardBackgroundColor(ContextCompat.getColor(EventsView.this, R.color.grey));
+                        // Checks All Scenarios//
+                        switch (currentNightMode) {
 
-                            // Kill Code//
-                            break;
+                            // Night Mode Is Active, We're At Night!//
+                            case Configuration.UI_MODE_NIGHT_YES: {
+
+                                // Define And Instantiate Variable CardView cardView//
+                                CardView cardView = (CardView) row.findViewById(R.id.cardView);
+
+                                // Set Card Background Color To Gray//
+                                cardView.setCardBackgroundColor(ContextCompat.getColor(EventsView.this, R.color.grey));
+
+                                // Kill Code//
+                                break;
+                            }
                         }
                     }
+
+                    //</editor-fold>
 
                     // Kill Code//
                     return row;
@@ -719,53 +654,154 @@ public class EventsView extends AppCompatActivity {
         }
     }
 
-    // Method That Searches Database By Title//
-    public void searchTitle(String names) {
+    // Method That Searches For Specific User//
+    private void searchEvent(Menu menu) {
 
-        // Gets Rows In Database Based On Name Of User//
-        Cursor searchCursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameEvent LIKE '%" + names + "%' and nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + " ASC", null);
+        // Define And Instantiate SearchView eventsSearch//
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.eventsSearch));
 
-        // What Happens If searchCursor Has Data//
-        if (searchCursor != null) {
+        // Set Query Hint For User//
+        searchView.setQueryHint("Search Events");
 
-            // Move Database To Next Value//
-            searchCursor.moveToFirst();
+        // Runs When Text Is Being Entered Into Search Box//
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-            // Puts Rows Stored On Database Into A String Shown//
-            final String[] fromFieldNames = new String[]{EventsDatabase.KEY_NAME_EVENT, EventsDatabase.KEY_DATE, EventsDatabase.KEY_LOCATION, EventsDatabase.KEY_TIME_START, EventsDatabase.KEY_TIME_END, EventsDatabase.KEY_TIME_TOTAL};
+            // Runs When user Submits Text //
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
-            // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
-            int[] toViewIDs = new int[]{R.id.eventsName, R.id.eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
+                // Kill Code//
+                return false;
+            }
 
-            // Make Above Cursor Final//
-            final Cursor finalCursor = searchCursor;
+            // Runs Each Time User Adds Letter In Search Box//
+            @Override
+            public boolean onQueryTextChange(String searchText) {
 
-            // Creates ListView Adapter Which Allows ListView Items To Be Seen//
-            SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.events_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0);
+                // Checks If Search Is Empty//
+                if (!searchText.isEmpty()) {
 
-            // Sets Up Adapter Made Earlier / Shows Content From Database//
-            eventsListView.setAdapter(simpleCursorAdapter);
-        }
+                    // Gets Rows In Database Based On Name Of User//
+                    Cursor searchCursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameEvent LIKE '%" + searchText + "%' and nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + " ASC", null);
+
+                    // What Happens If searchCursor Has Data//
+                    if (searchCursor != null) {
+
+                        // Move Database To Next Value//
+                        searchCursor.moveToFirst();
+
+                        // Puts Rows Stored On Database Into A String Shown//
+                        final String[] fromFieldNames = new String[]{EventsDatabase.KEY_NAME_EVENT, EventsDatabase.KEY_DATE, EventsDatabase.KEY_LOCATION, EventsDatabase.KEY_TIME_START, EventsDatabase.KEY_TIME_END, EventsDatabase.KEY_TIME_TOTAL};
+
+                        // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
+                        int[] toViewIDs = new int[]{R.id.eventsName, R.id.eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
+
+                        // Make Above Cursor Final//
+                        final Cursor finalCursor = searchCursor;
+
+                        // Creates ListView Adapter Which Allows ListView Items To Be Seen//
+                        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(EventsView.this, R.layout.events_view_design_ui, finalCursor, fromFieldNames, toViewIDs, 0) {
+
+                            // Access users_view_design_ui Widgets//
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+
+                                // Get Cursor Position//
+                                cursor.moveToPosition(position);
+
+                                // Get Row Of Database//
+                                final View row = super.getView(position, convertView, parent);
+
+                                //<editor-fold desc="Night Mode">
+
+                                // Define And Instantiate Variable SharedPreferences switchState//
+                                SharedPreferences switchState = getSharedPreferences("switch_state", MODE_PRIVATE);
+
+                                // What Happens When Night Mode Switch Is Checked//
+                                if (switchState.getInt("switch_state", 0) == 1) {
+
+                                    // Find Night Mode Automatically//
+                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+
+                                    // Checks Whether app Is In Night Mode Or Not//
+                                    int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+                                    // Checks All Scenarios//
+                                    switch (currentNightMode) {
+
+                                        // Night Mode Is Active, We're At Night!//
+                                        case Configuration.UI_MODE_NIGHT_YES: {
+
+                                            // Define And Instantiate Variable CardView cardView//
+                                            CardView cardView = (CardView) row.findViewById(R.id.cardView);
+
+                                            // Set Card Background Color To Gray//
+                                            cardView.setCardBackgroundColor(ContextCompat.getColor(EventsView.this, R.color.grey));
+
+                                            // Kill Code//
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                //</editor-fold>
+
+                                // Kill Code//
+                                return row;
+                            }
+                        };
+
+                        // Sets Up Adapter Made Earlier / Shows Content From Database//
+                        eventsListView.setAdapter(simpleCursorAdapter);
+                    }
+                }
+
+                // Kill Code//
+                return true;
+            }
+        });
+
+        //<editor-fold desc="Runs When SearchView Is Closed">
+
+        // Runs When SearchView Is Closed//
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+
+                // Initiate sortByPreference Method//
+                sortByPreference(workingNameUser);
+
+                // Close Search Box//
+                searchView.onActionViewCollapsed();
+
+                // Kill Code//
+                return true;
+            }
+        });
+
+        //</editor-fold>
+
     }
 
-    // Method To Sort Events By User Preference//
+    // Method That Lets User Pick Their Sort Preference//
     private void sortBy(final String workingNameUser) {
 
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
 
-        // Title String//
-        String dialogTitle = "Sort Events By...";
-
-        // Order By... Strings//
-        final String[] orderByString = {"Sort By Name", "Sort By Date", "Sort By Location", "Sort By Newest To Oldest", "Sort By Oldest To Newest"};
-
-        // Positive Btn String//
-        String positiveBtn = "Ok";
-
+        // Creates Dialog//
         new MaterialDialog.Builder(this)
-                .title(dialogTitle)
-                .items((CharSequence[]) orderByString)
+
+                // Title Of Dialog//
+                .title("Sort Events By...")
+
+                // Items Of Dialog//
+                .items("Sort By Name", "Sort By Date", "Sort By Location", "Sort By Newest To Oldest", "Sort By Oldest To Newest")
+
+                // Positive Text Name For Button//
+                .positiveText("Ok")
+
+                // What Happens When Item Is Clicked//
                 .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
@@ -776,16 +812,11 @@ public class EventsView extends AppCompatActivity {
                             // Vibrates For 50 Mill//
                             vibe.vibrate(50);
 
-                            // Saves Sort Preference Of Events//
-                            SharedPreferences settings = getSharedPreferences(EVENT_SORT_TYPE, MODE_PRIVATE);
-                            SharedPreferences.Editor edit;
-                            edit = settings.edit();
+                            // Clear Saved Value//
+                            eventsSortType.edit().clear().apply();
 
-                            // Sets Sort For Events//
-                            SORT_BY_EVENT = SORT_BY_NAME;
-                            edit.clear();
-                            edit.putInt("event_sort_by", SORT_BY_EVENT);
-                            edit.apply();
+                            // Save New Value Into Shared Preference//
+                            eventsSortType.edit().putInt(EVENT_SORT_TYPE, SORT_BY_NAME).apply();
 
                             // Define and Instantiate Variable Intent EventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
@@ -800,22 +831,17 @@ public class EventsView extends AppCompatActivity {
                             overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
                         }
 
-                        // Sets Sort Preference By Newest To Oldest//
+                        // Sets Sort Preference By Date//
                         if (i == 1) {
 
                             // Vibrates For 50 Mill//
                             vibe.vibrate(50);
 
-                            // Saves Sort Preference Of Events//
-                            SharedPreferences settings = getSharedPreferences(EVENT_SORT_TYPE, MODE_PRIVATE);
-                            SharedPreferences.Editor edit;
-                            edit = settings.edit();
+                            // Clear Saved Value//
+                            eventsSortType.edit().clear().apply();
 
-                            // Saves Sort Preference Of Events//
-                            SORT_BY_EVENT = SORT_BY_DATE;
-                            edit.clear();
-                            edit.putInt("event_sort_by", SORT_BY_EVENT);
-                            edit.apply();
+                            // Save New Value Into Shared Preference//
+                            eventsSortType.edit().putInt(EVENT_SORT_TYPE, SORT_BY_DATE).apply();
 
                             // Define and Instantiate Variable Intent eventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
@@ -830,22 +856,17 @@ public class EventsView extends AppCompatActivity {
                             overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
                         }
 
-                        // Sets Sort Preference By Oldest To Newest//
+                        // Sets Sort Preference By Location//
                         if (i == 2) {
 
                             // Vibrates For 50 Mill//
                             vibe.vibrate(50);
 
-                            // Saves Sort Preference Of Events//
-                            SharedPreferences settings = getSharedPreferences(EVENT_SORT_TYPE, MODE_PRIVATE);
-                            SharedPreferences.Editor edit;
-                            edit = settings.edit();
+                            // Clear Saved Value//
+                            eventsSortType.edit().clear().apply();
 
-                            // Sets Save Preference For Events//
-                            SORT_BY_EVENT = SORT_BY_LOCATION;
-                            edit.clear();
-                            edit.putInt("event_sort_by", SORT_BY_EVENT);
-                            edit.apply();
+                            // Save New Value Into Shared Preference//
+                            eventsSortType.edit().putInt(EVENT_SORT_TYPE, SORT_BY_LOCATION).apply();
 
                             // Define and Instantiate Variable Intent eventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
@@ -860,22 +881,17 @@ public class EventsView extends AppCompatActivity {
                             overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
                         }
 
-                        // Sets Sort Preference By Oldest To Newest//
+                        // Sets Sort Preference By Newest To Oldest//
                         if (i == 3) {
 
                             // Vibrates For 50 Mill//
                             vibe.vibrate(50);
 
-                            // Saves Sort Preference Of Events//
-                            SharedPreferences settings = getSharedPreferences(EVENT_SORT_TYPE, MODE_PRIVATE);
-                            SharedPreferences.Editor edit;
-                            edit = settings.edit();
+                            // Clear Saved Value//
+                            eventsSortType.edit().clear().apply();
 
-                            // Sets Save Preference For Events//
-                            SORT_BY_EVENT = SORT_BY_NEWEST_TO_OLDEST;
-                            edit.clear();
-                            edit.putInt("event_sort_by", SORT_BY_EVENT);
-                            edit.apply();
+                            // Save New Value Into Shared Preference//
+                            eventsSortType.edit().putInt(EVENT_SORT_TYPE, SORT_BY_NEWEST_TO_OLDEST).apply();
 
                             // Define and Instantiate Variable Intent eventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
@@ -896,16 +912,11 @@ public class EventsView extends AppCompatActivity {
                             // Vibrates For 50 Mill//
                             vibe.vibrate(50);
 
-                            // Saves Sort Preference Of Events//
-                            SharedPreferences settings = getSharedPreferences(EVENT_SORT_TYPE, MODE_PRIVATE);
-                            SharedPreferences.Editor edit;
-                            edit = settings.edit();
+                            // Clear Saved Value//
+                            eventsSortType.edit().clear().apply();
 
-                            // Sets Save Preference For Events//
-                            SORT_BY_EVENT = SORT_BY_OLDEST_TO_NEWEST;
-                            edit.clear();
-                            edit.putInt("event_sort_by", SORT_BY_EVENT);
-                            edit.apply();
+                            // Save New Value Into Shared Preference//
+                            eventsSortType.edit().putInt(EVENT_SORT_TYPE, SORT_BY_OLDEST_TO_NEWEST).apply();
 
                             // Define and Instantiate Variable Intent eventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
@@ -922,9 +933,63 @@ public class EventsView extends AppCompatActivity {
 
                         // Kill Code//
                         return false;
+
                     }
-                })
-                .positiveText(positiveBtn)
-                .show();
+                }).show();
+    }
+
+    // Method To Apply Sort By User Preference//
+    private void sortByPreference(String workingNameUser) {
+
+        // What Happens When User Wants Database Sorted By Name//
+        if (eventsSortType.getInt(EVENT_SORT_TYPE, 0) == 0) {
+
+            // Gets Rows In Database Based On Name Of User//
+            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + " ASC", null);
+
+            // Initiate populateListView Method//
+            populateListView(cursor);
+        }
+
+        // What Happens When User Wants Database Sorted By Date//
+        else if (eventsSortType.getInt(EVENT_SORT_TYPE, 0) == 1) {
+
+            // Gets Rows In Database Based On Date Of User//
+            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_DATE + " ASC", null);
+
+            // Initiate populateListView Method//
+            populateListView(cursor);
+        }
+
+        // What Happens When User Wants Database Sorted By Location//
+        else if (eventsSortType.getInt(EVENT_SORT_TYPE, 0) == 2) {
+
+            // Gets Rows In Database Based On Date Of User//
+            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_LOCATION + " COLLATE NOCASE" + " ASC", null);
+
+            // Initiate populateListView Method//
+            populateListView(cursor);
+        }
+
+        // What Happens When User Wants Database Sorted By Newest To Oldest//
+        else if (eventsSortType.getInt(EVENT_SORT_TYPE, 0) == 3) {
+
+            // Gets Rows In Database Based On Date Of User//
+            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_ROW_ID_NUMBER + " DESC", null);
+
+            // Initiate populateListView Method//
+            populateListView(cursor);
+        }
+
+        // What Happens When User Does Not Have A Preference//
+        else {
+
+            // Gets Rows In Database Based On Date Of User//
+            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'", null);
+
+            // Initiate populateListView Method//
+            populateListView(cursor);
+        }
+
     }
 }
