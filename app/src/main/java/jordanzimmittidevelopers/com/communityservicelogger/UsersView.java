@@ -458,10 +458,10 @@ public class UsersView extends AppCompatActivity {
                 //<editor-fold desc="Night Mode">
 
                 // Define And Instantiate Variable SharedPreferences switchState//
-                SharedPreferences switchState = getSharedPreferences("switch_state", MODE_PRIVATE);
+                SharedPreferences switchState = getSharedPreferences("night_mode_switch_state", MODE_PRIVATE);
 
                 // What Happens When Night Mode Switch Is Checked//
-                if (switchState.getInt("switch_state", 0) == 2) {
+                if (switchState.getInt("night_mode_switch_state", 0) == 1) {
 
                     // Find Night Mode Automatically//
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
