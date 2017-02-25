@@ -30,9 +30,6 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
     //<editor-fold desc="Extra">
 
-    // Define Variable Cursor cursor//
-    private Cursor cursor;
-
     // Define Variable EventsDatabase eventsDatabase//
     private EventsDatabase eventsDatabase;
 
@@ -139,20 +136,8 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Define And Instantiate Variable ThemePicker pickTheme//
-        ThemePicker pickTheme = new ThemePicker();
-
-        // Set Theme Based On User Preference//
-        pickTheme.userTheme(this);
-
-        // Starts UI For Activity//
-        setContentView(R.layout.events_edit_ui);
-
-        // Define And Instantiate Variable RelativeLayout relativeLayout//
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_edit_ui);
-
-        // Night Mode Theme Extension Options//
-        pickTheme.activityNightModeExtension(this, relativeLayout);
+        // Initiate applyTheme Method//
+        applyTheme();
 
         // Initiate eventsDatabase Open Method//
         eventsDatabaseOpen();
@@ -221,6 +206,25 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
         // Kill Code//
         return super.onOptionsItemSelected(item);
+    }
+
+    // Method That Applies Theme By User Preference//
+    private void applyTheme() {
+
+        // Define And Instantiate Variable ThemePicker pickTheme//
+        ThemePicker pickTheme = new ThemePicker();
+
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
+
+        // Starts UI For Activity//
+        setContentView(R.layout.events_edit_ui);
+
+        // Define And Instantiate Variable RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_edit_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
     }
 
     // Method That Copies Event//
@@ -397,8 +401,8 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
         // Gets Item Id Of Last Clicked ListView Item
         itemId = getIntent().getStringExtra(EventsView.KEY_ROW_ID_NUMBER);
 
-        // Gets Row//
-        cursor = eventsDatabase.getRow(itemId);
+        // Define And Instantiate Variable Cursor cursor / Get Database Row//
+        Cursor cursor = eventsDatabase.getRow(itemId);
 
         // Instantiate Variable String eventsEditDateString//
         eventsEditDateString = cursor.getString(EventsDatabase.COL_DATE);
