@@ -266,6 +266,13 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
                 workingNameUser = usersViewNameUser;
             }
 
+            try {
+
+                // Initiate calculateTimeTotal Method//
+                calculateTimeTotal();
+
+            } catch (ParseException e) { e.printStackTrace(); }
+
             // Inserts Values Into Database//
             eventsDatabase.insertRow(eventsEditName.getText().toString(), workingNameUser, eventsEditDate.getText().toString(), eventsEditLocation.getText().toString(), eventsEditTimeStart.getText().toString(), eventsEditTimeEnd.getText().toString(), eventsEditTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsEditPeopleInCharge.getText().toString(), eventsEditPhoneNumber.getText().toString(), eventsEditNotes.getText().toString(), "");
 

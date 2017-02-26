@@ -27,9 +27,7 @@
         <!-- Activity UsersView -->
         <activity
             android:name=".UsersView"
-            android:label="@string/activity_users_view">
-
-        </activity>
+            android:label="@string/activity_users_view" />
 
         <!-- Activity UsersAdd -->
         <activity
@@ -68,7 +66,7 @@
         <!-- Activity ThemePicker -->
         <activity
             android:name=".ThemePicker"
-            android:label="@string/activity_theme_picker"/>
+            android:label="@string/activity_theme_picker" />
 
         <!-- Activity DefaultActivity -->
         <activity
@@ -82,6 +80,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Activity DefaultUser -->
+        <activity
+            android:name=".DefaultUser"
+            android:label="@string/activity_default_user"/>
 
     </application>
 

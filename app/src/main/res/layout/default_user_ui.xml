@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI For Activity DefaultUser -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/default_user_ui"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DefaultUser">
+
+    <!-- ListView defaultUserListView -->
+    <ListView
+        android:id="@+id/defaultUserListView"
+        android:divider="@android:color/transparent"
+        android:drawSelectorOnTop="true"
+        android:dividerHeight="30.0sp"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="16dip"
+        android:paddingBottom="85dip"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

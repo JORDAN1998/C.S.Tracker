@@ -179,6 +179,14 @@ public class Settings extends AppCompatActivity {
                                     // Vibrates For 50 Mill//
                                     vibe.vibrate(50);
 
+                                    // Define and Instantiate Variable Intent settings//
+                                    Intent settings = new Intent(Settings.this, DefaultUser.class);
+
+                                    // Start Activity DefaultActivity//
+                                    startActivity(settings);
+
+                                    // Custom Transition//
+                                    overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
                                 }
                             })
 
@@ -190,6 +198,9 @@ public class Settings extends AppCompatActivity {
 
                                     // Vibrates For 50 Mill//
                                     vibe.vibrate(50);
+
+                                    // Check Switch//
+                                    usersModeSwitch.setChecked(true);
 
                                 }
                             }).show();
