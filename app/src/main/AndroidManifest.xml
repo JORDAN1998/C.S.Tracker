@@ -40,8 +40,7 @@
             android:label="@string/activity_users_edit" />
 
         <!-- Activity EventsView -->
-        <activity
-            android:name=".EventsView" />
+        <activity android:name=".EventsView" />
 
         <!-- Activity EventsAdd -->
         <activity
@@ -63,9 +62,9 @@
             android:name=".Settings"
             android:label="@string/activity_settings" />
 
-        <!-- Activity ThemePicker -->
+        <!-- Activity SettingsThemePicker -->
         <activity
-            android:name=".ThemePicker"
+            android:name=".SettingsThemePicker"
             android:label="@string/activity_theme_picker" />
 
         <!-- Activity DefaultActivity -->
@@ -84,8 +83,8 @@
         <!-- Activity DefaultUser -->
         <activity
             android:name=".DefaultUser"
-            android:label="@string/activity_default_user"/>
-
+            android:label="@string/activity_default_user" />
+        <activity android:name=".SettingsAbout"></activity>
     </application>
 
 </manifest>

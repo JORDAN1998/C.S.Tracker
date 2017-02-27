@@ -62,7 +62,7 @@ public class UsersView extends AppCompatActivity {
     private UsersNavigationDrawer usersNavigationDrawer;
 
     // UsersNavigationDrawer Items//
-    private String[] items = new String[] {"Reminders", "Settings"};
+    private String[] items = new String[] {"Reminders", "Settings", "About"};
 
     //</editor-fold>
 
@@ -225,8 +225,8 @@ public class UsersView extends AppCompatActivity {
     // Method That Applies Theme By User Preference//
     private void applyTheme() {
 
-        // Define And Instantiate Variable ThemePicker pickTheme//
-        ThemePicker pickTheme = new ThemePicker();
+        // Define And Instantiate Variable SettingsThemePicker pickTheme//
+        SettingsThemePicker pickTheme = new SettingsThemePicker();
 
         // Set Theme Based On User Preference//
         pickTheme.userTheme(this);

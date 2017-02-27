@@ -77,6 +77,7 @@ public class UsersNavigationDrawer extends Fragment {
 
     // Add New Items//
     public void addItems(final Context context , final String[] items) {
+
         // Sets Items In ListView//
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, items);
 
@@ -106,7 +107,7 @@ public class UsersNavigationDrawer extends Fragment {
 
                 switch (item) {
 
-                    // If Item Equals Notes//
+                    // If Item Equals Reminders//
                     case "Reminders": {
 
                         // Vibrate For 50 Mil//
@@ -115,7 +116,7 @@ public class UsersNavigationDrawer extends Fragment {
                         break;
                     }
 
-                    // If Item Equals Classes//
+                    // If Item Equals Settings//
                     case "Settings": {
 
                         // Vibrate For 50 Mil//
@@ -126,6 +127,24 @@ public class UsersNavigationDrawer extends Fragment {
 
                         // Start Activity Settings//
                         startActivity(settings);
+
+                        // Custom Transition//
+                        getActivity().overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                        break;
+                    }
+
+                    // If Item Equals About//
+                    case "About": {
+
+                        // Vibrate For 50 Mil//
+                        vibe.vibrate(50);
+
+                        // Define and Instantiate Variable Intent settingsAbout//
+                        Intent settingsAbout = new Intent(context, SettingsAbout.class);
+
+                        // Start Activity Settings//
+                        startActivity(settingsAbout);
 
                         // Custom Transition//
                         getActivity().overridePendingTransition(R.anim.slid_in, R.anim.slid_out);

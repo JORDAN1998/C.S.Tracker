@@ -19,8 +19,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 
-// ThemePicker Class Created By Jordan Zimmitti 2-19-17//
-public class ThemePicker extends AppCompatActivity {
+// SettingsThemePicker Class Created By Jordan Zimmitti 2-19-17//
+public class SettingsThemePicker extends AppCompatActivity {
 
     //<editor-fold desc="Variables">
 
@@ -135,7 +135,7 @@ public class ThemePicker extends AppCompatActivity {
         userTheme(this);
 
         // Starts UI For Activity//
-        setContentView(R.layout.theme_picker_ui);
+        setContentView(R.layout.settings_theme_picker_ui);
 
         // Define And Instantiate RelativeLayout relativeLayout//
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.theme_picker_ui);
@@ -272,7 +272,7 @@ public class ThemePicker extends AppCompatActivity {
                     nightModeSwitchState.edit().putInt(SWITCH_STATE, CHECKED).apply();
 
                     // Initiate userTheme Method//
-                    userTheme(ThemePicker.this);
+                    userTheme(SettingsThemePicker.this);
 
                     // Restart The Activity//
                     finish();
@@ -291,7 +291,7 @@ public class ThemePicker extends AppCompatActivity {
                     nightModeSwitchState.edit().putInt(SWITCH_STATE, UNCHECKED).apply();
 
                     // Initiate userTheme Method//
-                    userTheme(ThemePicker.this);
+                    userTheme(SettingsThemePicker.this);
 
                     // Restart The Activity//
                     finish();

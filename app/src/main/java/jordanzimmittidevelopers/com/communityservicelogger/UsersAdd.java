@@ -103,8 +103,8 @@ public class UsersAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Define And Instantiate Variable ThemePicker pickTheme//
-        ThemePicker pickTheme = new ThemePicker();
+        // Define And Instantiate Variable SettingsThemePicker pickTheme//
+        SettingsThemePicker pickTheme = new SettingsThemePicker();
 
         // Set Theme Based On User Preference//
         pickTheme.userTheme(this);

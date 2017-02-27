@@ -91,8 +91,8 @@ public class Settings extends AppCompatActivity {
     // Method That Applies Theme By User Preference//
     private void applyTheme() {
 
-        // Define And Instantiate Variable ThemePicker pickTheme//
-        ThemePicker pickTheme = new ThemePicker();
+        // Define And Instantiate Variable SettingsThemePicker pickTheme//
+        SettingsThemePicker pickTheme = new SettingsThemePicker();
 
         // Set Theme Based On User Preference//
         pickTheme.userTheme(this);
@@ -234,14 +234,14 @@ public class Settings extends AppCompatActivity {
         }
     }
 
-    // What Happens When ThemePicker Is Clicked//
+    // What Happens When SettingsThemePicker Is Clicked//
     public void onClickThemes(View view) {
 
         // Vibrate For 50m//
         vibe.vibrate(50);
 
         // Define and Instantiate Variable Intent themes//
-        Intent themes = new Intent(this, ThemePicker.class);
+        Intent themes = new Intent(this, SettingsThemePicker.class);
 
         // Start Activity themes//
         startActivity(themes);
