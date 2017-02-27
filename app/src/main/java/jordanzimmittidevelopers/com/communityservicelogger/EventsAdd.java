@@ -56,6 +56,9 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
     // Define Variable String Military Time Start//
     private String militaryTimeEnd;
 
+    // Define Variable String reverseDateString//
+    private String reverseDateString;
+
     // Define Variable String usersViewNameUser / String Of Name Value//
     private String usersViewNameUser = null;
 
@@ -107,20 +110,8 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Define And Instantiate Variable ThemePicker pickTheme//
-        ThemePicker pickTheme = new ThemePicker();
-
-        // Set Theme Based On User Preference//
-        pickTheme.userTheme(this);
-
-        // Starts UI For Activity//
-        setContentView(R.layout.events_add_ui);
-
-        // Define And Instantiate RelativeLayout relativeLayout//
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_add_ui);
-
-        // Night Mode Theme Extension Options//
-        pickTheme.activityNightModeExtension(this, relativeLayout);
+        // Initiate applyTheme Method//
+        applyTheme();
 
         // Initiate eventsDatabase Open Method//
         eventsDatabaseOpen();
@@ -144,8 +135,11 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
-        // Define And Instantiate String dateString//
+        // Define And Instantiate Variable String dateString//
         String dateString = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
+
+        // Instantiate Variable String reverseDateString//
+        reverseDateString = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
 
         // Set eventsAddDate Text//
         eventsAddDate.setText(dateString);
@@ -218,6 +212,25 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
 
+    }
+
+    // Method That Applies Theme By User Preference//
+    private void applyTheme() {
+
+        // Define And Instantiate Variable ThemePicker pickTheme//
+        ThemePicker pickTheme = new ThemePicker();
+
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
+
+        // Starts UI For Activity//
+        setContentView(R.layout.events_add_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_add_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
     }
 
     // Method That Calculates Total Time//
@@ -305,7 +318,7 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
             }
 
             // Inserts Values Into Database//
-            eventsDatabase.insertRow(eventsAddName.getText().toString(), workingNameUser, eventsAddDate.getText().toString(), eventsAddLocation.getText().toString(), eventsAddTimeStart.getText().toString(), eventsAddTimeEnd.getText().toString(), eventsAddTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsAddPeopleInCharge.getText().toString(), eventsAddPhoneNumber.getText().toString(), eventsAddNotes.getText().toString(), "");
+            eventsDatabase.insertRow(eventsAddName.getText().toString(), workingNameUser, reverseDateString, eventsAddLocation.getText().toString(), eventsAddTimeStart.getText().toString(), eventsAddTimeEnd.getText().toString(), eventsAddTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsAddPeopleInCharge.getText().toString(), eventsAddPhoneNumber.getText().toString(), eventsAddNotes.getText().toString(), "");
 
             // Define and Instantiate Variable Intent EventsView//
             Intent eventsView = new Intent(this, EventsView.class);

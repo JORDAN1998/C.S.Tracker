@@ -24,9 +24,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import static jordanzimmittidevelopers.com.communityservicelogger.R.id.eventsDate;
 
 // EventsView Class Created By Jordan Zimmitti 1-29-17//
 public class EventsView extends AppCompatActivity {
@@ -120,6 +123,13 @@ public class EventsView extends AppCompatActivity {
 
     // Sort By Newest To Oldest//
     private final static int SORT_BY_OLDEST_TO_NEWEST = 4;
+
+
+    // Name Of Preference And What Its Saving The Integer To//
+    private static final String DEFAULT_USER_MODE_NAME = "default_user_mode_name";
+
+    // Apply Sort By Name//
+    private final static String DEFAULT_USER_NAME = "default name for single user";
 
     //</editor-fold>
 
@@ -500,6 +510,18 @@ public class EventsView extends AppCompatActivity {
             // Set workingNameUser Equal To usersViewNameUser//
             workingNameUser = usersViewNameUser;
         }
+
+        else {
+
+            // Define And Instantiate Variable SharedPreference defaultUserModeName//
+            SharedPreferences defaultUserModeName = getSharedPreferences(DEFAULT_USER_MODE_NAME, MODE_PRIVATE);
+
+            // Set workingNameUser Equal To defaultUserModeName//
+            workingNameUser = defaultUserModeName.getString(DEFAULT_USER_NAME, "");
+
+            // Set Title Equal To eventAddNameUser//
+            setTitle(workingNameUser);
+        }
     }
 
     // Method That Instantiates Widgets//
@@ -678,10 +700,10 @@ public class EventsView extends AppCompatActivity {
         Intent eventsAdd = new Intent(this, EventsAdd.class);
 
         // Get Name From eventAddNameUser//
-        eventsAdd.putExtra(EVENTS_ADD_NAME_USER, eventsAddNameUser);
+        eventsAdd.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
 
         // Get Name From usersViewNameUser//
-        eventsAdd.putExtra(USERS_VIEW_NAME_USER, usersViewNameUser);
+        eventsAdd.putExtra(USERS_VIEW_NAME_USER, workingNameUser);
 
         // Start Activity EventsAdd//
         startActivity(eventsAdd);
@@ -706,7 +728,7 @@ public class EventsView extends AppCompatActivity {
             final String[] fromFieldNames = new String[]{EventsDatabase.KEY_NAME_EVENT, EventsDatabase.KEY_DATE, EventsDatabase.KEY_LOCATION, EventsDatabase.KEY_TIME_START, EventsDatabase.KEY_TIME_END, EventsDatabase.KEY_TIME_TOTAL};
 
             // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
-            int[] toViewIDs = new int[]{R.id.eventsName, R.id.eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
+            int[] toViewIDs = new int[]{R.id.eventsName, eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
 
             // Creates ListView Adapter Which Allows ListView Items To Be Seen//
             SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.events_view_design_ui, cursor, fromFieldNames, toViewIDs, 0) {
@@ -752,6 +774,34 @@ public class EventsView extends AppCompatActivity {
                             }
                         }
                     }
+
+                    //</editor-fold>
+
+                    //<editor-fold desc="Normal Date">
+
+                    // Define And Instantiate Variable String reverseDate//
+                    String reverseDate = cursor.getString(EventsDatabase.COL_DATE);
+
+                    // Define And Instantiate Variable String[] splitReverseDate//
+                    String[] splitReverseDate = reverseDate.split("/");
+
+                    // Define And Instantiate Variable String year//
+                    String year = splitReverseDate[0];
+
+                    // Define And Instantiate Variable String mon//
+                    String month = splitReverseDate[1];
+
+                    // Define And Instantiate Variable String day//
+                    String day = splitReverseDate[2];
+
+                    // Define And Instantiate Variable String date//
+                    String date = month + "/" + day + "/" + year;
+
+                    // Define And Instantiate Variable TextView eventsDate//
+                    TextView eventsDate = (TextView) row.findViewById(R.id.eventsDate);
+
+                    // Set eventsDate Text Equal To date//
+                    eventsDate.setText(date);
 
                     //</editor-fold>
 
@@ -805,7 +855,7 @@ public class EventsView extends AppCompatActivity {
                         final String[] fromFieldNames = new String[]{EventsDatabase.KEY_NAME_EVENT, EventsDatabase.KEY_DATE, EventsDatabase.KEY_LOCATION, EventsDatabase.KEY_TIME_START, EventsDatabase.KEY_TIME_END, EventsDatabase.KEY_TIME_TOTAL};
 
                         // Takes String From Database And Sends It To Whatever Layout Widget You Want, Will Show Up In The Order String Is Made In//
-                        int[] toViewIDs = new int[]{R.id.eventsName, R.id.eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
+                        int[] toViewIDs = new int[]{R.id.eventsName, eventsDate, R.id.eventsLocation, R.id.eventsTimeStart, R.id.eventsTimeEnd, R.id.eventsTimeTotal};
 
                         // Make Above Cursor Final//
                         final Cursor finalCursor = searchCursor;

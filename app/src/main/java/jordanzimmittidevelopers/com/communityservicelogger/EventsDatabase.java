@@ -264,10 +264,8 @@ public class EventsDatabase {
         // What Happens If There Is Another Row//
         while (!c.isAfterLast()) {
 
-            int test = c.getInt(COL_TIME_TOTAL_ADDED);
-
             // Get Total Time Added//
-            totalTimeAdded  = totalTimeAdded + test;
+            totalTimeAdded  = totalTimeAdded + c.getInt(COL_TIME_TOTAL_ADDED);
 
             // Move To Next Row//
             c.moveToNext();

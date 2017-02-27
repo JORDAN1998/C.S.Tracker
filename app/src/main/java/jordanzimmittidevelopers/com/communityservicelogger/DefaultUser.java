@@ -1,18 +1,22 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.CardView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -23,10 +27,9 @@ import static jordanzimmittidevelopers.com.communityservicelogger.UsersDatabase.
 // DefaultUser Class Created By Jordan Zimmitti 2-26-17//
 public class DefaultUser extends AppCompatActivity {
 
-    //<editor-fold desc="Extra">
+    //<editor-fold desc="Variables">
 
-    // Define Variable Cursor cursor//
-    private Cursor cursor;
+    //<editor-fold desc="Extra">
 
     // Define Variable UsersDatabase usersDatabase//
     private UsersDatabase usersDatabase;
@@ -36,10 +39,29 @@ public class DefaultUser extends AppCompatActivity {
 
     //</editor-fold>
 
+    //<editor-fold desc="Shared Preference">
+
+    // Name Of Preference And What Its Saving The Integer To//
+    private static final String DEFAULT_USER_MODE_NAME = "default_user_mode_name";
+
+    // Apply Sort By Name//
+    private final static String DEFAULT_USER_NAME = "default name for single user";
+
+
+    // Name Of Preference And What Its Saving The Integer To//
+    private static final String SWITCH_STATE = "user_switch_state";
+
+    // Apply Switch Un-Checked //
+    private final static int CHECKED = 1;
+
+    //</editor-fold>
+
     //<editor-fold desc="Widgets">
 
     // Define Variable ListView defaultUserListView//
     private ListView defaultUserListView;
+
+    //</editor-fold>
 
     //</editor-fold>
 
@@ -54,11 +76,47 @@ public class DefaultUser extends AppCompatActivity {
         // Initiate instantiateWidgets Method//
         instantiateWidgets();
 
+        // Initiate listViewItemClick Method//
+        listViewItemClick();
+
         // Initiate usersDatabaseOpen Method//
         usersDatabaseOpen();
 
         // Initiate populateListView Method//
         populateListView();
+    }
+
+    //Controls Back Button Functions//
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+
+            // What Happens When Back Button Is Pressed//
+            case KeyEvent.KEYCODE_BACK:
+
+                // Define And Instantiate Variable SharedPreferences userSwitchState//
+                SharedPreferences userSwitchState = getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
+
+                // Clear Saved Value//
+                userSwitchState.edit().clear().apply();
+
+                // Save New Value Into Shared Preference//
+                userSwitchState.edit().putInt(SWITCH_STATE, CHECKED).apply();
+
+                // Define and Instantiate Variable Intent settings//
+                Intent settings = new Intent(this, Settings.class);
+
+                // Start Activity Settings//
+                startActivity(settings);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Kill Code//
+                return false;
+            default:
+                return false;
+        }
     }
 
     // Method That Applies Theme By User Preference//
@@ -90,11 +148,85 @@ public class DefaultUser extends AppCompatActivity {
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
+    // Method To Set usersListView OnItemClickListener//
+    public void listViewItemClick() {
+
+        // What Happens When ListView Item is Clicked//
+        defaultUserListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // Vibrates For 50 Mill//
+                vibe.vibrate(50);
+
+                // Gets Row//
+                 Cursor itemCursor = usersDatabase.getRow(String.valueOf(id));
+
+                // Define And Instantiate Variable String userName//
+                String userName = itemCursor.getString(UsersDatabase.COL_NAME);
+
+                // Query Database For All Rows//
+                Cursor usersCursor = UsersDatabase.db.query(true, UsersDatabase.DATABASE_TABLE, UsersDatabase.ALL_KEYS, null, null, null, null, KEY_NAMES + " COLLATE NOCASE" + " ASC", null);
+
+                // What Happens When usersCursor Doesn't Equal Null//
+                if (usersCursor != null) {
+
+                    // Move To First Row//
+                    usersCursor.moveToFirst();
+                }
+
+                // What Happens If There Is Another Row//
+                while (!usersCursor.isAfterLast()) {
+
+                    if (!userName.equals(usersCursor.getString(UsersDatabase.COL_NAME))) {
+
+                        // Define And Instantiate Variable Long userId//
+                        Long userId = usersCursor.getLong(usersCursor.getColumnIndex("_id"));
+
+                        // Define And Instantiate Variable EventsDatabase eventsDatabase//
+                        EventsDatabase eventsDatabase = new EventsDatabase(DefaultUser.this);
+
+                        // Open Database//
+                        eventsDatabase.open();
+
+                        // Delete All Events Of Specified User//
+                        eventsDatabase.deleteAllUserEvents(usersCursor.getString(UsersDatabase.COL_NAME));
+
+                        // Deletes Specific Item In ListView//
+                        usersDatabase.deleteRow(userId);
+                    }
+
+                    // Move To Next Row//
+                    usersCursor.moveToNext();
+                }
+
+                // Define And Instantiate Variable SharedPreference defaultUserModeName//
+                SharedPreferences defaultUserModeName = getSharedPreferences(DEFAULT_USER_MODE_NAME, MODE_PRIVATE);
+
+                // Clear Saved Value//
+                defaultUserModeName.edit().clear().apply();
+
+                // Save New Value Into Shared Preference//
+                defaultUserModeName.edit().putString(DEFAULT_USER_NAME, userName).apply();
+
+                // Define and Instantiate Variable Intent DefaultActivity//
+                Intent defaultActivity = new Intent(DefaultUser.this, DefaultActivity.class);
+
+                // Start Activity DefaultActivity//
+                startActivity(defaultActivity);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+            }
+        });
+    }
+
     // Method To Populate ListView//
     private void populateListView() {
 
         // Gets All Rows Added To Database From Name//
-        cursor = usersDatabase.getAllRowsName();
+        final Cursor cursor = usersDatabase.getAllRowsName();
 
         // Puts Rows Stored On Database Into A String Shown//
         final String[] fromFieldNames = new String[]{KEY_NAMES, UsersDatabase.KEY_AGE, UsersDatabase.KEY_GRADE, UsersDatabase.KEY_ORGANIZATION, UsersDatabase.KEY_NAME_LETTER};

@@ -349,9 +349,6 @@ public class UsersView extends AppCompatActivity {
                                 i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                 startActivityForResult(i, 0);
                                 overridePendingTransition(0, 0); //0 for no animation;
-
-                                // Close Cursor//
-                                cursor.close();
                             }
                         })
 
