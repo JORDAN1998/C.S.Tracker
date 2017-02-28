@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI For Activity Settings -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_ui"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsAbout">
+
+    <!-- TextView version -->
+    <TextView
+        android:id="@+id/version"
+        android:text="@string/version"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="onClickVersion"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dip"
+        android:paddingBottom="16dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <!-- View view1 -->
+    <View
+        android:id="@+id/view1"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/version"/>
+
+    <!-- TextView rateInPlayStore -->
+    <TextView
+        android:id="@+id/rateInPlayStore"
+        android:text="@string/rate_in_play_store"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="onClickRateInPlayStore"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dip"
+        android:paddingBottom="16dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/version"/>
+
+    <!-- View view2 -->
+    <View
+        android:id="@+id/view2"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/rateInPlayStore"/>
+
+    <!-- TextView feedback -->
+    <TextView
+        android:id="@+id/feedback"
+        android:text="@string/feedback"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="onClickFeedback"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dip"
+        android:paddingBottom="16dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/view2"/>
+
+    <!-- View view3 -->
+    <View
+        android:id="@+id/view3"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/feedback"/>
+
+</RelativeLayout>

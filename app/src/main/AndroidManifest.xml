@@ -84,7 +84,12 @@
         <activity
             android:name=".DefaultUser"
             android:label="@string/activity_default_user" />
-        <activity android:name=".SettingsAbout"></activity>
+
+        <!-- Activity SettingsAbout -->
+        <activity
+            android:name=".SettingsAbout"
+            android:label="@string/activity_settings_about"/>
+
     </application>
 
 </manifest>

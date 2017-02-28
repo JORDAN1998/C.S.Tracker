@@ -138,8 +138,22 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
         // Define And Instantiate Variable String dateString//
         String dateString = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
 
-        // Instantiate Variable String reverseDateString//
-        reverseDateString = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+        // What Happens If dayOfMonth Is Less Then Zero//
+        if (dayOfMonth < 10) {
+
+            String day = "0" + dayOfMonth;
+
+            // Instantiate Variable String reverseDateString//
+            reverseDateString = year + "/" + (monthOfYear + 1) + "/" + day;
+
+        }
+
+        // What Happens When dayOfMonth Is Bigger Then Zero//
+        else {
+
+            // Instantiate Variable String reverseDateString//
+            reverseDateString = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+        }
 
         // Set eventsAddDate Text//
         eventsAddDate.setText(dateString);

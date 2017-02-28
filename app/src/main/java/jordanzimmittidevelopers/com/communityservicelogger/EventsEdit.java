@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,6 +86,9 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
     // Define Variable String Military Time Start//
     private String militaryTimeEnd;
+
+    // Define Variable String reverseDateString//
+    private String reverseDateString;
 
     // Define Variable String usersViewNameUser / String Of Name Value//
     private String usersViewNameUser = null;
@@ -167,8 +172,67 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
         // Define And Instantiate String dateString//
         String dateString = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
 
+        // What Happens If dayOfMonth Is Less Then Zero//
+        if (dayOfMonth < 10) {
+
+            String day = "0" + dayOfMonth;
+
+            // Instantiate Variable String reverseDateString//
+            reverseDateString = year + "/" + (monthOfYear + 1) + "/" + day;
+
+        }
+
+        // What Happens When dayOfMonth Is Bigger Then Zero//
+        else {
+
+            // Instantiate Variable String reverseDateString//
+            reverseDateString = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+        }
+
         // Set eventsEditDate Text//
         eventsEditDate.setText(dateString);
+    }
+
+    //Controls Back Button Functions//
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+
+            // What Happens When Back Button Is Pressed//
+            case KeyEvent.KEYCODE_BACK:
+
+                // Define Variable String workingNameUser//
+                String workingNameUser;
+
+                // Set workingNameUser Equal To eventsViewNameUser//
+                if (eventsViewNameUser != null) {
+
+                    // Set workingNameUser Equal To eventsViewNameUser//
+                    workingNameUser = eventsViewNameUser;
+
+                } else {
+
+                    // Set workingNameUser Equal To usersViewNameUser//
+                    workingNameUser = usersViewNameUser;
+                }
+
+                // Define and Instantiate Variable Intent EventsView//
+                Intent eventsView = new Intent(this, EventsView.class);
+
+                // Get Id Of Item Clicked In userListView//
+                eventsView.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
+
+                // Start Activity EventsView//
+                startActivity(eventsView);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Kill Code//
+                return false;
+            default:
+                return false;
+        }
     }
 
     // What Happens When User Picks Time (Not Used Due To Multiple Time Pickers)//
@@ -274,7 +338,7 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
             } catch (ParseException e) { e.printStackTrace(); }
 
             // Inserts Values Into Database//
-            eventsDatabase.insertRow(eventsEditName.getText().toString(), workingNameUser, eventsEditDate.getText().toString(), eventsEditLocation.getText().toString(), eventsEditTimeStart.getText().toString(), eventsEditTimeEnd.getText().toString(), eventsEditTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsEditPeopleInCharge.getText().toString(), eventsEditPhoneNumber.getText().toString(), eventsEditNotes.getText().toString(), "");
+            eventsDatabase.insertRow(eventsEditName.getText().toString(), workingNameUser, reverseDateString, eventsEditLocation.getText().toString(), eventsEditTimeStart.getText().toString(), eventsEditTimeEnd.getText().toString(), eventsEditTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsEditPeopleInCharge.getText().toString(), eventsEditPhoneNumber.getText().toString(), eventsEditNotes.getText().toString(), "");
 
             // Define and Instantiate Variable Intent EventsView//
             Intent eventsView = new Intent(this, EventsView.class);
@@ -386,7 +450,7 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
             }
 
             // Inserts Values Into Database//
-            eventsDatabase.updateRow(itemId, eventsEditName.getText().toString(), workingNameUser, eventsEditDate.getText().toString(), eventsEditLocation.getText().toString(), eventsEditTimeStart.getText().toString(), eventsEditTimeEnd.getText().toString(), eventsEditTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsEditPeopleInCharge.getText().toString(), eventsEditPhoneNumber.getText().toString(), eventsEditNotes.getText().toString(), "");
+            eventsDatabase.updateRow(itemId, eventsEditName.getText().toString(), workingNameUser, reverseDateString, eventsEditLocation.getText().toString(), eventsEditTimeStart.getText().toString(), eventsEditTimeEnd.getText().toString(), eventsEditTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsEditPeopleInCharge.getText().toString(), eventsEditPhoneNumber.getText().toString(), eventsEditNotes.getText().toString(), "");
 
             // Define and Instantiate Variable Intent EventsView//
             Intent eventsView = new Intent(this, EventsView.class);
@@ -445,8 +509,27 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
         // Instantiate Variable TextView eventsEditDate//
         eventsEditDate = (TextView) findViewById(R.id.eventsEditDate);
 
+        //<editor-fold desc="Normal Date">
+
+        // Define And Instantiate Variable String[] splitReverseDate//
+        String[] splitReverseDate = eventsEditDateString.split("/");
+
+        // Define And Instantiate Variable String year//
+        String year = splitReverseDate[0];
+
+        // Define And Instantiate Variable String mon//
+        String month = splitReverseDate[1];
+
+        // Define And Instantiate Variable String day//
+        String day = splitReverseDate[2];
+
+        // Define And Instantiate Variable String date//
+        String date = month + "/" + day + "/" + year;
+
+        //</editor-fold>
+
         // Set Text Equal To Value Stored In Database//
-        eventsEditDate.setText(eventsEditDateString);
+        eventsEditDate.setText(date);
 
 
         // Instantiate Variable MaterialEditText eventsEditLocation//
@@ -510,6 +593,7 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
         // Gets Name Of Last Clicked ListView Item//
         usersViewNameUser = getIntent().getStringExtra(EventsView.USERS_VIEW_NAME_USER);
+
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
