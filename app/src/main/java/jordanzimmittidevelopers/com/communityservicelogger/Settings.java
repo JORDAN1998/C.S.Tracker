@@ -213,14 +213,14 @@ public class Settings extends AppCompatActivity {
     private void switchPreference() {
 
         // What Happens When Switch Is Un-Checked//
-        if (userSwitchState.getInt(SWITCH_STATE, 0) == 0) {
+        if (userSwitchState.getInt(SWITCH_STATE, -1) == 0) {
 
             // Un-Check Switch//
             usersModeSwitch.setChecked(false);
         }
 
         // What Happens When Switch Is Checked//
-        else if (userSwitchState.getInt(SWITCH_STATE, 0) == 1) {
+        else if (userSwitchState.getInt(SWITCH_STATE, -1) == 1) {
 
             // Check Switch//
             usersModeSwitch.setChecked(true);

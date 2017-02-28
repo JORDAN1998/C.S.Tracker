@@ -24,7 +24,7 @@ public class DefaultActivity extends AppCompatActivity {
         SharedPreferences userSwitchState = getSharedPreferences("user_switch_state", MODE_PRIVATE);
 
         // What Happens When Switch Is Un-Checked//
-        if (userSwitchState.getInt("user_switch_state", 0) == 0) {
+        if (userSwitchState.getInt("user_switch_state", -1) == 0) {
 
             // Define And Instantiate Variable Intent eventsView//
             Intent eventsView = new Intent(this, EventsView.class);
@@ -37,7 +37,7 @@ public class DefaultActivity extends AppCompatActivity {
         }
 
         // What Happens When Switch Is Checked//
-        else if (userSwitchState.getInt("user_switch_state", 0) == 1) {
+        else if (userSwitchState.getInt("user_switch_state", -1) == 1) {
 
             // Define And Instantiate Variable Intent usersView//
             Intent usersView = new Intent(this, UsersView.class);
