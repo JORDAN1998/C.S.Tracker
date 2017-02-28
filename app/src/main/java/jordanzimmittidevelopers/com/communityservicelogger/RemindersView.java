@@ -157,68 +157,6 @@ public class RemindersView extends AppCompatActivity {
     // Method To Get User Name//
     private void getName() {
 
-        // Gets Name Of Last Clicked List View Item//
-        eventsAddNameUser = getIntent().getStringExtra(EVENTS_ADD_NAME_USER);
 
-        // Gets Name Of Last Clicked List View Item//
-        eventsExtraInfNameUser = getIntent().getStringExtra(EventsExtraInformation.EVENTS_EXTRA_INF_NAME_USER);
-
-        // Gets Name Of Last Clicked List View Item//
-        eventsViewNameUser = getIntent().getStringExtra(EVENTS_VIEW_NAME_USER);
-
-        // Gets Name Of Last Clicked List View Item//
-        usersViewNameUser = getIntent().getStringExtra(UsersView.USERS_VIEW_NAME_USER);
-
-        // What Happens When eventsAddNameUser Doesn't Equal Null//
-        if (eventsAddNameUser != null) {
-
-            // Set Title Equal To eventAddNameUser//
-            setTitle(eventsAddNameUser);
-
-            // Set workingNameUser Equal To eventsAddNameUser//
-            workingNameUser = eventsAddNameUser;
-        }
-
-        // What Happens When eventsExtraInfNameUser Doesn't Equals Null//
-        else if (eventsExtraInfNameUser != null) {
-
-            // Set Title Equal To eventsExtraInfNameUser//
-            setTitle(eventsExtraInfNameUser);
-
-            // Set workingNameUser Equal To eventsExtraInfNameUser//
-            workingNameUser = eventsExtraInfNameUser;
-        }
-
-        // What Happens When eventsViewNameUser Doesn't Equals Null//
-        else if (eventsViewNameUser != null) {
-
-            // Set Title Equal To usersViewNameUser//
-            setTitle(eventsViewNameUser);
-
-            // Set workingNameUser Equal To usersViewNameUser//
-            workingNameUser = usersViewNameUser;
-        }
-
-        // What Happens When usersViewNameUser Doesn't Equals Null//
-        else if (usersViewNameUser != null) {
-
-            // Set Title Equal To usersViewNameUser//
-            setTitle(usersViewNameUser);
-
-            // Set workingNameUser Equal To usersViewNameUser//
-            workingNameUser = usersViewNameUser;
-        }
-
-        else {
-
-            // Define And Instantiate Variable SharedPreference defaultUserModeName//
-            SharedPreferences defaultUserModeName = getSharedPreferences(DEFAULT_USER_MODE_NAME, MODE_PRIVATE);
-
-            // Set workingNameUser Equal To defaultUserModeName//
-            workingNameUser = defaultUserModeName.getString(DEFAULT_USER_NAME, "");
-
-            // Set Title Equal To eventAddNameUser//
-            setTitle(workingNameUser);
-        }
     }
 }

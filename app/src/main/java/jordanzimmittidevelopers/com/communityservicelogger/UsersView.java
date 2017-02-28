@@ -42,9 +42,6 @@ public class UsersView extends AppCompatActivity {
     // Puts Id Of Last Clicked ListView Item Into String//
     public final static String LIST_VIEW_ITEM_ID = null;
 
-    // Puts Name Of Last Clicked ListView Item Into String//
-    public final static String USERS_VIEW_NAME_USER = null;
-
     // Define Variable Cursor cursor//
     private Cursor cursor;
 

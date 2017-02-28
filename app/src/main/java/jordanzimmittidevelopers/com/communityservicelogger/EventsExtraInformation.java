@@ -17,12 +17,6 @@ public class EventsExtraInformation extends AppCompatActivity {
     // Define Variable EventsDatabase eventsDatabase//
     private EventsDatabase eventsDatabase;
 
-    // Puts Name Of Last Clicked ListView Item Into String//
-    public static final String EVENTS_EXTRA_INF_NAME_USER = null;
-
-    // Define Variable String eventsExtraInfNameUser//
-    private String eventsExtraInfNameUser = null;
-
     //</editor-fold>
 
     // What Happens When Activity Starts//
@@ -30,20 +24,8 @@ public class EventsExtraInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Define And Instantiate Variable SettingsThemePicker pickTheme//
-        SettingsThemePicker pickTheme = new SettingsThemePicker();
-
-        // Set Theme Based On User Preference//
-        pickTheme.userTheme(this);
-
-        // Starts UI For Activity//
-        setContentView(R.layout.events_extra_information_ui);
-
-        // Define And Instantiate RelativeLayout relativeLayout//
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_extra_information_ui);
-
-        // Night Mode Theme Extension Options//
-        pickTheme.activityNightModeExtension(this, relativeLayout);
+        // Initiate applyTheme Method//
+        applyTheme();
 
         // Initiate eventsDatabase Open Method//
         eventsDatabaseOpen();
@@ -76,6 +58,25 @@ public class EventsExtraInformation extends AppCompatActivity {
         }
     }
 
+    // Method That Applies Theme By User Preference//
+    private void applyTheme() {
+
+        // Define And Instantiate Variable SettingsThemePicker pickTheme//
+        SettingsThemePicker pickTheme = new SettingsThemePicker();
+
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
+
+        // Starts UI For Activity//
+        setContentView(R.layout.events_extra_information_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_extra_information_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
+    }
+
     // Method To Get Extra Inf Values From Database//
     private void getItemIdValues() {
 
@@ -84,9 +85,6 @@ public class EventsExtraInformation extends AppCompatActivity {
 
         // Define And Instantiate Variable Cursor cursor / Gets Row From itemId//
         Cursor cursor = eventsDatabase.getRow(itemId);
-
-        // Instantiate Variable String name / Get Name Value Stored In Database//
-        eventsExtraInfNameUser = cursor.getString(EventsDatabase.COL_NAME_USER);
 
         // Define And Instantiate Variable TextView eventsInfPeopleInCharge//
         TextView eventsInfPeopleInCharge = (TextView) findViewById(R.id.eventsInfPeopleInCharge);

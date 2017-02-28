@@ -67,35 +67,6 @@ public class EventsView extends AppCompatActivity {
     // Puts Id Of Last Clicked ListView Item Into String//
     public static final String KEY_ROW_ID_NUMBER = EventsDatabase.KEY_ROW_ID_NUMBER;
 
-
-    // Puts Name Of Last Clicked ListView Item Into String//
-    public static final String EVENTS_ADD_NAME_USER = null;
-
-    // Define Variable String eventsAddNameUser / String Of Name Value//
-    private String eventsAddNameUser = null;
-
-
-    // Puts Name Of Last Clicked ListView Item Into String//
-    public static final String EVENTS_VIEW_NAME_USER = null;
-
-    // Define Variable String eventsViewNameUser / String Of Name Value//
-    private String eventsViewNameUser = null;
-
-
-    // Define Variable String eventsExtraInfNameUser//
-    private String eventsExtraInfNameUser = null;
-
-
-    // Puts Name Of Last Clicked ListView Item Into String//
-    public static final String USERS_VIEW_NAME_USER = null;
-
-    // Define Variable String usersViewNameUser / String Of Name Value//
-    private String usersViewNameUser = null;
-
-
-    // Puts Name Of Last Clicked ListView Item Into String//
-    public static final String WORKING_NAME_USER = null;
-
     // Define Variable String workingNameUser//
     private String workingNameUser;
 
@@ -397,7 +368,7 @@ public class EventsView extends AppCompatActivity {
                 String timeTotalAdded = c.getString(EventsDatabaseOld.COL_TOTALTIME_ADDED);
 
                 // Insert Old Values Into Database//
-                eventsDatabase.insertRow(usersViewNameUser, name, date, location, timeStart, timeEnd, timeTotal, timeTotalAdded, "", "", "", "");
+                eventsDatabase.insertRow(workingNameUser, name, date, location, timeStart, timeEnd, timeTotal, timeTotalAdded, "", "", "", "");
 
                 // Move To Next Row//
                 c.moveToNext();
@@ -551,7 +522,6 @@ public class EventsView extends AppCompatActivity {
                                 // Restart EventsView Class//
                                 Intent i = new Intent(EventsView.this, EventsView.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                i.putExtra(WORKING_NAME_USER, workingNameUser);
                                 startActivityForResult(i, 0);
                                 overridePendingTransition(0, 0); //0 for no animation;
                             }
@@ -567,6 +537,9 @@ public class EventsView extends AppCompatActivity {
 
                                 // Define and Instantiate Variable Intent UsersEdit//
                                 Intent usersEdit = new Intent(EventsView.this, EventsEdit.class);
+
+                                // Get Name Of Item Clicked In userListView//
+                                usersEdit.putExtra(KEY_ROW_ID_NUMBER, String.valueOf(id));
 
                                 // Start Activity UsersAdd//
                                 startActivity(usersEdit);

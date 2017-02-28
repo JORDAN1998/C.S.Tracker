@@ -2,6 +2,7 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -24,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static jordanzimmittidevelopers.com.communityservicelogger.RemindersView.EVENTS_ADD_NAME_USER;
+
 // EventsAdd Class Created By Jordan Zimmitti 2-09-17//
 public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -44,12 +47,6 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
     //<editor-fold desc="Strings">
 
-    // Puts Name Of Last Clicked ListView Item Into String//
-    public static final String EVENTS_ADD_NAME_USER = null;
-
-    // Define Variable String eventAddNameUser / String Of Name Value//
-    private String eventsViewNameUser = null;
-
     // Define Variable String Military Time Start //
     private String militaryTimeStart;
 
@@ -59,8 +56,18 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
     // Define Variable String reverseDateString//
     private String reverseDateString;
 
-    // Define Variable String usersViewNameUser / String Of Name Value//
-    private String usersViewNameUser = null;
+    // Define Variable String workingNameUser//
+    private String workingNameUser;
+
+    //</editor-fold>
+
+    //<editor-fold desc="Shared Preference">
+
+    // Name Of Preference And What Its Saving The Integer To//
+    private static final String USER_MODE_NAME = "user_mode_name";
+
+    // Apply Sort By Name//
+    private final static String USER_NAME = "name of user";
 
     //</editor-fold>
 
@@ -219,6 +226,9 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
         // Set Theme Based On User Preference//
         pickTheme.userTheme(this);
 
+        // Initiate getTitle Method//
+        getName();
+
         // Starts UI For Activity//
         setContentView(R.layout.events_add_ui);
 
@@ -227,6 +237,16 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
         // Night Mode Theme Extension Options//
         pickTheme.activityNightModeExtension(this, relativeLayout);
+    }
+
+    // Method To Get User Name//
+    private void getName() {
+
+        // Define And Instantiate Variable SharedPreferences userModeName//
+        SharedPreferences userModeName = getSharedPreferences(USER_MODE_NAME, MODE_PRIVATE);
+
+        // Set workingNameUser Equal To defaultUserModeName//
+        workingNameUser = userModeName.getString(USER_NAME, "");
     }
 
     // Method That Calculates Total Time//
@@ -298,21 +318,6 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
                     .show();
         } else {
 
-            // Define Variable String workingNameUser//
-            String workingNameUser;
-
-            // What Happens When eventsViewNameUser Doesn't Equal Null//
-            if (eventsViewNameUser != null) {
-
-                // Set workingNameUser Equal To eventsAddNameUser//
-                workingNameUser = eventsViewNameUser;
-
-            } else {
-
-                // Set workingNameUser Equal To eventsAddNameUser//
-                workingNameUser = usersViewNameUser;
-            }
-
             // Inserts Values Into Database//
             eventsDatabase.insertRow(eventsAddName.getText().toString(), workingNameUser, reverseDateString, eventsAddLocation.getText().toString(), eventsAddTimeStart.getText().toString(), eventsAddTimeEnd.getText().toString(), eventsAddTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsAddPeopleInCharge.getText().toString(), eventsAddPhoneNumber.getText().toString(), eventsAddNotes.getText().toString(), "");
 
@@ -359,12 +364,6 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
         // Instantiate Variable TextView eventsAddTimeTotal//
         eventsAddTimeTotal = (TextView) findViewById(R.id.eventsAddTimeTotal);
-
-        // Gets Name Of Last Clicked List View Item//
-        eventsViewNameUser = getIntent().getStringExtra(EventsView.EVENTS_ADD_NAME_USER);
-
-        // Gets Name Of Last Clicked List View Item//
-        usersViewNameUser = getIntent().getStringExtra(EventsView.USERS_VIEW_NAME_USER);
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

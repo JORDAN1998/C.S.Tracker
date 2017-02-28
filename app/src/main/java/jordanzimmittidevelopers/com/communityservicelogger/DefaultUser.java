@@ -45,10 +45,10 @@ public class DefaultUser extends AppCompatActivity {
     //<editor-fold desc="Shared Preference">
 
     // Name Of Preference And What Its Saving The Integer To//
-    private static final String DEFAULT_USER_MODE_NAME = "default_user_mode_name";
+    private static final String USER_MODE_NAME = "user_mode_name";
 
     // Apply Sort By Name//
-    private final static String DEFAULT_USER_NAME = "default name for single user";
+    private final static String USER_NAME = "name of user";
 
 
     // Name Of Preference And What Its Saving The Integer To//
@@ -160,6 +160,9 @@ public class DefaultUser extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
 
+                // Vibrates For 50 Mill//
+                vibe.vibrate(50);
+
                 // Create Dialog//
                 new MaterialDialog.Builder(DefaultUser.this)
 
@@ -224,14 +227,14 @@ public class DefaultUser extends AppCompatActivity {
                                     usersCursor.moveToNext();
                                 }
 
-                                // Define And Instantiate Variable SharedPreference defaultUserModeName//
-                                SharedPreferences defaultUserModeName = getSharedPreferences(DEFAULT_USER_MODE_NAME, MODE_PRIVATE);
+                                // Define And Instantiate Variable SharedPreferences userModeName//
+                                SharedPreferences userModeName = getSharedPreferences(USER_MODE_NAME, MODE_PRIVATE);
 
                                 // Clear Saved Value//
-                                defaultUserModeName.edit().clear().apply();
+                                userModeName.edit().clear().apply();
 
                                 // Save New Value Into Shared Preference//
-                                defaultUserModeName.edit().putString(DEFAULT_USER_NAME, userName).apply();
+                                userModeName.edit().putString(USER_NAME, userName).apply();
 
                                 // Define and Instantiate Variable Intent DefaultActivity//
                                 Intent defaultActivity = new Intent(DefaultUser.this, DefaultActivity.class);

@@ -46,12 +46,6 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
     //<editor-fold desc="Strings">
 
-    // Puts Name Of Last Clicked ListView Item Into String//
-    public static final String EVENTS_ADD_NAME_USER = null;
-
-    // Define Variable String eventAddNameUser / String Of Name Value//
-    private String eventsViewNameUser = null;
-
     // Define Variable String eventsEditNameString//
     private String eventsEditNameString;
 
@@ -91,8 +85,18 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
     // Define Variable String reverseDateString//
     private String reverseDateString;
 
-    // Define Variable String usersViewNameUser / String Of Name Value//
-    private String usersViewNameUser = null;
+    // Define Variable String workingNameUser//
+    private String workingNameUser;
+
+    //</editor-fold>
+
+    //<editor-fold desc="Shared Preference">
+
+    // Name Of Preference And What Its Saving The Integer To//
+    private static final String USER_MODE_NAME = "user_mode_name";
+
+    // Apply Sort By Name//
+    private final static String USER_NAME = "name of user";
 
     //</editor-fold>
 
@@ -264,6 +268,9 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
         // Set Theme Based On User Preference//
         pickTheme.userTheme(this);
 
+        // Initiate getTitle Method//
+        getName();
+
         // Starts UI For Activity//
         setContentView(R.layout.events_edit_ui);
 
@@ -282,9 +289,6 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
         // Set workingNameUser Equal To defaultUserModeName//
         workingNameUser = userModeName.getString(USER_NAME, "");
-
-        // Set Title Equal To eventAddNameUser//
-        setTitle(workingNameUser);
     }
 
     // Method That Copies Event//
@@ -311,21 +315,6 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
                     .show();
         } else {
 
-            // Define Variable String workingNameUser//
-            String workingNameUser;
-
-            // What Happens When eventsViewNameUser Doesn't Equal Null//
-            if (eventsViewNameUser != null) {
-
-                // Set workingNameUser Equal To eventsAddNameUser//
-                workingNameUser = eventsViewNameUser;
-
-            } else {
-
-                // Set workingNameUser Equal To eventsAddNameUser//
-                workingNameUser = usersViewNameUser;
-            }
-
             try {
 
                 // Initiate calculateTimeTotal Method//
@@ -338,9 +327,6 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
             // Define and Instantiate Variable Intent EventsView//
             Intent eventsView = new Intent(this, EventsView.class);
-
-            // Get Id Of Item Clicked In userListView//
-            eventsView.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
 
             // Start Activity EventsView//
             startActivity(eventsView);
@@ -564,13 +550,6 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
         // Set Text Equal To Value Stored In Database//
         eventsEditTimeTotal.setText(eventsEditTimeTotalString);
-
-
-        // Gets Name Of Last Clicked ListView Item//
-        eventsViewNameUser = getIntent().getStringExtra(EventsView.EVENTS_ADD_NAME_USER);
-
-        // Gets Name Of Last Clicked ListView Item//
-        usersViewNameUser = getIntent().getStringExtra(EventsView.USERS_VIEW_NAME_USER);
 
 
         // Instantiate Variable Vibrator vibe//
