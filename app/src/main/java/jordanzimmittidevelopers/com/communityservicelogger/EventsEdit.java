@@ -2,6 +2,7 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -201,26 +202,8 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
             // What Happens When Back Button Is Pressed//
             case KeyEvent.KEYCODE_BACK:
 
-                // Define Variable String workingNameUser//
-                String workingNameUser;
-
-                // Set workingNameUser Equal To eventsViewNameUser//
-                if (eventsViewNameUser != null) {
-
-                    // Set workingNameUser Equal To eventsViewNameUser//
-                    workingNameUser = eventsViewNameUser;
-
-                } else {
-
-                    // Set workingNameUser Equal To usersViewNameUser//
-                    workingNameUser = usersViewNameUser;
-                }
-
                 // Define and Instantiate Variable Intent EventsView//
                 Intent eventsView = new Intent(this, EventsView.class);
-
-                // Get Id Of Item Clicked In userListView//
-                eventsView.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
 
                 // Start Activity EventsView//
                 startActivity(eventsView);
@@ -289,6 +272,19 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
         // Night Mode Theme Extension Options//
         pickTheme.activityNightModeExtension(this, relativeLayout);
+    }
+
+    // Method To Get User Name//
+    private void getName() {
+
+        // Define And Instantiate Variable SharedPreferences userModeName//
+        SharedPreferences userModeName = getSharedPreferences(USER_MODE_NAME, MODE_PRIVATE);
+
+        // Set workingNameUser Equal To defaultUserModeName//
+        workingNameUser = userModeName.getString(USER_NAME, "");
+
+        // Set Title Equal To eventAddNameUser//
+        setTitle(workingNameUser);
     }
 
     // Method That Copies Event//
@@ -434,29 +430,11 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
                     .show();
         } else {
 
-            // Define Variable String workingNameUser//
-            String workingNameUser;
-
-            // What Happens When eventsViewNameUser Doesn't Equal Null//
-            if (eventsViewNameUser != null) {
-
-                // Set workingNameUser Equal To eventsAddNameUser//
-                workingNameUser = eventsViewNameUser;
-
-            } else {
-
-                // Set workingNameUser Equal To eventsAddNameUser//
-                workingNameUser = usersViewNameUser;
-            }
-
             // Inserts Values Into Database//
             eventsDatabase.updateRow(itemId, eventsEditName.getText().toString(), workingNameUser, reverseDateString, eventsEditLocation.getText().toString(), eventsEditTimeStart.getText().toString(), eventsEditTimeEnd.getText().toString(), eventsEditTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsEditPeopleInCharge.getText().toString(), eventsEditPhoneNumber.getText().toString(), eventsEditNotes.getText().toString(), "");
 
             // Define and Instantiate Variable Intent EventsView//
             Intent eventsView = new Intent(this, EventsView.class);
-
-            // Get Id Of Item Clicked In userListView//
-            eventsView.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
 
             // Start Activity EventsView//
             startActivity(eventsView);

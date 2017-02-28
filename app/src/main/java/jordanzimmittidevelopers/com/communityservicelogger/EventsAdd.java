@@ -167,26 +167,8 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
             // What Happens When Back Button Is Pressed//
             case KeyEvent.KEYCODE_BACK:
 
-                // Define Variable String workingNameUser//
-                String workingNameUser;
-
-                // Set workingNameUser Equal To eventsViewNameUser//
-                if (eventsViewNameUser != null) {
-
-                    // Set workingNameUser Equal To eventsViewNameUser//
-                    workingNameUser = eventsViewNameUser;
-
-                } else {
-
-                    // Set workingNameUser Equal To usersViewNameUser//
-                    workingNameUser = usersViewNameUser;
-                }
-
                 // Define and Instantiate Variable Intent EventsView//
                 Intent eventsView = new Intent(this, EventsView.class);
-
-                // Get Id Of Item Clicked In userListView//
-                eventsView.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
 
                 // Start Activity EventsView//
                 startActivity(eventsView);

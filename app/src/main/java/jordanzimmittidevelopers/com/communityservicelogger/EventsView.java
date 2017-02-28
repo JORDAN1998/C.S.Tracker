@@ -126,10 +126,10 @@ public class EventsView extends AppCompatActivity {
 
 
     // Name Of Preference And What Its Saving The Integer To//
-    private static final String DEFAULT_USER_MODE_NAME = "default_user_mode_name";
+    private static final String USER_MODE_NAME = "user_mode_name";
 
     // Apply Sort By Name//
-    private final static String DEFAULT_USER_NAME = "default name for single user";
+    private final static String USER_NAME = "name of user";
 
     //</editor-fold>
 
@@ -302,7 +302,7 @@ public class EventsView extends AppCompatActivity {
             vibe.vibrate(50);
 
             // Initiate Method orderBy//
-            sortBy(workingNameUser);
+            sortBy();
 
             // Kill Code//
             return true;
@@ -459,69 +459,14 @@ public class EventsView extends AppCompatActivity {
     // Method To Get User Name//
     private void getName() {
 
-        // Gets Name Of Last Clicked List View Item//
-        eventsAddNameUser = getIntent().getStringExtra(EVENTS_ADD_NAME_USER);
+        // Define And Instantiate Variable SharedPreferences userModeName//
+        SharedPreferences userModeName = getSharedPreferences(USER_MODE_NAME, MODE_PRIVATE);
 
-        // Gets Name Of Last Clicked List View Item//
-        eventsExtraInfNameUser = getIntent().getStringExtra(EventsExtraInformation.EVENTS_EXTRA_INF_NAME_USER);
+        // Set workingNameUser Equal To defaultUserModeName//
+        workingNameUser = userModeName.getString(USER_NAME, "");
 
-        // Gets Name Of Last Clicked List View Item//
-        eventsViewNameUser = getIntent().getStringExtra(EVENTS_VIEW_NAME_USER);
-
-        // Gets Name Of Last Clicked List View Item//
-        usersViewNameUser = getIntent().getStringExtra(UsersView.USERS_VIEW_NAME_USER);
-
-        // What Happens When eventsAddNameUser Doesn't Equal Null//
-        if (eventsAddNameUser != null) {
-
-            // Set Title Equal To eventAddNameUser//
-            setTitle(eventsAddNameUser);
-
-            // Set workingNameUser Equal To eventsAddNameUser//
-            workingNameUser = eventsAddNameUser;
-        }
-
-        // What Happens When eventsExtraInfNameUser Doesn't Equals Null//
-        else if (eventsExtraInfNameUser != null) {
-
-            // Set Title Equal To eventsExtraInfNameUser//
-            setTitle(eventsExtraInfNameUser);
-
-            // Set workingNameUser Equal To eventsExtraInfNameUser//
-            workingNameUser = eventsExtraInfNameUser;
-        }
-
-        // What Happens When eventsViewNameUser Doesn't Equals Null//
-        else if (eventsViewNameUser != null) {
-
-            // Set Title Equal To usersViewNameUser//
-            setTitle(eventsViewNameUser);
-
-            // Set workingNameUser Equal To usersViewNameUser//
-            workingNameUser = usersViewNameUser;
-        }
-
-        // What Happens When usersViewNameUser Doesn't Equals Null//
-        else if (usersViewNameUser != null) {
-
-            // Set Title Equal To usersViewNameUser//
-            setTitle(usersViewNameUser);
-
-            // Set workingNameUser Equal To usersViewNameUser//
-            workingNameUser = usersViewNameUser;
-        }
-
-        else {
-
-            // Define And Instantiate Variable SharedPreference defaultUserModeName//
-            SharedPreferences defaultUserModeName = getSharedPreferences(DEFAULT_USER_MODE_NAME, MODE_PRIVATE);
-
-            // Set workingNameUser Equal To defaultUserModeName//
-            workingNameUser = defaultUserModeName.getString(DEFAULT_USER_NAME, "");
-
-            // Set Title Equal To eventAddNameUser//
-            setTitle(workingNameUser);
-        }
+        // Set Title Equal To eventAddNameUser//
+        setTitle(workingNameUser);
     }
 
     // Method That Instantiates Widgets//
@@ -623,15 +568,6 @@ public class EventsView extends AppCompatActivity {
                                 // Define and Instantiate Variable Intent UsersEdit//
                                 Intent usersEdit = new Intent(EventsView.this, EventsEdit.class);
 
-                                // Get Id Of Item Clicked In userListView//
-                                usersEdit.putExtra(KEY_ROW_ID_NUMBER, String.valueOf(id));
-
-                                // Get Name From eventAddNameUser//
-                                usersEdit.putExtra(EVENTS_ADD_NAME_USER, eventsAddNameUser);
-
-                                // Get Name From usersViewNameUser//
-                                usersEdit.putExtra(USERS_VIEW_NAME_USER, usersViewNameUser);
-
                                 // Start Activity UsersAdd//
                                 startActivity(usersEdit);
 
@@ -698,12 +634,6 @@ public class EventsView extends AppCompatActivity {
 
         // Define and Instantiate Variable Intent EventsAdd//
         Intent eventsAdd = new Intent(this, EventsAdd.class);
-
-        // Get Name From eventAddNameUser//
-        eventsAdd.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
-
-        // Get Name From usersViewNameUser//
-        eventsAdd.putExtra(USERS_VIEW_NAME_USER, workingNameUser);
 
         // Start Activity EventsAdd//
         startActivity(eventsAdd);
@@ -945,7 +875,7 @@ public class EventsView extends AppCompatActivity {
     }
 
     // Method That Lets User Pick Their Sort Preference//
-    private void sortBy(final String workingNameUser) {
+    private void sortBy() {
 
         // Vibrates For 50 Mill//
         vibe.vibrate(50);
@@ -982,9 +912,6 @@ public class EventsView extends AppCompatActivity {
                             // Define and Instantiate Variable Intent EventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
 
-                            // Get Name Of Item Clicked In userListView//
-                            eventsView.putExtra(USERS_VIEW_NAME_USER, workingNameUser);
-
                             // Start Activity EventsView//
                             startActivity(eventsView);
 
@@ -1006,9 +933,6 @@ public class EventsView extends AppCompatActivity {
 
                             // Define and Instantiate Variable Intent eventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
-
-                            // Get Name Of Item Clicked In userListView//
-                            eventsView.putExtra(USERS_VIEW_NAME_USER, workingNameUser);
 
                             // Start Activity EventsView//
                             startActivity(eventsView);
@@ -1032,9 +956,6 @@ public class EventsView extends AppCompatActivity {
                             // Define and Instantiate Variable Intent eventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
 
-                            // Get Name Of Item Clicked In userListView//
-                            eventsView.putExtra(USERS_VIEW_NAME_USER, workingNameUser);
-
                             // Start Activity UsersView//
                             startActivity(eventsView);
 
@@ -1057,9 +978,6 @@ public class EventsView extends AppCompatActivity {
                             // Define and Instantiate Variable Intent eventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
 
-                            // Get Name Of Item Clicked In userListView//
-                            eventsView.putExtra(USERS_VIEW_NAME_USER, workingNameUser);
-
                             // Start Activity EventsView//
                             startActivity(eventsView);
 
@@ -1081,9 +999,6 @@ public class EventsView extends AppCompatActivity {
 
                             // Define and Instantiate Variable Intent eventsView//
                             Intent eventsView = new Intent(EventsView.this, EventsView.class);
-
-                            // Get Name Of Item Clicked In userListView//
-                            eventsView.putExtra(USERS_VIEW_NAME_USER, workingNameUser);
 
                             // Start Activity EventsView//
                             startActivity(eventsView);

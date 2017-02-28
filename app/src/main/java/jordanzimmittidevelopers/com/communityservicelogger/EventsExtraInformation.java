@@ -63,9 +63,6 @@ public class EventsExtraInformation extends AppCompatActivity {
                 // Define and Instantiate Variable Intent EventsView//
                 Intent eventsView = new Intent(this, EventsView.class);
 
-                // Get Name From eventAddNameUser//
-                eventsView.putExtra(EVENTS_EXTRA_INF_NAME_USER, eventsExtraInfNameUser);
-
                 // Start Activity EventsView//
                 startActivity(eventsView);
 

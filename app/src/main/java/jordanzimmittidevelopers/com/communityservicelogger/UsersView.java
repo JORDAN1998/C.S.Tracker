@@ -83,6 +83,13 @@ public class UsersView extends AppCompatActivity {
     // Apply Sort By Newest To Oldest//
     private final static int SORT_BY_OLDEST_TO_NEWEST = 2;
 
+
+    // Name Of Preference And What Its Saving The Integer To//
+    private static final String USER_MODE_NAME = "user_mode_name";
+
+    // Apply Sort By Name//
+    private final static String USER_NAME = "name of user";
+
     //</editor-fold>
 
     //<editor-fold desc="Widgets">
@@ -241,6 +248,22 @@ public class UsersView extends AppCompatActivity {
         pickTheme.activityNightModeExtension(this, relativeLayout);
     }
 
+    // Method That Gets The Name Of The User Being Clicked On//
+    private void getName(long id) {
+
+        // Instantiate Variable Cursor cursor / Get Row From Item Clicked In usersListView//
+        cursor = usersDatabase.getRow(String.valueOf(id));
+
+        // Define And Instantiate Variable SharedPreferences userModeName//
+        SharedPreferences userModeName = getSharedPreferences(USER_MODE_NAME, MODE_PRIVATE);
+
+        // Clear Saved Value//
+        userModeName.edit().clear().apply();
+
+        // Save New Value Into Shared Preference//
+        userModeName.edit().putString(USER_NAME, cursor.getString(UsersDatabase.COL_NAME)).apply();
+    }
+
     // Method That Instantiates Widgets//
     private void instantiateWidgets() {
 
@@ -272,20 +295,14 @@ public class UsersView extends AppCompatActivity {
                 // Define and Instantiate Variable Intent EventsView//
                 Intent eventsView = new Intent(UsersView.this, EventsView.class);
 
-                // Gets Row//
-                cursor = usersDatabase.getRow(String.valueOf(id));
-
-                // Get Name Of Item Clicked In userListView//
-                eventsView.putExtra(USERS_VIEW_NAME_USER, cursor.getString(UsersDatabase.COL_NAME));
+                // Initiate getName Method//
+                getName(id);
 
                 // Start Activity EventsView//
                 startActivity(eventsView);
 
                 // Custom Transition//
                 overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
-
-                // Close Cursor//
-                cursor.close();
 
                 // Close usersDatabase//
                 usersDatabase.close();
