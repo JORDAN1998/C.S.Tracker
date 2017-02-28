@@ -20,6 +20,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static jordanzimmittidevelopers.com.communityservicelogger.UsersDatabase.KEY_NAMES;
@@ -155,69 +158,102 @@ public class DefaultUser extends AppCompatActivity {
         defaultUserListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
 
-                // Vibrates For 50 Mill//
-                vibe.vibrate(50);
+                // Create Dialog//
+                new MaterialDialog.Builder(DefaultUser.this)
 
-                // Gets Row//
-                 Cursor itemCursor = usersDatabase.getRow(String.valueOf(id));
+                        // Title Of Dialog//
+                        .title("Are You Sure?")
 
-                // Define And Instantiate Variable String userName//
-                String userName = itemCursor.getString(UsersDatabase.COL_NAME);
+                        // Content Of Dialog//
+                        .content("Is this the user you want to save? All other users will be deleted but this one.")
 
-                // Query Database For All Rows//
-                Cursor usersCursor = UsersDatabase.db.query(true, UsersDatabase.DATABASE_TABLE, UsersDatabase.ALL_KEYS, null, null, null, null, KEY_NAMES + " COLLATE NOCASE" + " ASC", null);
+                        // Positive Text Name For Button//
+                        .positiveText("Ok")
 
-                // What Happens When usersCursor Doesn't Equal Null//
-                if (usersCursor != null) {
+                        // Negative Text Name For Button//
+                        .negativeText("Cancel")
 
-                    // Move To First Row//
-                    usersCursor.moveToFirst();
-                }
+                        // What Happens When Positive Button Is Pressed//
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
-                // What Happens If There Is Another Row//
-                while (!usersCursor.isAfterLast()) {
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
 
-                    if (!userName.equals(usersCursor.getString(UsersDatabase.COL_NAME))) {
+                                // Gets Row//
+                                Cursor itemCursor = usersDatabase.getRow(String.valueOf(id));
 
-                        // Define And Instantiate Variable Long userId//
-                        Long userId = usersCursor.getLong(usersCursor.getColumnIndex("_id"));
+                                // Define And Instantiate Variable String userName//
+                                String userName = itemCursor.getString(UsersDatabase.COL_NAME);
 
-                        // Define And Instantiate Variable EventsDatabase eventsDatabase//
-                        EventsDatabase eventsDatabase = new EventsDatabase(DefaultUser.this);
+                                // Query Database For All Rows//
+                                Cursor usersCursor = UsersDatabase.db.query(true, UsersDatabase.DATABASE_TABLE, UsersDatabase.ALL_KEYS, null, null, null, null, KEY_NAMES + " COLLATE NOCASE" + " ASC", null);
 
-                        // Open Database//
-                        eventsDatabase.open();
+                                // What Happens When usersCursor Doesn't Equal Null//
+                                if (usersCursor != null) {
 
-                        // Delete All Events Of Specified User//
-                        eventsDatabase.deleteAllUserEvents(usersCursor.getString(UsersDatabase.COL_NAME));
+                                    // Move To First Row//
+                                    usersCursor.moveToFirst();
+                                }
 
-                        // Deletes Specific Item In ListView//
-                        usersDatabase.deleteRow(userId);
-                    }
+                                // What Happens If There Is Another Row//
+                                while (!usersCursor.isAfterLast()) {
 
-                    // Move To Next Row//
-                    usersCursor.moveToNext();
-                }
+                                    if (!userName.equals(usersCursor.getString(UsersDatabase.COL_NAME))) {
 
-                // Define And Instantiate Variable SharedPreference defaultUserModeName//
-                SharedPreferences defaultUserModeName = getSharedPreferences(DEFAULT_USER_MODE_NAME, MODE_PRIVATE);
+                                        // Define And Instantiate Variable Long userId//
+                                        Long userId = usersCursor.getLong(usersCursor.getColumnIndex("_id"));
 
-                // Clear Saved Value//
-                defaultUserModeName.edit().clear().apply();
+                                        // Define And Instantiate Variable EventsDatabase eventsDatabase//
+                                        EventsDatabase eventsDatabase = new EventsDatabase(DefaultUser.this);
 
-                // Save New Value Into Shared Preference//
-                defaultUserModeName.edit().putString(DEFAULT_USER_NAME, userName).apply();
+                                        // Open Database//
+                                        eventsDatabase.open();
 
-                // Define and Instantiate Variable Intent DefaultActivity//
-                Intent defaultActivity = new Intent(DefaultUser.this, DefaultActivity.class);
+                                        // Delete All Events Of Specified User//
+                                        eventsDatabase.deleteAllUserEvents(usersCursor.getString(UsersDatabase.COL_NAME));
 
-                // Start Activity DefaultActivity//
-                startActivity(defaultActivity);
+                                        // Deletes Specific Item In ListView//
+                                        usersDatabase.deleteRow(userId);
+                                    }
 
-                // Custom Transition//
-                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                                    // Move To Next Row//
+                                    usersCursor.moveToNext();
+                                }
+
+                                // Define And Instantiate Variable SharedPreference defaultUserModeName//
+                                SharedPreferences defaultUserModeName = getSharedPreferences(DEFAULT_USER_MODE_NAME, MODE_PRIVATE);
+
+                                // Clear Saved Value//
+                                defaultUserModeName.edit().clear().apply();
+
+                                // Save New Value Into Shared Preference//
+                                defaultUserModeName.edit().putString(DEFAULT_USER_NAME, userName).apply();
+
+                                // Define and Instantiate Variable Intent DefaultActivity//
+                                Intent defaultActivity = new Intent(DefaultUser.this, DefaultActivity.class);
+
+                                // Start Activity DefaultActivity//
+                                startActivity(defaultActivity);
+
+                                // Custom Transition//
+                                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                            }
+                        })
+
+                        //What Happens When Negative Button Is Pressed//
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+                            }
+
+                        }).show();
             }
         });
     }
