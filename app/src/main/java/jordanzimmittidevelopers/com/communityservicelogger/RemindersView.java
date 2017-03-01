@@ -7,11 +7,13 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.CardView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -30,6 +32,9 @@ public class RemindersView extends AppCompatActivity {
 
     // Define Variable RemindersDatabase remindersDatabase//
     private RemindersDatabase remindersDatabase;
+
+    // Define Variable String workingNameUser//
+    private String workingNameUser;
 
     // Define Variable Vibrator vibe//
     private Vibrator vibe;
@@ -73,6 +78,30 @@ public class RemindersView extends AppCompatActivity {
         populateListView();
     }
 
+    //Controls Back Button Functions//
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+
+            // What Happens When Back Button Is Pressed//
+            case KeyEvent.KEYCODE_BACK:
+
+                // Define and Instantiate Variable Intent EventsView//
+                Intent eventsView = new Intent(this, EventsView.class);
+
+                // Start Activity EventsView//
+                startActivity(eventsView);
+
+                // Custom Transition//
+                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                // Kill Code//
+                return false;
+            default:
+                return false;
+        }
+    }
+
     // Method That Applies Theme By User Preference//
     private void applyTheme() {
 
@@ -102,10 +131,7 @@ public class RemindersView extends AppCompatActivity {
         SharedPreferences userModeName = getSharedPreferences(USER_MODE_NAME, MODE_PRIVATE);
 
         // Set workingNameUser Equal To defaultUserModeName//
-        String workingNameUser = userModeName.getString(USER_NAME, "");
-
-        // Set Title Equal To userModeName//
-        setTitle(workingNameUser);
+        workingNameUser = userModeName.getString(USER_NAME, "");
     }
 
     // Method That Instantiates Widgets//

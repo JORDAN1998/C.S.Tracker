@@ -40,7 +40,8 @@
             android:label="@string/activity_users_edit" />
 
         <!-- Activity EventsView -->
-        <activity android:name=".EventsView" />
+        <activity
+            android:name=".EventsView" />
 
         <!-- Activity EventsAdd -->
         <activity
@@ -89,7 +90,12 @@
         <activity
             android:name=".SettingsAbout"
             android:label="@string/activity_settings_about" />
-        <activity android:name=".RemindersView"></activity>
+
+        <!-- Activity RemindersView -->
+        <activity
+            android:name=".RemindersView"
+            android:label="@string/activity_reminders_view"/>
+
     </application>
 
 </manifest>
