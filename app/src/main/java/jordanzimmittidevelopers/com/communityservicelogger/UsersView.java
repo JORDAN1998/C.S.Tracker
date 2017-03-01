@@ -59,7 +59,7 @@ public class UsersView extends AppCompatActivity {
     private UsersNavigationDrawer usersNavigationDrawer;
 
     // UsersNavigationDrawer Items//
-    private String[] items = new String[] {"Reminders", "Settings", "About"};
+    private String[] items = new String[] {"Settings", "About"};
 
     //</editor-fold>
 

@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static jordanzimmittidevelopers.com.communityservicelogger.RemindersView.EVENTS_ADD_NAME_USER;
+
 
 // EventsAdd Class Created By Jordan Zimmitti 2-09-17//
 public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -245,7 +245,7 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
         // Define And Instantiate Variable SharedPreferences userModeName//
         SharedPreferences userModeName = getSharedPreferences(USER_MODE_NAME, MODE_PRIVATE);
 
-        // Set workingNameUser Equal To defaultUserModeName//
+        // Set workingNameUser Equal To userModeName//
         workingNameUser = userModeName.getString(USER_NAME, "");
     }
 
@@ -323,9 +323,6 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
             // Define and Instantiate Variable Intent EventsView//
             Intent eventsView = new Intent(this, EventsView.class);
-
-            // Get Id Of Item Clicked In userListView//
-            eventsView.putExtra(EVENTS_ADD_NAME_USER, workingNameUser);
 
             // Start Activity EventsView//
             startActivity(eventsView);

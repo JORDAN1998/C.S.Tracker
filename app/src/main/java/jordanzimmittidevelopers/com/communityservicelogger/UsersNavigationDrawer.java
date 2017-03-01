@@ -113,6 +113,15 @@ public class UsersNavigationDrawer extends Fragment {
                         // Vibrate For 50 Mil//
                         vibe.vibrate(50);
 
+                        // Define and Instantiate Variable Intent remindersView//
+                        Intent remindersView = new Intent(context, RemindersView.class);
+
+                        // Start Activity RemindersView//
+                        startActivity(remindersView);
+
+                        // Custom Transition//
+                        getActivity().overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
                         break;
                     }
 

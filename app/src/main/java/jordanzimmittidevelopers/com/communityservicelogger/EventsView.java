@@ -436,14 +436,14 @@ public class EventsView extends AppCompatActivity {
         // Set workingNameUser Equal To defaultUserModeName//
         workingNameUser = userModeName.getString(USER_NAME, "");
 
-        // Set Title Equal To eventAddNameUser//
+        // Set Title Equal To userModeName//
         setTitle(workingNameUser);
     }
 
     // Method That Instantiates Widgets//
     private void instantiateWidgets() {
 
-        // Instantiate Variable ListView usersListView//
+        // Instantiate Variable ListView eventsListView//
         eventsListView = (ListView) findViewById(R.id.eventsListView);
 
         // Instantiate Variable SharedPreference eventsSortType//
