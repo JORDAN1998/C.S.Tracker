@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI For Activity RemindersAdd -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reminders_add_ui"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dip"
+    tools:context=".RemindersAdd">
+
+    <!-- TextView remindersAddNameTitle -->
+    <TextView
+        android:id="@+id/remindersAddNameTitle"
+        android:text="@string/name_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- MaterialEditText remindersAddName -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/remindersAddName"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/remindersAddNameTitle"
+        android:layout_toLeftOf="@+id/remindersAddDateTitle"
+        android:layout_toStartOf="@+id/remindersAddDateTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView remindersAddDateTitle -->
+    <TextView
+        android:id="@+id/remindersAddDateTitle"
+        android:text="@string/date_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="22dip"
+        android:paddingLeft="50dip"
+        android:paddingStart="50dip"
+        android:paddingRight="30dip"
+        android:paddingEnd="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/remindersAddDate"
+        android:layout_alignStart="@+id/remindersAddDate" />
+
+    <!-- TextView remindersAddDate -->
+    <TextView
+        android:id="@+id/remindersAddDate"
+        android:text="@string/date"
+        android:textSize="14sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="50dip"
+        android:paddingStart="50dip"
+        android:paddingRight="30dip"
+        android:paddingEnd="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/remindersAddDateTitle"/>
+
+    <!-- TextView remindersAddLocationTitle -->
+    <TextView
+        android:id="@+id/remindersAddLocationTitle"
+        android:text="@string/location_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_below="@+id/remindersAddName"/>
+
+    <!-- MaterialEditText remindersAddLocation -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/remindersAddLocation"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/remindersAddLocationTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+</RelativeLayout>
+

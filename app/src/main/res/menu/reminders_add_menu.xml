@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Menu For Activity EventsAdd -->
+<!-- Menu For Activity RemindersAdd -->
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".EventsAdd">
+    tools:context=".RemindersAdd">
 
-    <!-- Item eventsAddSave -->
+    <!-- Item remindersAddSave -->
     <item
-        android:id="@+id/eventsAddSave"
+        android:id="@+id/remindersAddSave"
         android:title="@string/save"
         android:icon="@drawable/save"
         android:orderInCategory="1"

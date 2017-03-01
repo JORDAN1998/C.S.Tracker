@@ -25,8 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
-
 // EventsAdd Class Created By Jordan Zimmitti 2-09-17//
 public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -313,7 +311,7 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
                     .content("You can't save the event without filling out all required fields: Name, Date, Location, Start End & Total Time")
 
                     // Negative Text Name For Button//
-                    .negativeText("Edit")
+                    .negativeText("Ok")
 
                     .show();
         } else {

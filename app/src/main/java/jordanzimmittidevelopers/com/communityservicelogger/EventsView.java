@@ -605,7 +605,7 @@ public class EventsView extends AppCompatActivity {
         // Vibrate For 50m//
         vibe.vibrate(50);
 
-        // Define and Instantiate Variable Intent EventsAdd//
+        // Define and Instantiate Variable Intent eventsAdd//
         Intent eventsAdd = new Intent(this, EventsAdd.class);
 
         // Start Activity EventsAdd//

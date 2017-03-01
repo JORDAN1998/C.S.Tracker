@@ -94,7 +94,12 @@
         <!-- Activity RemindersView -->
         <activity
             android:name=".RemindersView"
-            android:label="@string/activity_reminders_view"/>
+            android:label="@string/activity_reminders_view" />
+
+        <!-- Activity RemindersAdd -->
+        <activity
+            android:name=".RemindersAdd"
+            android:label="@string/activity_reminders_add"/>
 
     </application>
 

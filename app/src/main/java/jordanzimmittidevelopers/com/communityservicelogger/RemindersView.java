@@ -16,9 +16,13 @@ import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 // RemindersView Class Created By Jordan Zimmitti 2-27-17//
 public class RemindersView extends AppCompatActivity {
@@ -33,21 +37,8 @@ public class RemindersView extends AppCompatActivity {
     // Define Variable RemindersDatabase remindersDatabase//
     private RemindersDatabase remindersDatabase;
 
-    // Define Variable String workingNameUser//
-    private String workingNameUser;
-
     // Define Variable Vibrator vibe//
     private Vibrator vibe;
-
-    //</editor-fold>
-
-    //<editor-fold desc="Shared Preference">
-
-    // Name Of Preference And What Its Saving The Integer To//
-    private static final String USER_MODE_NAME = "user_mode_name";
-
-    // Apply Sort By Name//
-    private final static String USER_NAME = "name of user";
 
     //</editor-fold>
 
@@ -70,6 +61,9 @@ public class RemindersView extends AppCompatActivity {
 
         // Initiate instantiateWidgets Method//
         instantiateWidgets();
+
+        // Initiate listViewItemLongClick Method//
+        listViewItemLongClick();
 
         // Initiate remindersDatabaseOpen Method//
         remindersDatabaseOpen();
@@ -111,9 +105,6 @@ public class RemindersView extends AppCompatActivity {
         // Set Theme Based On User Preference//
         pickTheme.userTheme(this);
 
-        // Initiate getTitle Method//
-        getName();
-
         // Starts UI For Activity//
         setContentView(R.layout.reminders_view_ui);
 
@@ -122,16 +113,6 @@ public class RemindersView extends AppCompatActivity {
 
         // Night Mode Theme Extension Options//
         pickTheme.activityNightModeExtension(this, relativeLayout);
-    }
-
-    // Method To Get User Name//
-    private void getName() {
-
-        // Define And Instantiate Variable SharedPreferences userModeName//
-        SharedPreferences userModeName = getSharedPreferences(USER_MODE_NAME, MODE_PRIVATE);
-
-        // Set workingNameUser Equal To defaultUserModeName//
-        workingNameUser = userModeName.getString(USER_NAME, "");
     }
 
     // Method That Instantiates Widgets//
@@ -144,17 +125,104 @@ public class RemindersView extends AppCompatActivity {
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
+    // Method That Runs When ListView Item Is Long Clicked//
+    public void listViewItemLongClick() {
+
+        remindersListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
+
+                // Create Dialog//
+                new MaterialDialog.Builder(RemindersView.this)
+
+                        // Title Of Dialog//
+                        .title("What Would You Like To Do")
+
+                        // Content Of Dialog//
+                        .content("edit user, delete user, or more options")
+
+                        // Positive Text Name For Button//
+                        .positiveText("Delete")
+
+                        // Negative Text Name For Button//
+                        .negativeText("Edit")
+
+                        // Neutral Text Name For Button//
+                        .neutralText("More")
+
+                        // What Happens When Positive Button Is Pressed//
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+
+                                // Deletes Specific Item In ListView//
+                                remindersDatabase.deleteRow(id);
+
+                                // Initiate populateListView Method//
+                                populateListView();
+
+                                // Restart EventsView Class//
+                                Intent i = new Intent(RemindersView.this, RemindersView.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivityForResult(i, 0);
+                                overridePendingTransition(0, 0); //0 for no animation;
+                            }
+                        })
+
+                        //What Happens When Negative Button Is Pressed//
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+
+                                // Define and Instantiate Variable Intent UsersEdit//
+                                //Intent usersEdit = new Intent(EventsView.this, EventsEdit.class);
+
+                                // Get Name Of Item Clicked In userListView//
+                               // usersEdit.putExtra(KEY_ROW_ID_NUMBER, String.valueOf(id));
+
+                                // Start Activity UsersAdd//
+                                //startActivity(usersEdit);
+
+                                // Custom Transition//
+                                //overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                            }
+                        })
+
+                        // What Happens When Neutral Button Is Pressed//
+                        .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Vibrates For 50 Mill//
+                                vibe.vibrate(50);
+
+                            }
+
+                        }).show();
+
+                // Kill Code//
+                return true;
+            }
+        });
+    }
+
     // What Happens When Fab Btn Is Clicked//
     public void onClickFab(View view) {
 
         // Vibrate For 50m//
         vibe.vibrate(50);
 
-        // Define and Instantiate Variable Intent EventsAdd//
-        Intent eventsAdd = new Intent(this, EventsAdd.class);
+        // Define and Instantiate Variable Intent remindersAdd//
+        Intent remindersAdd = new Intent(this, RemindersAdd.class);
 
-        // Start Activity EventsAdd//
-        startActivity(eventsAdd);
+        // Start Activity RemindersAdd//
+        startActivity(remindersAdd);
 
         // Custom Transition//
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
@@ -238,7 +306,7 @@ public class RemindersView extends AppCompatActivity {
                 //<editor-fold desc="Normal Date">
 
                 // Define And Instantiate Variable String reverseDate//
-                String reverseDate = cursor.getString(EventsDatabase.COL_DATE);
+                String reverseDate = cursor.getString(RemindersDatabase.COL_DATE);
 
                 // Define And Instantiate Variable String[] splitReverseDate//
                 String[] splitReverseDate = reverseDate.split("/");
@@ -255,11 +323,11 @@ public class RemindersView extends AppCompatActivity {
                 // Define And Instantiate Variable String date//
                 String date = month + "/" + day + "/" + year;
 
-                // Define And Instantiate Variable TextView eventsDate//
-                TextView eventsDate = (TextView) row.findViewById(R.id.eventsDate);
+                // Define And Instantiate Variable TextView remindersDate//
+                TextView remindersDate = (TextView) row.findViewById(R.id.remindersDate);
 
                 // Set eventsDate Text Equal To date//
-                eventsDate.setText(date);
+                remindersDate.setText(date);
 
                 //</editor-fold>
 
