@@ -31,6 +31,9 @@ public class RemindersView extends AppCompatActivity {
 
     //<editor-fold desc="Extra">
 
+    // Puts Id Of Last Clicked ListView Item Into String//
+    public final static String LIST_VIEW_ITEM_ID = null;
+
     // Define Variable Cursor cursor//
     private Cursor cursor;
 
@@ -180,17 +183,17 @@ public class RemindersView extends AppCompatActivity {
                                 // Vibrates For 50 Mill//
                                 vibe.vibrate(50);
 
-                                // Define and Instantiate Variable Intent UsersEdit//
-                                //Intent usersEdit = new Intent(EventsView.this, EventsEdit.class);
+                                // Define and Instantiate Variable Intent RemindersEdit//
+                                Intent remindersEdit = new Intent(RemindersView.this, RemindersEdit.class);
 
-                                // Get Name Of Item Clicked In userListView//
-                               // usersEdit.putExtra(KEY_ROW_ID_NUMBER, String.valueOf(id));
+                                // Get Name Of Item Clicked In remindersListView//
+                               remindersEdit.putExtra(LIST_VIEW_ITEM_ID, String.valueOf(id));
 
-                                // Start Activity UsersAdd//
-                                //startActivity(usersEdit);
+                                // Start Activity RemindersEdit//
+                                startActivity(remindersEdit);
 
                                 // Custom Transition//
-                                //overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
                             }
                         })
 

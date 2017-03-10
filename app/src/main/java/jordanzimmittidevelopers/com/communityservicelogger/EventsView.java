@@ -175,7 +175,7 @@ public class EventsView extends AppCompatActivity {
                 SharedPreferences userSwitchState = getSharedPreferences("user_switch_state", MODE_PRIVATE);
 
                 // What Happens When Switch Is Un-Checked//
-                if (userSwitchState.getInt("user_switch_state", 0) == 0) {
+                if (userSwitchState.getInt("user_switch_state", -1) == 0) {
 
                     // Create Dialog//
                     new MaterialDialog.Builder(EventsView.this)
@@ -214,7 +214,7 @@ public class EventsView extends AppCompatActivity {
                 }
 
                 // What Happens When Switch Is Checked//
-                else if (userSwitchState.getInt("user_switch_state", 0) == 1) {
+                else if (userSwitchState.getInt("user_switch_state", -1) == 1) {
 
                     // Define and Instantiate Variable Intent DefaultActivity//
                     Intent defaultActivity = new Intent(this, DefaultActivity.class);

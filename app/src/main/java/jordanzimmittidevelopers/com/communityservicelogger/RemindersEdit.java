@@ -21,8 +21,8 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 
-// RemindersAdd Class Created By Jordan Zimmitti 2-28-17//
-public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.OnDateSetListener  {
+// RemindersAdd Class Created By Jordan Zimmitti 3-01-17//
+public class RemindersEdit extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     //<editor-fold desc="Variables">
 
@@ -41,6 +41,21 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
 
     //<editor-fold desc="Strings">
 
+    // Define Variable String itemId / String Of Id Value//
+    private String itemId = null;
+
+    // Define Variable String remindersEditNameString//
+    private String remindersEditNameString;
+
+    // Define Variable String remindersEditLocationString//
+    private String remindersEditLocationString;
+
+    // Define Variable String remindersEditDateString//
+    private String remindersEditDateString;
+
+    // Define Variable String workingNameUser//
+    private String workingNameUser;
+
     // Define Variable String reverseDateString//
     private String reverseDateString;
 
@@ -50,25 +65,25 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
 
     //<editor-fold desc="MaterialEditText">
 
-    // Define Variable MaterialEditText remindersAddName//
-    private MaterialEditText remindersAddName;
+    // Define Variable MaterialEditText remindersEditLocation//
+    private MaterialEditText remindersEditLocation;
 
-    // Define Variable MaterialEditText remindersAddLocation//
-    private MaterialEditText remindersAddLocation;
+    // Define Variable MaterialEditText remindersEditName//
+    private MaterialEditText remindersEditName;
 
     //</editor-fold>
 
     //<editor-fold desc="TextViews">
 
-    // Define Variable TextView remindersAddDate//
-    private TextView remindersAddDate;
+    // Define Variable TextView remindersEditDate//
+    private TextView remindersEditDate;
 
     //</editor-fold>
 
     //</editor-fold>
 
     //</editor-fold>
-
+    
     // What Happens When Activity Starts//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +92,14 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
         // Initiate applyTheme Method//
         applyTheme();
 
-        // Initiate InstantiateWidgets Method//
-        instantiateWidgets();
-
         // Initiate remindersDatabaseOpen Method//
         remindersDatabaseOpen();
+
+        // initiate getDatabaseValues Method//
+        getDatabaseValues();
+
+        // Initiate InstantiateWidgets Method//
+        instantiateWidgets();
     }
 
     // Creates Menu And All Its Components//
@@ -89,7 +107,7 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflates The Menu / This Adds Items To The Action Bar If It Is Present//
-        getMenuInflater().inflate(R.menu.reminders_add_menu, menu);
+        getMenuInflater().inflate(R.menu.reminders_edit_menu, menu);
 
         // Kill Code//
         return true;
@@ -99,7 +117,7 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
-        // Define And Instantiate Variable String dateString//
+        // Define And Instantiate String dateString//
         String dateString = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
 
         // What Happens If dayOfMonth Is Less Then Zero//
@@ -119,8 +137,8 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
             reverseDateString = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
         }
 
-        // Set eventsAddDate Text//
-        remindersAddDate.setText(dateString);
+        // Set eventsEditDate Text//
+        remindersEditDate.setText(dateString);
     }
 
     //Controls Back Button Functions//
@@ -155,7 +173,7 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
         int id = item.getItemId();
 
         // What Happens When remindersAddSave Is Pressed//
-        if (id == R.id.remindersAddSave) {
+        if (id == R.id.remindersEditSave) {
 
             // Initiate reminderSave Method//
             reminderSave();
@@ -178,7 +196,7 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
         pickTheme.userTheme(this);
 
         // Starts UI For Activity//
-        setContentView(R.layout.reminders_add_ui);
+        setContentView(R.layout.reminders_edit);
 
         // Define And Instantiate RelativeLayout relativeLayout//
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.events_add_ui);
@@ -187,17 +205,70 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
         pickTheme.activityNightModeExtension(this, relativeLayout);
     }
 
+    // Method To Get Values Stored In Database//
+    private void getDatabaseValues() {
+
+        // Gets Item Id Of Last Clicked ListView Item
+        itemId = getIntent().getStringExtra(RemindersView.LIST_VIEW_ITEM_ID);
+
+        // Define And Instantiate Variable Cursor cursor / Get Database Row//
+        Cursor cursor = remindersDatabase.getRow(itemId);
+
+        // Instantiate Variable String remindersEditDateString//
+        remindersEditDateString = cursor.getString(RemindersDatabase.COL_DATE);
+
+        // Instantiate Variable String remindersEditLocationString//
+        remindersEditLocationString = cursor.getString(RemindersDatabase.COL_LOCATION);
+
+        // Instantiate Variable String remindersEditNameString//
+        remindersEditNameString = cursor.getString(RemindersDatabase.COL_NAME_REMINDER);
+    }
+
     // Method That Instantiates Widgets//
     private void instantiateWidgets() {
 
-        // Instantiate Variable TextView eventsAddDate//
-        remindersAddDate = (TextView) findViewById(R.id.remindersAddDate);
+        // Instantiate Variable TextView remindersEditDate//
+        remindersEditDate = (TextView) findViewById(R.id.remindersEditDate);
 
-        // Instantiate Variable MaterialEditText eventsAddName//
-        remindersAddName = (MaterialEditText) findViewById(R.id.remindersAddName);
+        //<editor-fold desc="Normal Date">
 
-        // Instantiate Variable MaterialEditText eventsAddLocation//
-        remindersAddLocation = (MaterialEditText) findViewById(R.id.remindersAddLocation);
+        // Set reverseDateString Equal To remindersEditDateString//
+        reverseDateString = remindersEditDateString;
+
+        // Define And Instantiate Variable String[] splitReverseDate//
+        String[] splitReverseDate = reverseDateString.split("/");
+
+        // Define And Instantiate Variable String year//
+        String year = splitReverseDate[0];
+
+        // Define And Instantiate Variable String mon//
+        String month = splitReverseDate[1];
+
+        // Define And Instantiate Variable String day//
+        String day = splitReverseDate[2];
+
+        // Define And Instantiate Variable String date//
+        String date = month + "/" + day + "/" + year;
+
+        //</editor-fold>
+
+        // Set Text Equal To Value Stored In Database//
+        remindersEditDate.setText(date);
+
+
+        // Instantiate Variable MaterialEditText remindersEditLocation//
+        remindersEditLocation = (MaterialEditText) findViewById(R.id.remindersEditLocation);
+
+        // Set Text Equal To Value Stored In Database//
+        remindersEditLocation.setText(remindersEditLocationString);
+
+
+        // Instantiate Variable MaterialEditText remindersEditName//
+        remindersEditName = (MaterialEditText) findViewById(R.id.remindersEditName);
+
+        // Set Text Equal To Value Stored In Database//
+        remindersEditName.setText(remindersEditNameString);
+
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -213,7 +284,7 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
         java.util.Calendar calendar = java.util.Calendar.getInstance();
 
         // Define And Instantiate Variable DatePickerDialog datePickerDialog//
-        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(RemindersAdd.this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(RemindersEdit.this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
         // Show datePickerDialog//
         datePickerDialog.show(getFragmentManager(), "datePickerDialog");
@@ -239,10 +310,10 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
         vibe.vibrate(50);
 
         // What Happens When Required Fields Are Left Blank//
-        if (TextUtils.isEmpty(remindersAddName.getText().toString()) || (remindersAddDate.getText().toString().equals("mm/dd/yyyy")) || (TextUtils.isEmpty(remindersAddLocation.getText().toString()))) {
+        if (TextUtils.isEmpty(remindersEditName.getText().toString()) || (remindersEditDate.getText().toString().equals("mm/dd/yyyy")) || (TextUtils.isEmpty(remindersEditLocation.getText().toString()))) {
 
             // Create Dialog//
-            new MaterialDialog.Builder(RemindersAdd.this)
+            new MaterialDialog.Builder(RemindersEdit.this)
 
                     // Title Of Dialog//
                     .title("Warning")
@@ -257,7 +328,7 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
         } else {
 
             // Inserts Values Into Database//
-            remindersDatabase.insertRow(remindersAddName.getText().toString(), reverseDateString, remindersAddLocation.getText().toString());
+            remindersDatabase.updateRow(itemId, remindersEditName.getText().toString(), reverseDateString, remindersEditLocation.getText().toString());
 
             // Define and Instantiate Variable Intent RemindersView//
             Intent remindersView = new Intent(this, RemindersView.class);

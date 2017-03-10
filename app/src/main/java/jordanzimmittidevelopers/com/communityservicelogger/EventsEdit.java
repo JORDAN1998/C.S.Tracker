@@ -104,20 +104,20 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
     //<editor-fold desc="MaterialEditText">
 
+    // Define Variable MaterialEditText eventsEditLocation//
+    private MaterialEditText eventsEditLocation;
+
     // Define Variable MaterialEditText eventsEditName//
     private MaterialEditText eventsEditName;
 
-    // Define Variable MaterialEditText eventsEditLocation//
-    private MaterialEditText eventsEditLocation;
+    // Define Variable MaterialEditText eventsEditNotes//
+    private MaterialEditText eventsEditNotes;
 
     // Define Variable MaterialEditText eventsEditPeopleInCharge//
     private MaterialEditText eventsEditPeopleInCharge;
 
     // Define Variable MaterialEditText eventsEditPhoneNumber//
     private MaterialEditText eventsEditPhoneNumber;
-
-    // Define Variable MaterialEditText eventsEditNotes//
-    private MaterialEditText eventsEditNotes;
 
     //</editor-fold>
 
@@ -475,8 +475,11 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
         //<editor-fold desc="Normal Date">
 
+        // Set reverseDateString Equal To eventsEditDateString//
+        reverseDateString = eventsEditDateString;
+
         // Define And Instantiate Variable String[] splitReverseDate//
-        String[] splitReverseDate = eventsEditDateString.split("/");
+        String[] splitReverseDate = reverseDateString.split("/");
 
         // Define And Instantiate Variable String year//
         String year = splitReverseDate[0];

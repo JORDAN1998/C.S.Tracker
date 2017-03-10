@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI For Activity RemindersEdit -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reminders_add_ui"
+    android:fitsSystemWindows="true"
+    android:background="@color/darkWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dip"
+    tools:context=".RemindersEdit">
+
+    <!-- TextView remindersEditNameTitle -->
+    <TextView
+        android:id="@+id/remindersEditNameTitle"
+        android:text="@string/name_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- MaterialEditText remindersEditName -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/remindersEditName"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/remindersEditNameTitle"
+        android:layout_toLeftOf="@+id/remindersEditDateTitle"
+        android:layout_toStartOf="@+id/remindersEditDateTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+    <!-- TextView remindersEditDateTitle -->
+    <TextView
+        android:id="@+id/remindersEditDateTitle"
+        android:text="@string/date_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="22dip"
+        android:paddingLeft="50dip"
+        android:paddingStart="50dip"
+        android:paddingRight="30dip"
+        android:paddingEnd="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/remindersEditDate"
+        android:layout_alignStart="@+id/remindersEditDate" />
+
+    <!-- TextView remindersEditDate -->
+    <TextView
+        android:id="@+id/remindersEditDate"
+        android:text="@string/date"
+        android:textSize="14sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:clickable="true"
+        android:onClick="onClickDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="50dip"
+        android:paddingStart="50dip"
+        android:paddingRight="30dip"
+        android:paddingEnd="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/remindersEditDateTitle"/>
+
+    <!-- TextView remindersEditLocationTitle -->
+    <TextView
+        android:id="@+id/remindersEditLocationTitle"
+        android:text="@string/location_title"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_below="@+id/remindersEditName"/>
+
+    <!-- MaterialEditText remindersEditLocation -->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/remindersEditLocation"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/remindersEditLocationTitle"
+        app:met_baseColor="?attr/colorPrimaryDark"
+        app:met_primaryColor="?attr/colorPrimaryDark" />
+
+</RelativeLayout>
