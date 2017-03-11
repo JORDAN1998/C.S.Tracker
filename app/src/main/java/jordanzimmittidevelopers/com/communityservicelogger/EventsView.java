@@ -202,8 +202,18 @@ public class EventsView extends AppCompatActivity {
                                     killApp.addCategory(Intent.CATEGORY_HOME);
                                     killApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(killApp);
-
                                 }
+                            })
+
+                            // What Happens When Negative Button Is Pressed//
+                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                    // Vibrates For 50 Mill//
+                                    vibe.vibrate(50);
+                                }
+
                             }).show();
                 }
 
