@@ -106,6 +106,9 @@ public class UsersView extends AppCompatActivity {
         // Initiate applyTheme Method//
         applyTheme();
 
+        // Initiate firstRun Method//
+        firstRun();
+
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
 
@@ -243,6 +246,43 @@ public class UsersView extends AppCompatActivity {
 
         // Night Mode Theme Extension Options//
         pickTheme.activityNightModeExtension(this, relativeLayout);
+    }
+
+    // Method That Runs When App Is First Opened//
+    private void firstRun() {
+
+        // Define And Instantiate Variable SharedPreferences usersFirstTime//
+        SharedPreferences usersFirstTime = getSharedPreferences("APPS_FIRST_RUN", MODE_PRIVATE);
+
+        // What Happens When Activity Runs The First Time//
+        if (usersFirstTime.getBoolean("APPS_FIRST_RUN", true)) {
+
+            // Create Dialog//
+            new MaterialDialog.Builder(UsersView.this)
+
+                    // Title Of Dialog//
+                    .title("Welcome To The New C.S.T")
+
+                    // Content Of Dialog//
+                    .content("Don't Worry, your events aren't gone. Please create a default user profile. This profile should be your name and your information. Once you create one click on it and all your events will show up. After, you can add more users if you want to log more than one person's community service hours. You can disable multiple user mode in settings as well!")
+
+                    // Negative Text Name For Button//
+                    .negativeText("Ok")
+
+                    //What Happens When Negative Button Is Pressed//
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                            // Vibrates For 50 Mill//
+                            vibe.vibrate(50);
+
+                        }
+                    }).show();
+        }
+
+        // Record The Fact That The Activity Has Been Started At Least Once//
+        usersFirstTime.edit().putBoolean("APPS_FIRST_RUN", false).apply();
     }
 
     // Method That Gets The Name Of The User Being Clicked On//
@@ -747,7 +787,7 @@ public class UsersView extends AppCompatActivity {
     private void sortByPreference() {
 
         // What Happens When User Wants Database Sorted By Name//
-        if (userSortType.getInt(USER_SORT_TYPE, 0) == 0) {
+        if (userSortType.getInt(USER_SORT_TYPE, -1) == 0) {
 
             // Gets All Rows Added To Database From Name//
             cursor = usersDatabase.getAllRowsName();
@@ -757,7 +797,7 @@ public class UsersView extends AppCompatActivity {
         }
 
         // What Happens When User Wants Database Sorted By Newest To Oldest//
-        else if (userSortType.getInt(USER_SORT_TYPE, 0) == 1) {
+        else if (userSortType.getInt(USER_SORT_TYPE, -1) == 1) {
 
             // Gets All Rows Added To Database From Name//
             cursor = usersDatabase.getAllRowsNewestToOldest();
@@ -767,7 +807,7 @@ public class UsersView extends AppCompatActivity {
         }
 
         // What Happens When User Wants Database Sorted By Oldest To Newest//
-        else if (userSortType.getInt(USER_SORT_TYPE, 0) == 2) {
+        else if (userSortType.getInt(USER_SORT_TYPE, -1) == 2) {
 
             // Gets All Rows Added To Database From Oldest To Newest//
             cursor = usersDatabase.getAllRowsOldestToNewest();

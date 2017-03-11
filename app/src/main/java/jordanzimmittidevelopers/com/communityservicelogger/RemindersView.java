@@ -37,11 +37,27 @@ public class RemindersView extends AppCompatActivity {
     // Define Variable Cursor cursor//
     private Cursor cursor;
 
+    // Define Variable EventsDatabase eventsDatabase//
+    private EventsDatabase eventsDatabase;
+
     // Define Variable RemindersDatabase remindersDatabase//
     private RemindersDatabase remindersDatabase;
 
+    // Define Variable String workingNameUser//
+    private String workingNameUser;
+
     // Define Variable Vibrator vibe//
     private Vibrator vibe;
+
+    //</editor-fold>
+
+    //<editor-fold desc="Shared Preference">
+
+    // Name Of Preference And What Its Saving The Integer To//
+    private static final String USER_MODE_NAME = "user_mode_name";
+
+    // Apply Sort By Name//
+    private final static String USER_NAME = "name of user";
 
     //</editor-fold>
 
@@ -61,6 +77,9 @@ public class RemindersView extends AppCompatActivity {
 
         // Initiate applyTheme Method//
         applyTheme();
+
+        // Initiate getName Method//
+        getName();
 
         // Initiate instantiateWidgets Method//
         instantiateWidgets();
@@ -99,6 +118,50 @@ public class RemindersView extends AppCompatActivity {
         }
     }
 
+    // Method That Adds Reminder To Events//
+    private void addToEvents(Long rowId) {
+
+        // Instantiate Variable Cursor cursor / Query RemindersDatabase//
+        cursor = RemindersDatabase.db.query(true, RemindersDatabase.DATABASE_TABLE, RemindersDatabase.ALL_KEYS, String.valueOf(rowId), null, null, null, null, null);
+
+        // What Happens When cursor Doesn't Equal Null//
+        if (cursor != null) {
+
+            // Move To First Row//
+            cursor.moveToFirst();
+        }
+
+        // Define And Instantiate Variable String date / Get Date Value From database//
+        String date = cursor.getString(RemindersDatabase.COL_DATE);
+
+        // Define And Instantiate Variable String location / Get Location Value From database//
+        String location = cursor.getString(RemindersDatabase.COL_LOCATION);
+
+        // Define And Instantiate Variable String name / Get Name Value From database//
+        String name = cursor.getString(RemindersDatabase.COL_NAME_REMINDER);
+
+        // Initiate eventsDatabaseOpen Method//
+        eventsDatabaseOpen();
+
+        // Insert Values Into eventsDatabase//
+        eventsDatabase.insertRow(name, workingNameUser, date, location, "0:00", "0:00", "0:00", "0:00", String.valueOf(""), "", "", "");
+
+        // Delete Row In RemindersDatabase//
+        remindersDatabase.deleteRow(rowId);
+
+        // Close Cursor//
+        cursor.close();
+
+        // Define and Instantiate Variable Intent EventsView//
+        Intent eventsView = new Intent(this, EventsView.class);
+
+        // Start Activity EventsView//
+        startActivity(eventsView);
+
+        // Custom Transition//
+        overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+    }
+
     // Method That Applies Theme By User Preference//
     private void applyTheme() {
 
@@ -116,6 +179,26 @@ public class RemindersView extends AppCompatActivity {
 
         // Night Mode Theme Extension Options//
         pickTheme.activityNightModeExtension(this, relativeLayout);
+    }
+
+    // Method To Open Events Database//
+    private void eventsDatabaseOpen() {
+
+        // Instantiate Variable EventsDatabase eventsDatabase//
+        eventsDatabase = new EventsDatabase(this);
+
+        // Open Database//
+        eventsDatabase.open();
+    }
+
+    // Method To Get User Name//
+    private void getName() {
+
+        // Define And Instantiate Variable SharedPreferences userModeName//
+        SharedPreferences userModeName = getSharedPreferences(USER_MODE_NAME, MODE_PRIVATE);
+
+        // Set workingNameUser Equal To userModeName//
+        workingNameUser = userModeName.getString(USER_NAME, "");
     }
 
     // Method That Instantiates Widgets//
@@ -205,6 +288,44 @@ public class RemindersView extends AppCompatActivity {
                                 // Vibrates For 50 Mill//
                                 vibe.vibrate(50);
 
+                                // Create Dialog//
+                                new MaterialDialog.Builder(RemindersView.this)
+
+                                        // Title Of Dialog//
+                                        .title("More Options")
+
+                                        // Content Of Dialog//
+                                        .content("Pick the option you want")
+
+                                        // Positive Text Name For Button//
+                                        .positiveText("Add To Events")
+
+                                        // Negative Text Name For Button//
+                                        .negativeText("Cancel")
+
+                                        // What Happens When Positive Button Is Pressed//
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                                // Vibrates For 50 Mill//
+                                                vibe.vibrate(50);
+
+                                                // Initiate addToEvents Method//
+                                                addToEvents(id);
+                                            }
+                                        })
+
+                                        //What Happens When Negative Button Is Pressed//
+                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                                // Vibrates For 50 Mill//
+                                                vibe.vibrate(50);
+
+                                            }
+                                        }).show();
                             }
 
                         }).show();

@@ -195,7 +195,7 @@ public class SettingsThemePicker extends AppCompatActivity {
         nightModeSwitchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
 
         // What Happens When Switch Is Checked//
-        if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 1) {
+        if (nightModeSwitchState.getInt(SWITCH_STATE, -1) == 1) {
 
             // Find Night Mode Automatically//
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
@@ -459,14 +459,14 @@ public class SettingsThemePicker extends AppCompatActivity {
     private void switchPreference() {
 
         // What Happens When Switch Is Un-Checked//
-        if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 0) {
+        if (nightModeSwitchState.getInt(SWITCH_STATE, -1) == 0) {
 
             // Un-Check Switch//
             nightModeSwitch.setChecked(false);
         }
 
         // What Happens When Switch Is Checked//
-        if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 1) {
+        if (nightModeSwitchState.getInt(SWITCH_STATE, -1) == 1) {
 
             // Check Switch//
             nightModeSwitch.setChecked(true);
@@ -480,14 +480,14 @@ public class SettingsThemePicker extends AppCompatActivity {
         nightModeSwitchState = context.getSharedPreferences(SWITCH_STATE, MODE_PRIVATE);
 
         // What Happens When Switch Is Un-Checked//
-        if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 0) {
+        if (nightModeSwitchState.getInt(SWITCH_STATE, -1) == 0) {
 
             // Initiate themeColors Method//
             themeColors(context);
         }
 
         // What Happens When Switch Is Checked//
-        else if (nightModeSwitchState.getInt(SWITCH_STATE, 0) == 1) {
+        else if (nightModeSwitchState.getInt(SWITCH_STATE, -1) == 1) {
 
             // Initiate activityNightMode Method//
             activityNightMode(context);
@@ -508,56 +508,56 @@ public class SettingsThemePicker extends AppCompatActivity {
         themePicker = context.getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
 
         // What Happens When User Wants Theme Red//
-        if (themePicker.getInt(THEME_PICKER, 0) == 0) {
+        if (themePicker.getInt(THEME_PICKER, -1) == 0) {
 
             // Apply Theme Red//
             context.setTheme(R.style.RedTheme);
         }
 
         // What Happens When User Wants Theme Orange//
-        if (themePicker.getInt(THEME_PICKER, 0) == 1) {
+        if (themePicker.getInt(THEME_PICKER, -1) == 1) {
 
             // Apply Theme Orange//
             context.setTheme(R.style.OrangeTheme);
         }
 
         // What Happens When User Wants Theme Yellow//
-        if (themePicker.getInt(THEME_PICKER, 0) == 2) {
+        if (themePicker.getInt(THEME_PICKER, -1) == 2) {
 
             // Apply Theme Yellow//
             context.setTheme(R.style.YellowTheme);
         }
 
         // What Happens When User Wants Theme Green//
-        if (themePicker.getInt(THEME_PICKER, 0) == 3) {
+        if (themePicker.getInt(THEME_PICKER, -1) == 3) {
 
             // Apply Theme Green//
             context.setTheme(R.style.GreenTheme);
         }
 
         // What Happens When User Wants Theme Blue//
-        if (themePicker.getInt(THEME_PICKER, 0) == 4) {
+        if (themePicker.getInt(THEME_PICKER, -1) == 4) {
 
             // Apply Theme Blue//
             context.setTheme(R.style.BlueTheme);
         }
 
         // What Happens When User Wants Theme Indigo//
-        if (themePicker.getInt(THEME_PICKER, 0) == 5) {
+        if (themePicker.getInt(THEME_PICKER, -1) == 5) {
 
             // Apply Theme Indigo//
             context.setTheme(R.style.IndigoTheme);
         }
 
         // What Happens When User Wants Theme Violet//
-        if (themePicker.getInt(THEME_PICKER, 0) == 6) {
+        if (themePicker.getInt(THEME_PICKER, -1) == 6) {
 
             // Apply Theme Violet//
             context.setTheme(R.style.VioletTheme);
         }
 
         // What Happens When User Wants Theme Pink//
-        if (themePicker.getInt(THEME_PICKER, 0) == 7) {
+        if (themePicker.getInt(THEME_PICKER, -1) == 7) {
 
             // Apply Theme Pink//
             context.setTheme(R.style.PinkTheme);

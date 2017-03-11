@@ -44,9 +44,6 @@ public class EventsView extends AppCompatActivity {
     // Define Variable EventsDatabase eventsDatabase//
     private EventsDatabase eventsDatabase;
 
-    // Define Variable EventsDatabaseOld eventsDatabaseOld//
-    private EventsDatabaseOld eventsDatabaseOld;
-
     // Define Variable Vibrator vibe//
     private Vibrator vibe;
 
@@ -108,9 +105,6 @@ public class EventsView extends AppCompatActivity {
 
     // Define Variable ListView eventsListViews//
     private ListView eventsListView;
-
-    // Define Variable MenuItem timeTotalAdded//
-    private MenuItem timeTotalAdded;
 
     //</editor-fold>
 
@@ -291,7 +285,7 @@ public class EventsView extends AppCompatActivity {
         eventsDatabase.totalTimeAdded(workingNameUser);
 
         // Instantiate Variable MenuItem timeTotalAdded//
-        timeTotalAdded = menu.findItem(R.id.timeTotalAdded);
+        MenuItem timeTotalAdded = menu.findItem(R.id.timeTotalAdded);
 
         // Convert Minutes Into Hours//
         int hours = EventsDatabase.totalTimeAdded / 60;
@@ -350,7 +344,26 @@ public class EventsView extends AppCompatActivity {
                 String name = c.getString(EventsDatabaseOld.COL_NAME);
 
                 // Define And Instantiate Variable String date//
-                String date = c.getString(EventsDatabaseOld.COL_DATE);
+                String normalDate = c.getString(EventsDatabaseOld.COL_DATE);
+
+                //<editor-fold desc="Reverse Date">
+
+                // Define And Instantiate Variable String[] splitReverseDate//
+                String[] splitReverseDate = normalDate.split("/");
+
+                // Define And Instantiate Variable String month//
+                String month = splitReverseDate[0];
+
+                // Define And Instantiate Variable String day//
+                String day = splitReverseDate[1];
+
+                // Define And Instantiate Variable String year//
+                String year = splitReverseDate[2];
+
+                // Define And Instantiate Variable String date//
+                String date = year + "/" + month + "/" + day;
+
+                //</editor-fold>
 
                 // Define And Instantiate Variable String location//
                 String location = c.getString(EventsDatabaseOld.COL_LOCATION);
@@ -368,17 +381,11 @@ public class EventsView extends AppCompatActivity {
                 String timeTotalAdded = c.getString(EventsDatabaseOld.COL_TOTALTIME_ADDED);
 
                 // Insert Old Values Into Database//
-                eventsDatabase.insertRow(workingNameUser, name, date, location, timeStart, timeEnd, timeTotal, timeTotalAdded, "", "", "", "");
+                eventsDatabase.insertRow(name, workingNameUser, date, location, timeStart, timeEnd, timeTotal, timeTotalAdded, "", "", "", "");
 
                 // Move To Next Row//
                 c.moveToNext();
             }
-
-            // Close Cursor//
-            c.close();
-
-            // Close eventsDatabaseOld//
-            eventsDatabaseOld.close();
 
             // Record The Fact That The Activity Has Been Started At Least Once//
             firstTime.edit().putBoolean("firstTime", false).apply();
@@ -420,8 +427,8 @@ public class EventsView extends AppCompatActivity {
     // Method To Open Old Events Database//
     private void eventsDatabaseOldOpen() {
 
-        // Instantiate Variable EventsDatabaseOld eventsDatabaseOld//
-        eventsDatabaseOld = new EventsDatabaseOld(this);
+        // Define And Instantiate Variable EventsDatabaseOld eventsDatabaseOld//
+        EventsDatabaseOld eventsDatabaseOld = new EventsDatabaseOld(this);
 
         // Open Database//
         eventsDatabaseOld.open();
@@ -574,7 +581,7 @@ public class EventsView extends AppCompatActivity {
         SharedPreferences userSwitchState = getSharedPreferences("user_switch_state", MODE_PRIVATE);
 
         // What Happens When Switch Is Un-Checked//
-        if (userSwitchState.getInt("user_switch_state", 0) == 0) {
+        if (userSwitchState.getInt("user_switch_state", -1) == 0) {
 
             // Instantiate NavigationDrawer navigationDrawer//
             eventsNavigationDrawer = (UsersNavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.eventsNavigationDrawer);
@@ -652,7 +659,7 @@ public class EventsView extends AppCompatActivity {
                     SharedPreferences switchState = getSharedPreferences("night_mode_switch_state", MODE_PRIVATE);
 
                     // What Happens When Night Mode Switch Is Checked//
-                    if (switchState.getInt("night_mode_switch_state", 0) == 1) {
+                    if (switchState.getInt("night_mode_switch_state", -1) == 1) {
 
                         // Find Night Mode Automatically//
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
@@ -991,37 +998,37 @@ public class EventsView extends AppCompatActivity {
     private void sortByPreference(String workingNameUser) {
 
         // What Happens When User Wants Database Sorted By Name//
-        if (eventsSortType.getInt(EVENT_SORT_TYPE, 0) == 0) {
+        if (eventsSortType.getInt(EVENT_SORT_TYPE, -1) == 0) {
 
             // Gets Rows In Database Based On Name Of User//
-            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + " ASC", null);
+            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + "," + EventsDatabase.KEY_DATE  + " ASC", null);
 
             // Initiate populateListView Method//
             populateListView(cursor);
         }
 
         // What Happens When User Wants Database Sorted By Date//
-        else if (eventsSortType.getInt(EVENT_SORT_TYPE, 0) == 1) {
+        else if (eventsSortType.getInt(EVENT_SORT_TYPE, -1) == 1) {
 
             // Gets Rows In Database Based On Date Of User//
-            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_DATE + " ASC", null);
+            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_DATE + "," + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + "," + EventsDatabase.KEY_LOCATION + " COLLATE NOCASE" + " ASC", null);
 
             // Initiate populateListView Method//
             populateListView(cursor);
         }
 
         // What Happens When User Wants Database Sorted By Location//
-        else if (eventsSortType.getInt(EVENT_SORT_TYPE, 0) == 2) {
+        else if (eventsSortType.getInt(EVENT_SORT_TYPE, -1) == 2) {
 
             // Gets Rows In Database Based On Date Of User//
-            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_LOCATION + " COLLATE NOCASE" + " ASC", null);
+            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_LOCATION + "," + EventsDatabase.KEY_DATE + " COLLATE NOCASE" + " ASC", null);
 
             // Initiate populateListView Method//
             populateListView(cursor);
         }
 
         // What Happens When User Wants Database Sorted By Newest To Oldest//
-        else if (eventsSortType.getInt(EVENT_SORT_TYPE, 0) == 3) {
+        else if (eventsSortType.getInt(EVENT_SORT_TYPE, -1) == 3) {
 
             // Gets Rows In Database Based On Date Of User//
             cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_ROW_ID_NUMBER + " DESC", null);
