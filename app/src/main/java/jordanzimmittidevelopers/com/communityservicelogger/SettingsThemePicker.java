@@ -369,7 +369,7 @@ public class SettingsThemePicker extends AppCompatActivity {
         else {
 
             // Define and Instantiate Variable Intent DefaultActivity//
-            Intent defaultActivity = new Intent(this, DefaultActivity.class);
+            Intent defaultActivity = new Intent(context, DefaultActivity.class);
 
             // Start Activity DefaultActivity//
             context.startActivity(defaultActivity);
