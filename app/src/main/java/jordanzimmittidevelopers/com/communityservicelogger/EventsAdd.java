@@ -164,7 +164,7 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
         eventsAddDate.setText(dateString);
     }
 
-    //Controls Back Button Functions//
+    //What Happens When Back Button Is Pressed//
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         switch (keyCode) {

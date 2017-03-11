@@ -159,7 +159,7 @@ public class UsersEdit extends AppCompatActivity {
         return true;
     }
 
-    //Controls Back Button Functions//
+    //What Happens When Back Button Is Pressed//
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         switch (keyCode) {

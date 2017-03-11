@@ -30,7 +30,7 @@ public class SettingsAbout extends AppCompatActivity {
         instantiateWidgets();
     }
 
-    //Controls Back Button Functions//
+    //What Happens When Back Button Is Pressed//
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         switch (keyCode) {

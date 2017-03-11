@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
@@ -64,7 +65,7 @@ public class Settings extends AppCompatActivity {
         onCheckedChanged();
     }
 
-    //Controls Back Button Functions//
+    //What Happens When Back Button Is Pressed//
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         switch (keyCode) {
@@ -83,6 +84,19 @@ public class Settings extends AppCompatActivity {
             default:
                 return false;
         }
+    }
+
+    // What Happens Wen User Touches Screen Outside Of Dialog Box//
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        if (MotionEvent.ACTION_OUTSIDE == event.getAction()) {
+
+            return true;
+        }
+
+        // Delegate everything else to Activity.
+        return super.onTouchEvent(event);
     }
 
     // Method That Applies Theme By User Preference//
