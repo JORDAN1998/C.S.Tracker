@@ -2,7 +2,6 @@ package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -27,9 +26,6 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
     //<editor-fold desc="Variables">
 
     //<editor-fold desc="Extra">
-
-    // Define Variable Cursor cursor//
-    private Cursor cursor;
 
     // Define Variable RemindersDatabase remindersDatabase//
     private RemindersDatabase remindersDatabase;

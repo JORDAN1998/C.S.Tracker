@@ -53,9 +53,6 @@ public class RemindersEdit extends AppCompatActivity implements DatePickerDialog
     // Define Variable String remindersEditDateString//
     private String remindersEditDateString;
 
-    // Define Variable String workingNameUser//
-    private String workingNameUser;
-
     // Define Variable String reverseDateString//
     private String reverseDateString;
 
@@ -211,8 +208,8 @@ public class RemindersEdit extends AppCompatActivity implements DatePickerDialog
         // Gets Item Id Of Last Clicked ListView Item
         itemId = getIntent().getStringExtra(RemindersView.LIST_VIEW_ITEM_ID);
 
-        // Define And Instantiate Variable Cursor cursor / Get Database Row//
-        Cursor cursor = remindersDatabase.getRow(itemId);
+        // Instantiate Variable Cursor cursor / Get Database Row//
+        cursor = remindersDatabase.getRow(itemId);
 
         // Instantiate Variable String remindersEditDateString//
         remindersEditDateString = cursor.getString(RemindersDatabase.COL_DATE);
@@ -338,6 +335,9 @@ public class RemindersEdit extends AppCompatActivity implements DatePickerDialog
 
             // Custom Transition//
             overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+            // Close Cursor//
+            cursor.close();
         }
     }
 }

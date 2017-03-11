@@ -292,7 +292,7 @@ public class DefaultUser extends AppCompatActivity {
                 SharedPreferences switchState = getSharedPreferences("night_mode_switch_state", MODE_PRIVATE);
 
                 // What Happens When Night Mode Switch Is Checked//
-                if (switchState.getInt("night_mode_switch_state", 0) == 1) {
+                if (switchState.getInt("night_mode_switch_state", -1) == 1) {
 
                     // Find Night Mode Automatically//
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);

@@ -73,6 +73,9 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
     // Define Variable String eventsEditTimeTotalString//
     private String eventsEditTimeTotalString;
 
+    // Define Variable String eventsEditTimeTotalString//
+    private String eventsTotalTimeAddedString;
+
     // Define Variable String itemId / String Of Id Value//
     private String itemId = null;
 
@@ -465,6 +468,9 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
         // Instantiate Variable String eventsEditTimeTotalString//
         eventsEditTimeTotalString = cursor.getString(EventsDatabase.COL_TIME_TOTAL);
+
+        // Instantiate Variable String eventsTotalTimeAddedString//
+        eventsTotalTimeAddedString = cursor.getString(EventsDatabase.COL_TIME_TOTAL_ADDED);
     }
 
     // Method That Instantiates Widgets//
@@ -553,6 +559,9 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
 
         // Set Text Equal To Value Stored In Database//
         eventsEditTimeTotal.setText(eventsEditTimeTotalString);
+
+        // Set timeTotalAdded Equal To eventsTotalTimeAddedString//
+        timeTotalAdded = Integer.parseInt(eventsTotalTimeAddedString);
 
 
         // Instantiate Variable Vibrator vibe//

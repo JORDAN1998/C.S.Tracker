@@ -210,27 +210,21 @@ public class EventsView extends AppCompatActivity {
                 // What Happens When Switch Is Checked//
                 else if (userSwitchState.getInt("user_switch_state", -1) == 1) {
 
-                    // Define and Instantiate Variable Intent DefaultActivity//
-                    Intent defaultActivity = new Intent(this, DefaultActivity.class);
+                    // Define And Instantiate Variable SettingsThemePicker pickTheme//
+                    SettingsThemePicker pickTheme = new SettingsThemePicker();
 
-                    // Start Activity DefaultActivity//
-                    startActivity(defaultActivity);
-
-                    // Custom Transition//
-                    overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                    // Fixes Back Button B/C Of Icon Color//
+                    pickTheme.BackButtonFix(this);
                 }
 
                 // What Happens When No User Preference Is Saved//
                 else {
 
-                    // Define and Instantiate Variable Intent DefaultActivity//
-                    Intent defaultActivity = new Intent(this, DefaultActivity.class);
+                    // Define And Instantiate Variable SettingsThemePicker pickTheme//
+                    SettingsThemePicker pickTheme = new SettingsThemePicker();
 
-                    // Start Activity DefaultActivity//
-                    startActivity(defaultActivity);
-
-                    // Custom Transition//
-                    overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                    // Fixes Back Button B/C Of Icon Color//
+                    pickTheme.BackButtonFix(this);
                 }
 
                 // Kill Code//

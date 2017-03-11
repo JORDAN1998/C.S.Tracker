@@ -1,6 +1,8 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -81,6 +83,34 @@ public class SettingsThemePicker extends AppCompatActivity {
 
     // Apply Switch Un-Checked //
     private final static int CHECKED = 1;
+
+    //</editor-fold>
+
+    //<editor-fold desc="ComponentName">
+
+    // Define Variable ComponentName iconBlue//
+    private ComponentName iconBlue;
+
+    // Define Variable ComponentName iconGreen//
+    private ComponentName iconGreen;
+
+    // Define Variable ComponentName iconIndigo//
+    private ComponentName iconIndigo;
+
+    // Define Variable ComponentName iconOrange//
+    private ComponentName iconOrange;
+
+    // Define Variable ComponentName iconPink//
+    private ComponentName iconPink;
+
+    // Define Variable ComponentName iconRed//
+    private ComponentName iconRed;
+
+    // Define Variable ComponentName iconViolet//
+    private ComponentName iconViolet;
+
+    // Define Variable ComponentName iconYellow//
+    private ComponentName iconYellow;
 
     //</editor-fold>
 
@@ -219,6 +249,136 @@ public class SettingsThemePicker extends AppCompatActivity {
         }
     }
 
+    // Method That Fixes Back Button B/C Of Icon Color//
+    public void BackButtonFix(Context context) {
+
+        // Initiate instantiateIconColorActivities Method//
+        instantiateIconColorActivities(context);
+
+        // Define And Instantiate Variable Intent defaultColorActivity//
+        Intent defaultColorActivity = new Intent();
+
+        // Instantiate Variable SharedPreferences themePicker//
+        themePicker = context.getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
+
+        // What Happens When User Wants Theme Red//
+        if (themePicker.getInt(THEME_PICKER, -1) == 0) {
+
+            // Set defaultColorActivity To iconRed//
+            defaultColorActivity.setComponent(iconRed);
+
+            // Start Activity defaultColorActivity//
+            context.startActivity(defaultColorActivity);
+
+            // Custom Transition//
+            ((Activity) context).overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+        }
+
+        // What Happens When User Wants Theme Orange//
+        else if (themePicker.getInt(THEME_PICKER, -1) == 1) {
+
+            // Set defaultColorActivity To iconOrange//
+            defaultColorActivity.setComponent(iconOrange);
+
+            // Start Activity defaultColorActivity//
+            context.startActivity(defaultColorActivity);
+
+            // Custom Transition//
+            ((Activity) context).overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+        }
+
+        // What Happens When User Wants Theme Yellow//
+        else if (themePicker.getInt(THEME_PICKER, -1) == 2) {
+
+            // Set defaultColorActivity To iconYellow//
+            defaultColorActivity.setComponent(iconYellow);
+
+            // Start Activity defaultColorActivity//
+            context.startActivity(defaultColorActivity);
+
+            // Custom Transition//
+            ((Activity) context).overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+        }
+
+        // What Happens When User Wants Theme Green//
+        else if (themePicker.getInt(THEME_PICKER, -1) == 3) {
+
+            // Set defaultColorActivity To iconGreen//
+            defaultColorActivity.setComponent(iconGreen);
+
+            // Start Activity defaultColorActivity//
+            context.startActivity(defaultColorActivity);
+
+            // Custom Transition//
+            ((Activity) context).overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+        }
+
+        // What Happens When User Wants Theme Blue//
+        else if (themePicker.getInt(THEME_PICKER, -1) == 4) {
+
+            // Set defaultColorActivity To iconBlue//
+            defaultColorActivity.setComponent(iconBlue);
+
+            // Start Activity defaultColorActivity//
+            context.startActivity(defaultColorActivity);
+
+            // Custom Transition//
+            ((Activity) context).overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+        }
+
+        // What Happens When User Wants Theme Indigo//
+        else if (themePicker.getInt(THEME_PICKER, -1) == 5) {
+
+            // Set defaultColorActivity To iconIndigo//
+            defaultColorActivity.setComponent(iconIndigo);
+
+            // Start Activity defaultColorActivity//
+            context.startActivity(defaultColorActivity);
+
+            // Custom Transition//
+            ((Activity) context).overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+        }
+
+        // What Happens When User Wants Theme Violet//
+        else if (themePicker.getInt(THEME_PICKER, -1) == 6) {
+
+            // Set defaultColorActivity To iconViolet//
+            defaultColorActivity.setComponent(iconViolet);
+
+            // Start Activity defaultColorActivity//
+            context.startActivity(defaultColorActivity);
+
+            // Custom Transition//
+            ((Activity) context).overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+        }
+
+        // What Happens When User Wants Theme Pink//
+        else if (themePicker.getInt(THEME_PICKER, -1) == 7) {
+
+            // Set defaultColorActivity To iconPink//
+            defaultColorActivity.setComponent(iconPink);
+
+            // Start Activity defaultColorActivity//
+            context.startActivity(defaultColorActivity);
+
+            // Custom Transition//
+            ((Activity) context).overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+        }
+
+        // What Happens When No User Theme is Specified//
+        else {
+
+            // Define and Instantiate Variable Intent DefaultActivity//
+            Intent defaultActivity = new Intent(this, DefaultActivity.class);
+
+            // Start Activity DefaultActivity//
+            startActivity(defaultActivity);
+
+            // Custom Transition//
+            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+        }
+    }
+
     // Method To Gain Access To Location Permission//
     private void getLocationPermission() {
 
@@ -232,6 +392,271 @@ public class SettingsThemePicker extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GET_LOCATION);
             }
         }
+    }
+
+    // Method That Changes App Icon Based On Theme//
+    public void iconColor() {
+
+        // Initiate instantiateIconColorActivities Method//
+        instantiateIconColorActivities(this);
+
+        // Define And Instantiate Variable PackageManager packageManager//
+        PackageManager packageManager = getPackageManager();
+
+        // Instantiate Variable SharedPreferences themePicker//
+        themePicker = getSharedPreferences(THEME_PICKER, MODE_PRIVATE);
+
+        // What Happens When User Wants Theme Red//
+        if (themePicker.getInt(THEME_PICKER, -1) == 0) {
+
+            // Hide Blue Application Icon//
+            packageManager.setComponentEnabledSetting(iconBlue, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Green Application Icon//
+            packageManager.setComponentEnabledSetting(iconGreen, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Indigo Application Icon//
+            packageManager.setComponentEnabledSetting(iconIndigo, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Orange Application Icon//
+            packageManager.setComponentEnabledSetting(iconOrange, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Pink Application Icon//
+            packageManager.setComponentEnabledSetting(iconPink, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Un-Hide Red Application Icon//
+            packageManager.setComponentEnabledSetting(iconRed, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Violet Application Icon//
+            packageManager.setComponentEnabledSetting(iconViolet, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Yellow Application Icon//
+            packageManager.setComponentEnabledSetting(iconYellow, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        }
+
+        // What Happens When User Wants Theme Orange//
+        if (themePicker.getInt(THEME_PICKER, -1) == 1) {
+
+            // Hide Blue Application Icon//
+            packageManager.setComponentEnabledSetting(iconBlue, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Green Application Icon//
+            packageManager.setComponentEnabledSetting(iconGreen, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Indigo Application Icon//
+            packageManager.setComponentEnabledSetting(iconIndigo, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Un-Hide Orange Application Icon//
+            packageManager.setComponentEnabledSetting(iconOrange, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Pink Application Icon//
+            packageManager.setComponentEnabledSetting(iconPink, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Red Application Icon//
+            packageManager.setComponentEnabledSetting(iconRed, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Violet Application Icon//
+            packageManager.setComponentEnabledSetting(iconViolet, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Yellow Application Icon//
+            packageManager.setComponentEnabledSetting(iconYellow, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        }
+
+        // What Happens When User Wants Theme Yellow//
+        if (themePicker.getInt(THEME_PICKER, -1) == 2) {
+
+            // Hide Blue Application Icon//
+            packageManager.setComponentEnabledSetting(iconBlue, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Green Application Icon//
+            packageManager.setComponentEnabledSetting(iconGreen, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Indigo Application Icon//
+            packageManager.setComponentEnabledSetting(iconIndigo, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Orange Application Icon//
+            packageManager.setComponentEnabledSetting(iconOrange, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Pink Application Icon//
+            packageManager.setComponentEnabledSetting(iconPink, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Red Application Icon//
+            packageManager.setComponentEnabledSetting(iconRed, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Violet Application Icon//
+            packageManager.setComponentEnabledSetting(iconViolet, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Un-Hide Yellow Application Icon//
+            packageManager.setComponentEnabledSetting(iconYellow, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+        }
+
+        // What Happens When User Wants Theme Green//
+        if (themePicker.getInt(THEME_PICKER, -1) == 3) {
+
+            // Hide Blue Application Icon//
+            packageManager.setComponentEnabledSetting(iconBlue, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Un-Hide Green Application Icon//
+            packageManager.setComponentEnabledSetting(iconGreen, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Indigo Application Icon//
+            packageManager.setComponentEnabledSetting(iconIndigo, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Orange Application Icon//
+            packageManager.setComponentEnabledSetting(iconOrange, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Pink Application Icon//
+            packageManager.setComponentEnabledSetting(iconPink, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Red Application Icon//
+            packageManager.setComponentEnabledSetting(iconRed, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Violet Application Icon//
+            packageManager.setComponentEnabledSetting(iconViolet, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Yellow Application Icon//
+            packageManager.setComponentEnabledSetting(iconYellow, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        }
+
+        // What Happens When User Wants Theme Blue//
+        if (themePicker.getInt(THEME_PICKER, -1) == 4) {
+
+            // Un-Hide Blue Application Icon//
+            packageManager.setComponentEnabledSetting(iconBlue, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Green Application Icon//
+            packageManager.setComponentEnabledSetting(iconGreen, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Indigo Application Icon//
+            packageManager.setComponentEnabledSetting(iconIndigo, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Orange Application Icon//
+            packageManager.setComponentEnabledSetting(iconOrange, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Pink Application Icon//
+            packageManager.setComponentEnabledSetting(iconPink, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Red Application Icon//
+            packageManager.setComponentEnabledSetting(iconRed, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Violet Application Icon//
+            packageManager.setComponentEnabledSetting(iconViolet, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Yellow Application Icon//
+            packageManager.setComponentEnabledSetting(iconYellow, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        }
+
+        // What Happens When User Wants Theme Indigo//
+        if (themePicker.getInt(THEME_PICKER, -1) == 5) {
+
+            // Hide Blue Application Icon//
+            packageManager.setComponentEnabledSetting(iconBlue, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Green Application Icon//
+            packageManager.setComponentEnabledSetting(iconGreen, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Un-Hide Indigo Application Icon//
+            packageManager.setComponentEnabledSetting(iconIndigo, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Orange Application Icon//
+            packageManager.setComponentEnabledSetting(iconOrange, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Pink Application Icon//
+            packageManager.setComponentEnabledSetting(iconPink, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Red Application Icon//
+            packageManager.setComponentEnabledSetting(iconRed, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Violet Application Icon//
+            packageManager.setComponentEnabledSetting(iconViolet, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Yellow Application Icon//
+            packageManager.setComponentEnabledSetting(iconYellow, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        }
+
+        // What Happens When User Wants Theme Violet//
+        if (themePicker.getInt(THEME_PICKER, -1) == 6) {
+
+            // Hide Blue Application Icon//
+            packageManager.setComponentEnabledSetting(iconBlue, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Green Application Icon//
+            packageManager.setComponentEnabledSetting(iconGreen, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Indigo Application Icon//
+            packageManager.setComponentEnabledSetting(iconIndigo, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Orange Application Icon//
+            packageManager.setComponentEnabledSetting(iconOrange, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Pink Application Icon//
+            packageManager.setComponentEnabledSetting(iconPink, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Red Application Icon//
+            packageManager.setComponentEnabledSetting(iconRed, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Un-Hide Violet Application Icon//
+            packageManager.setComponentEnabledSetting(iconViolet, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Yellow Application Icon//
+            packageManager.setComponentEnabledSetting(iconYellow, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        }
+
+        // What Happens When User Wants Theme Pink//
+        if (themePicker.getInt(THEME_PICKER, -1) == 7) {
+
+            // Hide Blue Application Icon//
+            packageManager.setComponentEnabledSetting(iconBlue, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Green Application Icon//
+            packageManager.setComponentEnabledSetting(iconGreen, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Indigo Application Icon//
+            packageManager.setComponentEnabledSetting(iconIndigo, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Orange Application Icon//
+            packageManager.setComponentEnabledSetting(iconOrange, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Pink Application Icon//
+            packageManager.setComponentEnabledSetting(iconPink, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Red Application Icon//
+            packageManager.setComponentEnabledSetting(iconRed, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Violet Application Icon//
+            packageManager.setComponentEnabledSetting(iconViolet, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            // Hide Yellow Application Icon//
+            packageManager.setComponentEnabledSetting(iconYellow, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        }
+    }
+
+    // Method That Instantiates All Activities For Icon Color//
+    private void instantiateIconColorActivities(Context context) {
+
+        // And Instantiate Variable ComponentName iconBlue//
+        iconBlue = new ComponentName(context, "jordanzimmittidevelopers.com.communityservicelogger.DefaultActivityBlue");
+
+        // Instantiate Variable ComponentName iconGreen//
+        iconGreen = new ComponentName(context, "jordanzimmittidevelopers.com.communityservicelogger.DefaultActivityGreen");
+
+        // Instantiate Variable ComponentName iconIndigo//
+        iconIndigo = new ComponentName(context, "jordanzimmittidevelopers.com.communityservicelogger.DefaultActivityIndigo");
+
+        // Instantiate Variable ComponentName iconOrange//
+        iconOrange = new ComponentName(context, "jordanzimmittidevelopers.com.communityservicelogger.DefaultActivityOrange");
+
+        // Instantiate Variable ComponentName iconBlue//
+        iconPink = new ComponentName(context, "jordanzimmittidevelopers.com.communityservicelogger.DefaultActivityPink");
+
+        // Instantiate Variable ComponentName iconRed//
+        iconRed = new ComponentName(context, "jordanzimmittidevelopers.com.communityservicelogger.DefaultActivity");
+
+        // Instantiate Variable ComponentName iconViolet//
+        iconViolet = new ComponentName(context, "jordanzimmittidevelopers.com.communityservicelogger.DefaultActivityViolet");
+
+        // Instantiate Variable ComponentName iconYellow//
+        iconYellow = new ComponentName(context, "jordanzimmittidevelopers.com.communityservicelogger.DefaultActivityYellow");
     }
 
     // Method That Instantiates Widgets//
@@ -315,6 +740,9 @@ public class SettingsThemePicker extends AppCompatActivity {
         // Save New Value Into Shared Preference//
         themePicker.edit().putInt(THEME_PICKER, THEME_RED).apply();
 
+        // Initiate iconColor Method//
+        iconColor();
+
         // Restart The Activity//
         finish();
         Intent intent = getIntent();
@@ -333,6 +761,9 @@ public class SettingsThemePicker extends AppCompatActivity {
 
         // Save New Value Into Shared Preference//
         themePicker.edit().putInt(THEME_PICKER, THEME_ORANGE).apply();
+
+        // Initiate iconColor Method//
+        iconColor();
 
         // Restart The Activity//
         finish();
@@ -353,6 +784,9 @@ public class SettingsThemePicker extends AppCompatActivity {
         // Save New Value Into Shared Preference//
         themePicker.edit().putInt(THEME_PICKER, THEME_YELLOW).apply();
 
+        // Initiate iconColor Method//
+        iconColor();
+
         // Restart The Activity//
         finish();
         Intent intent = getIntent();
@@ -371,6 +805,9 @@ public class SettingsThemePicker extends AppCompatActivity {
 
         // Save New Value Into Shared Preference//
         themePicker.edit().putInt(THEME_PICKER, THEME_GREEN).apply();
+
+        // Initiate iconColor Method//
+        iconColor();
 
         // Restart The Activity//
         finish();
@@ -391,6 +828,9 @@ public class SettingsThemePicker extends AppCompatActivity {
         // Save New Value Into Shared Preference//
         themePicker.edit().putInt(THEME_PICKER, THEME_BLUE).apply();
 
+        // Initiate iconColor Method//
+        iconColor();
+
         // Restart The Activity//
         finish();
         Intent intent = getIntent();
@@ -409,6 +849,9 @@ public class SettingsThemePicker extends AppCompatActivity {
 
         // Save New Value Into Shared Preference//
         themePicker.edit().putInt(THEME_PICKER, THEME_INDIGO).apply();
+
+        // Initiate iconColor Method//
+        iconColor();
 
         // Restart The Activity//
         finish();
@@ -429,6 +872,9 @@ public class SettingsThemePicker extends AppCompatActivity {
         // Save New Value Into Shared Preference//
         themePicker.edit().putInt(THEME_PICKER, THEME_VIOLET).apply();
 
+        // Initiate iconColor Method//
+        iconColor();
+
         // Restart The Activity//
         finish();
         Intent intent = getIntent();
@@ -447,6 +893,9 @@ public class SettingsThemePicker extends AppCompatActivity {
 
         // Save New Value Into Shared Preference//
         themePicker.edit().putInt(THEME_PICKER, THEME_PINK).apply();
+
+        // Initiate iconColor Method//
+        iconColor();
 
         // Restart The Activity//
         finish();
