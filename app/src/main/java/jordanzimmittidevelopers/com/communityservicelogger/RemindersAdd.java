@@ -101,6 +101,7 @@ public class RemindersAdd extends AppCompatActivity implements DatePickerDialog.
         // What Happens If dayOfMonth Is Less Then Zero//
         if (dayOfMonth < 10) {
 
+            // Define And Instantiate Variable String day//
             String day = "0" + dayOfMonth;
 
             // Instantiate Variable String reverseDateString//

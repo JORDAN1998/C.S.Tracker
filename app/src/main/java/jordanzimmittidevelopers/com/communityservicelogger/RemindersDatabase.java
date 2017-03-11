@@ -137,7 +137,7 @@ public class RemindersDatabase {
     public Cursor getAllRowsDate() {
 
         // Query Database For All Rows//
-        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, RemindersDatabase.KEY_DATE + " ASC", null);
+        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS, null, null, null, null, RemindersDatabase.KEY_DATE + "," + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + "," + EventsDatabase.KEY_LOCATION + " COLLATE NOCASE" + " ASC", null);
 
         // What Happens When c Doesn't Equal Null//
         if (c != null) {

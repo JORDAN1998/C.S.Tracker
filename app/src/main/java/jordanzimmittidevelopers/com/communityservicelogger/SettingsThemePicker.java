@@ -372,10 +372,10 @@ public class SettingsThemePicker extends AppCompatActivity {
             Intent defaultActivity = new Intent(this, DefaultActivity.class);
 
             // Start Activity DefaultActivity//
-            startActivity(defaultActivity);
+            context.startActivity(defaultActivity);
 
             // Custom Transition//
-            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+            ((Activity) context).overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
         }
     }
 

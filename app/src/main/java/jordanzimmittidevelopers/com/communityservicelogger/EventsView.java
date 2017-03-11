@@ -345,17 +345,34 @@ public class EventsView extends AppCompatActivity {
                 // Define And Instantiate Variable String[] splitReverseDate//
                 String[] splitReverseDate = normalDate.split("/");
 
-                // Define And Instantiate Variable String month//
-                String month = splitReverseDate[0];
+                // Define And Instantiate Variable int month//
+                int month = Integer.parseInt(splitReverseDate[0]);
 
-                // Define And Instantiate Variable String day//
-                String day = splitReverseDate[1];
+                // Define And Instantiate Variable int day//
+                int dayOfMonth = Integer.parseInt(splitReverseDate[1]);
 
-                // Define And Instantiate Variable String year//
-                String year = splitReverseDate[2];
+                // Define And Instantiate Variable int year//
+                int year = Integer.parseInt(splitReverseDate[2]);
 
-                // Define And Instantiate Variable String date//
-                String date = year + "/" + month + "/" + day;
+                // Define Variable String date//
+                String date;
+
+                // What Happens If dayOfMonth Is Less Then Zero//
+                if (dayOfMonth < 10) {
+
+                    // Define And Instantiate Variable String day//
+                    String day = "0" + dayOfMonth;
+
+                    //Instantiate Variable String date//
+                    date = year + "/" + month + "/" + day;
+                }
+
+                // What Happens When dayOfMonth Is Bigger Then Zero//
+                else {
+
+                    //Instantiate Variable String date//
+                    date = year + "/" + month + "/" + dayOfMonth;
+                }
 
                 //</editor-fold>
 

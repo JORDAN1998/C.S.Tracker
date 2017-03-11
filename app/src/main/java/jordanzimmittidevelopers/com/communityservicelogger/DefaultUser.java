@@ -236,14 +236,11 @@ public class DefaultUser extends AppCompatActivity {
                                 // Save New Value Into Shared Preference//
                                 userModeName.edit().putString(USER_NAME, userName).apply();
 
-                                // Define and Instantiate Variable Intent DefaultActivity//
-                                Intent defaultActivity = new Intent(DefaultUser.this, DefaultActivity.class);
+                                // Define And Instantiate Variable SettingsThemePicker pickTheme//
+                                SettingsThemePicker pickTheme = new SettingsThemePicker();
 
-                                // Start Activity DefaultActivity//
-                                startActivity(defaultActivity);
-
-                                // Custom Transition//
-                                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                                // Fixes Back Button B/C Of Icon Color//
+                                pickTheme.BackButtonFix(DefaultUser.this);
                             }
                         })
 
