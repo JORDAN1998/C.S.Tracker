@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Log Of All Activities, Broadcasts, And Permissions, Used By The App -->
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Log Of All Activities, Broadcasts, And Permissions, Used By The App -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jordanzimmittidevelopers.com.communityservicelogger">
 
@@ -20,7 +22,7 @@
     <!-- Basic Application Information -->
     <application
         android:allowBackup="true"
-        android:fullBackupContent="false"
+        android:fullBackupContent="true"
         android:icon="@mipmap/red"
         android:label="@string/app_name"
         android:largeHeap="true"
