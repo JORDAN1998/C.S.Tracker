@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
@@ -84,19 +83,6 @@ public class Settings extends AppCompatActivity {
             default:
                 return false;
         }
-    }
-
-    // What Happens Wen User Touches Screen Outside Of Dialog Box//
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        if (MotionEvent.ACTION_OUTSIDE == event.getAction()) {
-
-            return true;
-        }
-
-        // Delegate everything else to Activity.
-        return super.onTouchEvent(event);
     }
 
     // Method That Applies Theme By User Preference//
@@ -174,6 +160,8 @@ public class Settings extends AppCompatActivity {
 
                             // Content Of Dialog//
                             .content("Turning off users will get rid of all users but the one you choose; this cannot be undone. After clicking Ok, click the user profile that you want to save for single user mode")
+
+                            .canceledOnTouchOutside(false)
 
                             // Positive Text Name For Button//
                             .positiveText("Ok")

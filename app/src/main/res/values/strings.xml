@@ -62,6 +62,6 @@
     <string name="version">Version</string>
     <string name="rate_in_play_store">Rate In Play Store</string>
     <string name="feedback">Feedback</string>
-    <string name="changelog">1. Brand New UI \n2. Multiple Users \n3. More Themes \n4. Fixed "Order By Date" \n5. Added Search \n6. Temporarily Got Rid Of Backup, Restore, And Print Until Next Update</string>
+    <string name="changelog">1. Brand New UI \n2. Multiple Users \n3. More Themes \n4. Fixed "Order By Date" \n5. Added Search \n6. Temporarily Got Rid Of Backup, Restore, And Print Until Next Update \n7. A Ton Of Bug Fixes And Performance Enhancements</string>
 
 </resources>
