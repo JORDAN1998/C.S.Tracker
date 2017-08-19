@@ -22,8 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -549,6 +551,8 @@ public class UsersView extends AppCompatActivity {
 
                 //</editor-fold>
 
+                //<editor-fold desc="Sets Image / Name Letter of User">
+
                 // Define And Instantiate Variable CircleImageView usersViewCircleImageView//
                 CircleImageView usersViewCircleImage = (CircleImageView) row.findViewById(R.id.usersViewCircleImage);
 
@@ -557,6 +561,27 @@ public class UsersView extends AppCompatActivity {
 
                 // Get Image From Database And Display It In ListView//
                 usersDatabase.getImage(UsersView.this, byteImage, usersViewCircleImage);
+
+                //</editor-fold>
+
+                // Define And Instantiate Variable TextView usersViewGrade//
+                TextView usersViewGrade = (TextView) row.findViewById(R.id.usersViewGrade);
+
+                // Define And Instantiate Variable TextView usersViewGradeTitle//
+                TextView usersViewGradeTitle = (TextView) row.findViewById(R.id.usersViewGradeTitle);
+
+                // Define And Instantiate Variable String usersAddGradeString//
+                String usersViewGradeString = cursor.getString(UsersDatabase.COL_GRADE);
+
+                // What Happens When usersViewGradeString Equals Nothing//
+                if (usersViewGradeString.equals("")) {
+
+                    // Get Rid Of usersViewGrade Widget//
+                    usersViewGrade.setVisibility(View.GONE);
+
+                    // Get Rid Of usersViewGradeTitle Widget//
+                    usersViewGradeTitle.setVisibility(View.GONE);
+                }
 
                 // Kill Code//
                 return row;

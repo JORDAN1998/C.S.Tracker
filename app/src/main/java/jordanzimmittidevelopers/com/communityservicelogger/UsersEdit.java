@@ -410,7 +410,7 @@ public class UsersEdit extends AppCompatActivity {
         vibe.vibrate(50);
 
         // What Happens When All EditTexts Are Filled Out//
-        if (!usersEditName.getText().toString().equals("") && !usersEditAge.getText().toString().equals("") && !usersEditGrade.getText().toString().equals("") && !usersEditOrganization.getText().toString().equals("")) {
+        if (!usersEditName.getText().toString().equals("") && !usersEditAge.getText().toString().equals("") && !usersEditOrganization.getText().toString().equals("")) {
 
             // Define and Instantiate Variable BitmapDrawable bitmapDrawable//
             BitmapDrawable bitmapDrawable = (BitmapDrawable) usersEditCircleImage.getDrawable();

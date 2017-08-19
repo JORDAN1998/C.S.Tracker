@@ -103,20 +103,8 @@ public class UsersAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Define And Instantiate Variable SettingsThemePicker pickTheme//
-        SettingsThemePicker pickTheme = new SettingsThemePicker();
-
-        // Set Theme Based On User Preference//
-        pickTheme.userTheme(this);
-
-        // Starts UI For Activity//
-        setContentView(R.layout.users_add_ui);
-
-        // Define And Instantiate RelativeLayout relativeLayout//
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.users_add_ui);
-
-        // Night Mode Theme Extension Options//
-        pickTheme.activityNightModeExtension(this, relativeLayout);
+        // Initiate applyTheme Method//
+        applyTheme();
 
         // Initiate InstantiateWidgets Method//
         instantiateWidgets();
@@ -184,14 +172,24 @@ public class UsersAdd extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Method That Opens Database//
-    private void usersDatabaseOpen() {
+    // Method That Applies Theme By User Preference//
+    private void applyTheme() {
 
-        // Instantiate Variable UsersDatabase usersDatabase//
-        usersDatabase = new UsersDatabase(this);
+        // Define And Instantiate Variable SettingsThemePicker pickTheme//
+        SettingsThemePicker pickTheme = new SettingsThemePicker();
 
-        // Open Database//
-        usersDatabase.open();
+        // Set Theme Based On User Preference//
+        pickTheme.userTheme(this);
+
+        // Starts UI For Activity//
+        setContentView(R.layout.users_add_ui);
+
+        // Define And Instantiate RelativeLayout relativeLayout//
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.users_add_ui);
+
+        // Night Mode Theme Extension Options//
+        pickTheme.activityNightModeExtension(this, relativeLayout);
+
     }
 
     // Method That Instantiates Widgets//
@@ -305,6 +303,16 @@ public class UsersAdd extends AppCompatActivity {
         });
     }
 
+    // Method That Opens Database//
+    private void usersDatabaseOpen() {
+
+        // Instantiate Variable UsersDatabase usersDatabase//
+        usersDatabase = new UsersDatabase(this);
+
+        // Open Database//
+        usersDatabase.open();
+    }
+
     // Method That Save User Profile//
     private void userSave() {
 
@@ -312,7 +320,7 @@ public class UsersAdd extends AppCompatActivity {
         vibe.vibrate(50);
 
         // What Happens When All EditTexts Are Filled Out//
-        if (!usersAddName.getText().toString().equals("") && !usersAddAge.getText().toString().equals("") && !usersAddGrade.getText().toString().equals("") && !usersAddOrganization.getText().toString().equals("")) {
+        if (!usersAddName.getText().toString().equals("") && !usersAddAge.getText().toString().equals("") && !usersAddOrganization.getText().toString().equals("")) {
 
             // Define and Instantiate Variable BitmapDrawable bitmapDrawable//
             BitmapDrawable bitmapDrawable = (BitmapDrawable) usersAddCircleImage.getDrawable();
