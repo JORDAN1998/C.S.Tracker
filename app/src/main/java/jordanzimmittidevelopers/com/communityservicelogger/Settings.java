@@ -161,13 +161,13 @@ public class Settings extends AppCompatActivity {
                             // Content Of Dialog//
                             .content("Turning off users will get rid of all users but the one you choose; this cannot be undone. After clicking Ok, click the user profile that you want to save for single user mode")
 
-                            .canceledOnTouchOutside(false)
-
                             // Positive Text Name For Button//
                             .positiveText("Ok")
 
                             // Negative Text Name For Button//
                             .negativeText("Cancel")
+
+                            .canceledOnTouchOutside(false)
 
                             // What Happens When Positive Button Is Pressed//
                             .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -240,7 +240,7 @@ public class Settings extends AppCompatActivity {
         vibe.vibrate(50);
 
         // Define and Instantiate Variable Intent themes//
-        Intent themes = new Intent(this, SettingsThemePicker.class);
+        Intent themes = new Intent(this, GoogleDriveSync.class);
 
         // Start Activity themes//
         startActivity(themes);

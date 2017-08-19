@@ -229,6 +229,7 @@ public class UsersView extends AppCompatActivity {
 
                                 // Vibrates For 50 Mill//
                                 vibe.vibrate(50);
+
                             }
 
                         }).show();
