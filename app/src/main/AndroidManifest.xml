@@ -183,11 +183,15 @@
             android:name=".EventsExtraInformation"
             android:label="@string/activity_events_extra_information" />
 
+        <!-- Activity EventsSync -->
+        <activity
+            android:name=".EventsSync" />
+
         <!-- Activity EventsView -->
         <activity
             android:name=".EventsView" />
 
-        <!-- Activity GoogleDriveSync -->
+        <!-- Activity google_drive_sync -->
         <activity
             android:name=".GoogleDriveSync" />
 
@@ -220,10 +224,6 @@
         <activity
             android:name=".SettingsThemePicker"
             android:label="@string/activity_theme_picker" />
-
-        <!-- Activity SyncEvents -->
-        <activity
-            android:name=".GoogleDriveSync$SyncEvents" />
 
         <!-- Activity UsersAdd -->
         <activity

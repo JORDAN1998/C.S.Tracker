@@ -240,7 +240,7 @@ public class Settings extends AppCompatActivity {
         vibe.vibrate(50);
 
         // Define and Instantiate Variable Intent themes//
-        Intent themes = new Intent(this, GoogleDriveSync.class);
+        Intent themes = new Intent(this, EventsSync.class);
 
         // Start Activity themes//
         startActivity(themes);

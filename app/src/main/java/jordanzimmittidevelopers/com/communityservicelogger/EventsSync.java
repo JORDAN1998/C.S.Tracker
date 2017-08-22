@@ -1,6 +1,7 @@
 package jordanzimmittidevelopers.com.communityservicelogger;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -42,8 +43,8 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-// google_drive_sync Class Created By Jordan Zimmitti 3-12-17//
-public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+// EventsSync Class Created By Jordan Zimmitti 8-21-17//
+public class EventsSync extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     //<editor-fold desc="Date Time">
 
@@ -75,20 +76,8 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
     // Define Variable DriveFile fileEventsBackup//
     private DriveFile fileEventsBackup;
 
-    // Define Variable DriveFile fileRemindersBackup//
-    private DriveFile fileRemindersBackup;
-
-    // Define Variable DriveFile fileEventsBackup//
-    private DriveFile fileUsersBackup;
-
     // Define DriveFolder folderEventsBackup//
     private DriveFolder folderEventsBackup;
-
-    // Define DriveFolder folderRemindersBackup//
-    private DriveFolder folderRemindersBackup;
-
-    // Define DriveFolder folderUsersBackup//
-    private DriveFolder folderUsersBackup;
 
     // Define Variable GoogleApiClient googleApiClient//
     private GoogleApiClient googleApiClient;
@@ -125,8 +114,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
                 // Resolve The Connection//
                 connectionResult.startResolutionForResult(this, 3);
 
-            } catch (IntentSender.SendIntentException ignored) {
-            }
+            } catch (IntentSender.SendIntentException ignored) {}
 
         } else {
 
@@ -247,7 +235,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
         googleApiClient.connect();
     }
 
-    // Method That Creates All Necessary Local Folders//
+    // Method That Creates All Necessary Local Folders For Events Backup//
     private void createLocalFolders() {
 
         // Define And Instantiate Variable File appFolder / Get App Folder Directory//
@@ -269,46 +257,10 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             // Create Folder//
             eventsBackupFolder.mkdirs();
         }
-
-        // Define And Instantiate Variable File remindersBackupFolder / Get Reminders Backup Folder Directory//
-        File remindersBackupFolder = new File(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Reminders Backup/");
-
-        // What Happens When Folder Does Not Exist //
-        if (!remindersBackupFolder.exists()) {
-
-            // Create Folder//
-            remindersBackupFolder.mkdirs();
-        }
-
-        // Define And Instantiate Variable File usersBackupFolder / Get Users Backup Folder Directory//
-        File usersBackupFolder = new File(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Users Backup/");
-
-        // What Happens When Folder Does Not Exist //
-        if (!usersBackupFolder.exists()) {
-
-            // Create Folder//
-            usersBackupFolder.mkdirs();
-        }
     }
 
     // Method That Downloads The Cloud Database File To Device//
-    private void syncFile() {
-
-        //<editor-fold desc="Download Listener">
-
-        // Downloads Cached File To Device//
-        DriveFile.DownloadProgressListener listener = new DriveFile.DownloadProgressListener() {
-
-            // Shows progress Of Download//
-            @Override
-            public void onProgress(long bytesDownloaded, long bytesExpected) {
-
-            }
-        };
-
-        //</editor-fold>
-
-        //<editor-fold desc="Sync App">
+    private void syncFileToDevice() {
 
         // Define And Instantiate Variable File localEventsBackupFolder / Get Events Backup Folder Directory//
         File localEventsBackupFolder = new File(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/");
@@ -317,7 +269,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
         if (localEventsBackupFolder.listFiles().length == 0) {
 
             // Open Drive File Based On Id//
-            fileEventsBackup.open(googleApiClient, DriveFile.MODE_READ_ONLY, listener).setResultCallback(downloadCloudEventsBackupFile);
+            fileEventsBackup.open(googleApiClient, DriveFile.MODE_READ_ONLY, null).setResultCallback(downloadCloudEventsBackupFile);
         }
 
         // List Files In localEventsBackupFolder//
@@ -351,7 +303,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
                     if (localEventsBackupFileDate.before(cloudEventsBackupFileDate)) {
 
                         // Open Drive File Based On Id//
-                        fileEventsBackup.open(googleApiClient, DriveFile.MODE_READ_ONLY, listener).setResultCallback(downloadCloudEventsBackupFile);
+                        fileEventsBackup.open(googleApiClient, DriveFile.MODE_READ_ONLY, null).setResultCallback(downloadCloudEventsBackupFile);
 
                         return;
                     }
@@ -373,11 +325,38 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
                     // What Happens when localEventsBackupFileDate Equals cloudEventsBackupFileDate//
                     else if (localEventsBackupFileDate.equals(cloudEventsBackupFileDate)) {
 
-                        // Define And Instantiate Variable Intent syncReminders / Start Activity SyncReminders //
-                        //Intent syncReminders = new Intent(SyncEvents.this, SyncReminders.class);
-                        //syncReminders.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        //startActivityForResult(syncReminders, 0);
-                        //overridePendingTransition(0, 0);
+                        // Create Dialog//
+                        new MaterialDialog.Builder(EventsSync.this)
+
+                                // Title Of Dialog//
+                                .title("Events Up To Date")
+
+                                // Content Of Dialog//
+                                .content("There is no need to sync with G-Drive because your events are already up to date")
+
+                                // Negative Text Name For Button//
+                                .negativeText("Ok")
+
+                                // Don't Let User Close Dialog By Clicking Outside Dialog//
+                                .canceledOnTouchOutside(false)
+
+                                // What Happens When Negative Button Is Pressed//
+                                .onNegative(new MaterialDialog.SingleButtonCallback() {
+
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                        // Define And Instantiate Variable Intent syncReminders / Start Activity SyncReminders //
+                                        Intent defaultActivity = new Intent(EventsSync.this, DefaultActivity.class);
+
+                                        // Start Activity themes//
+                                        startActivity(defaultActivity);
+
+                                        // Custom Transition//
+                                        overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                                    }
+
+                                }).show();
                     }
 
                     // What Happens When Code Fails//
@@ -386,8 +365,6 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
                 }
             }
         }
-
-        //</editor-fold>
     }
 
     // Method That Gives App Permission To Access System Storage//
@@ -397,7 +374,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
             // Request To Write To External Storage//
-            ActivityCompat.requestPermissions(GoogleDriveSync.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            ActivityCompat.requestPermissions(EventsSync.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
     }
 
@@ -416,7 +393,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(EventsSync.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")
@@ -474,11 +451,38 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
                 // Discard Drive Contents//
                 driveContents.discard(googleApiClient);
 
-                // Define And Instantiate Variable Intent syncReminders / Start Activity SyncReminders //
-                //Intent syncReminders = new Intent(SyncEvents.this, SyncReminders.class);
-                //syncReminders.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                //startActivityForResult(syncReminders, 0);
-                //overridePendingTransition(0, 0);
+                // Create Dialog//
+                new MaterialDialog.Builder(EventsSync.this)
+
+                        // Title Of Dialog//
+                        .title("Download Complete")
+
+                        // Content Of Dialog//
+                        .content("Events backup was successfully downloaded to your device")
+
+                        // Negative Text Name For Button//
+                        .negativeText("Ok")
+
+                        // Don't Let User Close Dialog By Clicking Outside Dialog//
+                        .canceledOnTouchOutside(false)
+
+                        // What Happens When Negative Button Is Pressed//
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                // Define And Instantiate Variable Intent syncReminders / Start Activity SyncReminders //
+                                Intent defaultActivity = new Intent(EventsSync.this, DefaultActivity.class);
+
+                                // Start Activity themes//
+                                startActivity(defaultActivity);
+
+                                // Custom Transition//
+                                overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+                            }
+
+                        }).show();
 
                 // Shows When Code Failed//
             } catch (Exception e) {
@@ -507,7 +511,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(EventsSync.this)
 
                         // Title Of Dialog//
                         .title("Upload Failed")
@@ -526,7 +530,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             //</editor-fold>
 
             // Create Dialog//
-            new MaterialDialog.Builder(GoogleDriveSync.this)
+            new MaterialDialog.Builder(EventsSync.this)
 
                     // Title Of Dialog//
                     .title("Upload Complete")
@@ -547,10 +551,13 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
                             // Define And Instantiate Variable Intent syncReminders / Start Activity SyncReminders //
-                            //Intent syncReminders = new Intent(SyncEvents.this, SyncReminders.class);
-                            //syncReminders.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            //startActivityForResult(syncReminders, 0);
-                            //overridePendingTransition(0, 0);
+                            Intent defaultActivity = new Intent(EventsSync.this, DefaultActivity.class);
+
+                            // Start Activity themes//
+                            startActivity(defaultActivity);
+
+                            // Custom Transition//
+                            overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
                         }
 
                     }).show();
@@ -562,25 +569,24 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
     //<editor-fold desc="isBackupFolderCreated">
 
     // Checks If File Is created Correctly Or In-Correctly//
-    final private ResultCallback<DriveFolder.DriveFileResult> isBackupFolderCreated = new ResultCallback<DriveFolder.DriveFileResult>() {
+    final private  ResultCallback<DriveFolder.DriveFolderResult> isBackupFolderCreated = new ResultCallback<DriveFolder.DriveFolderResult>() {
 
-        // Gets Result Of Callback//
         @Override
-        public void onResult(@NonNull DriveFolder.DriveFileResult result) {
+        public void onResult(@NonNull DriveFolder.DriveFolderResult driveFolderResult) {
 
             //<editor-fold desc="When Result Failed">
 
             // What Happens When File Failed To Create//
-            if (!result.getStatus().isSuccess()) {
+            if (!driveFolderResult.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(EventsSync.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")
 
                         // Content Of Dialog//
-                        .content("Could not create events folder in google drive, Do you have any events to back up? If so then check internet connection or try again later. If it persists contact the developer of this app")
+                        .content("Could not create events folder in google drive, check internet connection or try again later. If it persists contact the developer of this app")
 
                         // Negative Text Name For Button//
                         .negativeText("Ok")
@@ -621,7 +627,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(EventsSync.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")
@@ -664,8 +670,6 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
 
             // What Happens When There Is No File In Drive//
             if (metadataBuffer.getCount() == 0) {
-
-                backupEvents();
 
                 // Sync With Google Drive//
                 Drive.DriveApi.requestSync(googleApiClient);
@@ -778,7 +782,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             cloudFileName = metadata.getTitle();
 
             // Initiate syncFile Method//
-            syncFile();
+            syncFileToDevice();
 
             //</editor-fold>
         }
@@ -801,7 +805,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(EventsSync.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")
@@ -915,7 +919,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(EventsSync.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")
@@ -937,14 +941,11 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
 
             //<editor-fold desc=" Gets File Data">
 
-            // Define And Instantiate Variable DriveContents driveContents//
-            DriveContents driveContents = result.getStatus().isSuccess() ? result.getDriveContents() : null;
-
             // Define And Instantiate Variable MetadataChangeSet meta / Create Metadata For Events Backup Folder//
             MetadataChangeSet meta = new MetadataChangeSet.Builder().setTitle("Events Backup").build();
 
             // Put Folder In User Hidden App Folder//
-            Drive.DriveApi.getAppFolder(googleApiClient).createFile(googleApiClient, meta, driveContents).setResultCallback(isBackupFolderCreated);
+            Drive.DriveApi.getAppFolder(googleApiClient).createFolder(googleApiClient, meta).setResultCallback(isBackupFolderCreated);
 
             //</editor-fold>
         }
@@ -952,5 +953,3 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
 
     //</editor-fold>
 }
-
-
