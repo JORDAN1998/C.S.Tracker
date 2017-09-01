@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +15,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +35,31 @@ import java.util.Date;
 public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     //<editor-fold desc="Variables">
+
+    //<editor-fold desc="Date Time">
+
+    // Define And Instantiate Variable Calendar calendar//
+    private Calendar calendar = Calendar.getInstance();
+
+    // Define And Instantiate Variable int month//
+    private int month = calendar.get(Calendar.MONTH) + 1;
+
+    // Define And Instantiate Variable int day//
+    private int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+    // Define And Instantiate Variable int year//
+    private int year = calendar.get(Calendar.YEAR);
+
+    // Define And Instantiate Variable int hour//
+    private int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+    // Define And Instantiate Variable int minute//
+    private int minute = calendar.get(Calendar.MINUTE);
+
+    // Define And Instantiate Variable int second//
+    private int second = calendar.get(Calendar.SECOND);
+
+    //</editor-fold>
 
     //<editor-fold desc="Extra">
 
@@ -237,6 +268,61 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
         pickTheme.activityNightModeExtension(this, relativeLayout);
     }
 
+    // Method That Backup All Events//
+    private void backupEvents() {
+
+        // Attempt To Backup The File//
+        try {
+
+            // What Happens When App Can Write To The SD Card//
+            if (Environment.getExternalStorageDirectory().canWrite()) {
+
+                // Define And Instantiate Variable File localFolder / Get localFolder File Location//
+                File localFolder = new File(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/");
+
+                // Define And Instantiate Variable File mainDatabase / Get mainDatabase File Location//
+                File mainDatabase = new File(Environment.getDataDirectory() + "//data//jordanzimmittidevelopers.com.communityservicelogger//databases//events_database");
+
+                // What Happens When There is a File In The localFolder//
+                if (!(localFolder.listFiles().length == 0)) {
+
+                    // List All The Files//
+                    String[] children = localFolder.list();
+
+                    // Delete All Files//
+                    for (String aChildren : children) {
+
+                        // Delete File//
+                        new File(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/", aChildren).delete();
+                    }
+                }
+
+                // What Happens When mainDatabase Exists//
+                if (mainDatabase.exists()) {
+
+                    // Define And Instantiate Variable FileChannel mainDatabaseDirectory//
+                    FileChannel mainDatabaseDirectory = new FileInputStream(mainDatabase).getChannel();
+
+                    // Define And Instantiate Variable FileChannel backupDatabaseDirectory//
+                    FileChannel backupDatabaseDirectory = new FileOutputStream(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/" + "Events.db" + " " + month + "-" + day + "-" + year + " " + hour + ":" + minute + ":" + second + " ").getChannel();
+
+                    // Transfer Data From mainDatabaseDirectory To backupDatabaseDirectory//
+                    backupDatabaseDirectory.transferFrom(mainDatabaseDirectory, 0, mainDatabaseDirectory.size());
+
+                    // Close Src Transfer//
+                    mainDatabaseDirectory.close();
+
+                    // Close Dest Transfer//
+                    backupDatabaseDirectory.close();
+                }
+            }
+
+            // What Happens When The Code Fails//
+        } catch (Exception ignored) {
+            Toast.makeText(getApplicationContext(), "Failed To Backup: You Must Have At Least One Event To Backup Database To Drive", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     // Method To Get User Name//
     private void getName() {
 
@@ -318,6 +404,9 @@ public class EventsAdd extends AppCompatActivity implements DatePickerDialog.OnD
 
             // Inserts Values Into Database//
             eventsDatabase.insertRow(eventsAddName.getText().toString(), workingNameUser, reverseDateString, eventsAddLocation.getText().toString(), eventsAddTimeStart.getText().toString(), eventsAddTimeEnd.getText().toString(), eventsAddTimeTotal.getText().toString(), String.valueOf(timeTotalAdded), eventsAddPeopleInCharge.getText().toString(), eventsAddPhoneNumber.getText().toString(), eventsAddNotes.getText().toString(), "");
+
+            // Backup Events For Drive Sync//
+            backupEvents();
 
             // Define and Instantiate Variable Intent EventsView//
             Intent eventsView = new Intent(this, EventsView.class);

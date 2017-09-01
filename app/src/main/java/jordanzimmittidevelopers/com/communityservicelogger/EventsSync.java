@@ -197,30 +197,31 @@ public class EventsSync extends AppCompatActivity implements GoogleApiClient.Con
                     FileChannel mainDatabaseDirectory = new FileInputStream(mainDatabase).getChannel();
 
                     // Define And Instantiate Variable FileChannel backupDatabaseDirectory//
-                    FileChannel backupDatabaseDirectory = new FileOutputStream(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/" + "Events.db" + " " + month + "-" + day + "-" + year + " " + hour + ":" + minute + ":" + second + " ").getChannel();
+                    FileChannel backupDatabaseDirectory = new FileOutputStream(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/" + "Events.db" + " " + month + "-" + day + "-" + year + " " + hour + ":" + minute + ":" + second).getChannel();
 
                     // Transfer Data From mainDatabaseDirectory To backupDatabaseDirectory//
                     backupDatabaseDirectory.transferFrom(mainDatabaseDirectory, 0, mainDatabaseDirectory.size());
 
-                    // Close Src Transfer//
+                    // Close mainDatabaseDirectory Transfer//
                     mainDatabaseDirectory.close();
 
-                    // Close Dest Transfer//
+                    // Close backupDatabaseDirectory Transfer//
                     backupDatabaseDirectory.close();
 
                     // Shows That The File Was Backed Up Successfully//
                     Toast.makeText(getApplicationContext(), "Event Backup Completed", Toast.LENGTH_SHORT).show();
                 }
             }
+        }
 
-            // What Happens When The Code Fails//
-        } catch (Exception ignored) {
+        // What Happens When The Code Fails//
+        catch (Exception ignored) {
             Toast.makeText(getApplicationContext(), "Failed To Backup: You Must Have At Least One Event To Backup Database To Drive", Toast.LENGTH_SHORT).show();
         }
     }
 
     // Method That Connects To Google Drive//
-    private void connectToGoogleDrive() {
+    private void connectToGoogleDrive()  {
 
         // Create Api Client//
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -256,6 +257,48 @@ public class EventsSync extends AppCompatActivity implements GoogleApiClient.Con
 
             // Create Folder//
             eventsBackupFolder.mkdirs();
+        }
+    }
+
+    // Method That Restores Events To Database From Database Backup//
+    private void restoreEvents() {
+
+        // Attempt To Restore The File//
+        try {
+
+            // What Happens When App Can Write To The SD Card//
+            if (Environment.getExternalStorageDirectory().canWrite()) {
+
+            // Define And Instantiate Variable File localFolder / Get localFolder File Location//
+            File localFolder = new File(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/"+ cloudFileName);
+
+            // Define And Instantiate Variable File mainDatabase / Get mainDatabase File Location//
+            File mainDatabase = new File(Environment.getDataDirectory() + "//data//jordanzimmittidevelopers.com.communityservicelogger//databases//events_database");
+
+                // What Happens When mainDatabase Exists//
+                if (mainDatabase.exists()) {
+
+                    // Define And Instantiate Variable FileChannel backupDatabaseDirectory//
+                    FileChannel backupDatabaseDirectory = new FileInputStream(localFolder).getChannel();
+
+                    // Define And Instantiate Variable FileChannel mainDatabaseDirectory//
+                    FileChannel mainDatabaseDirectory = new FileOutputStream(mainDatabase).getChannel();
+
+                    // Transfer Data From backupDatabaseDirectory To mainDatabaseDirectory//
+                    mainDatabaseDirectory.transferFrom(backupDatabaseDirectory, 0, backupDatabaseDirectory.size());
+
+                    // Close backupDatabaseDirectory Transfer//
+                    backupDatabaseDirectory.close();
+
+                    // Close mainDatabaseDirectory Transfer//
+                    mainDatabaseDirectory.close();
+                }
+            }
+        }
+
+        // What Happens When The Code Fails//
+        catch (Exception ignored) {
+            Toast.makeText(getApplicationContext(), "Failed To Restore: Contact Developer For Help", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -480,6 +523,10 @@ public class EventsSync extends AppCompatActivity implements GoogleApiClient.Con
 
                                 // Custom Transition//
                                 overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+
+                                // Restore Events From Database//
+                                restoreEvents();
+
                             }
 
                         }).show();
