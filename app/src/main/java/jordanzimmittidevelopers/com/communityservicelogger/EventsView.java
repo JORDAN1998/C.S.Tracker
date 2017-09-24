@@ -443,6 +443,9 @@ public class EventsView extends AppCompatActivity {
 
         // Open Database//
         eventsDatabase.open();
+
+        // Backup Events//
+        eventsDatabase.backupEvents(this);
     }
 
     // Method To Open Old Events Database//
@@ -1032,7 +1035,7 @@ public class EventsView extends AppCompatActivity {
         else if (eventsSortType.getInt(EVENT_SORT_TYPE, -1) == 1) {
 
             // Gets Rows In Database Based On Date Of User//
-            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_DATE + "," + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + "," + EventsDatabase.KEY_LOCATION + " COLLATE NOCASE" + " ASC", null);
+            cursor = EventsDatabase.db.rawQuery("SELECT * FROM new_events where nameUser LIKE '%" + workingNameUser + "%'" + "ORDER BY " + EventsDatabase.KEY_DATE + " DESC" + "," + EventsDatabase.KEY_NAME_EVENT + " COLLATE NOCASE" + "," + EventsDatabase.KEY_LOCATION + " COLLATE NOCASE", null);
 
             // Initiate populateListView Method//
             populateListView(cursor);

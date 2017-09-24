@@ -5,7 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
+import java.util.Calendar;
 
 // EventsDatabase Class Created By Jordan Zimmitti 1-30-17//
 public class EventsDatabase {
@@ -273,6 +281,88 @@ public class EventsDatabase {
 
         // Kill Code//
         return c;
+    }
+
+    // Method That Backup All Events//
+    public void backupEvents(Context context) {
+
+        //<editor-fold desc="Date Time">
+
+        // Define And Instantiate Variable Calendar calendar//
+        Calendar calendar = Calendar.getInstance();
+
+        // Define And Instantiate Variable int month//
+        int month = calendar.get(Calendar.MONTH) + 1;
+
+        // Define And Instantiate Variable int day//
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Define And Instantiate Variable int year//
+        int year = calendar.get(Calendar.YEAR);
+
+        // Define And Instantiate Variable int hour//
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        // Define And Instantiate Variable int minute//
+        int minute = calendar.get(Calendar.MINUTE);
+
+        // Define And Instantiate Variable int second//
+        int second = calendar.get(Calendar.SECOND);
+
+        //</editor-fold>
+
+        // Attempt To Backup The File//
+        try {
+
+            // What Happens When App Can Write To The SD Card//
+            if (Environment.getExternalStorageDirectory().canWrite()) {
+
+                // Define And Instantiate Variable File localFolder / Get localFolder File Location//
+                File localFolder = new File(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/");
+
+                // Define And Instantiate Variable File mainDatabase / Get mainDatabase File Location//
+                File mainDatabase = new File(Environment.getDataDirectory() + "//data//jordanzimmittidevelopers.com.communityservicelogger//databases//events_database");
+
+                // What Happens When There is a File In The localFolder//
+                if (!(localFolder.listFiles().length == 0)) {
+
+                    // List All The Files//
+                    String[] children = localFolder.list();
+
+                    // Delete All Files//
+                    for (String aChildren : children) {
+
+                        // Delete File//
+                        new File(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/", aChildren).delete();
+                    }
+                }
+
+                // What Happens When mainDatabase Exists//
+                if (mainDatabase.exists()) {
+
+                    // Define And Instantiate Variable FileChannel mainDatabaseDirectory//
+                    FileChannel mainDatabaseDirectory = new FileInputStream(mainDatabase).getChannel();
+
+                    // Define And Instantiate Variable FileChannel backupDatabaseDirectory//
+                    FileChannel backupDatabaseDirectory = new FileOutputStream(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/" + "Events.db" + " " + month + "-" + day + "-" + year + " " + hour + ":" + minute + ":" + second + " ").getChannel();
+
+                    // Transfer Data From mainDatabaseDirectory To backupDatabaseDirectory//
+                    backupDatabaseDirectory.transferFrom(mainDatabaseDirectory, 0, mainDatabaseDirectory.size());
+
+                    // Close Src Transfer//
+                    mainDatabaseDirectory.close();
+
+                    // Close Dest Transfer//
+                    backupDatabaseDirectory.close();
+
+                    Toast.makeText(context, "Failed To Backup: You Must Have At Least One Event To Backup Database To Drive", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            // What Happens When The Code Fails//
+        } catch (Exception ignored) {
+            Toast.makeText(context, "Failed To Backup: You Must Have At Least One Event To Backup Database To Drive", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // Helps Make Database Work (Remember Don't Touch)//
