@@ -43,7 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 // google_drive_sync Class Created By Jordan Zimmitti 3-12-17//
-public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class SyncGoogleDrive extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     //<editor-fold desc="Date Time">
 
@@ -397,7 +397,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
             // Request To Write To External Storage//
-            ActivityCompat.requestPermissions(GoogleDriveSync.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            ActivityCompat.requestPermissions(SyncGoogleDrive.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
     }
 
@@ -416,7 +416,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(SyncGoogleDrive.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")
@@ -507,7 +507,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(SyncGoogleDrive.this)
 
                         // Title Of Dialog//
                         .title("Upload Failed")
@@ -526,7 +526,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             //</editor-fold>
 
             // Create Dialog//
-            new MaterialDialog.Builder(GoogleDriveSync.this)
+            new MaterialDialog.Builder(SyncGoogleDrive.this)
 
                     // Title Of Dialog//
                     .title("Upload Complete")
@@ -574,7 +574,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(SyncGoogleDrive.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")
@@ -621,7 +621,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(SyncGoogleDrive.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")
@@ -801,7 +801,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(SyncGoogleDrive.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")
@@ -915,7 +915,7 @@ public class GoogleDriveSync extends AppCompatActivity implements GoogleApiClien
             if (!result.getStatus().isSuccess()) {
 
                 // Create Dialog//
-                new MaterialDialog.Builder(GoogleDriveSync.this)
+                new MaterialDialog.Builder(SyncGoogleDrive.this)
 
                         // Title Of Dialog//
                         .title("Google Drive Error")

@@ -560,9 +560,13 @@ public class EventsEdit extends AppCompatActivity implements DatePickerDialog.On
         // Set Text Equal To Value Stored In Database//
         eventsEditTimeTotal.setText(eventsEditTimeTotalString);
 
-        // Set timeTotalAdded Equal To eventsTotalTimeAddedString//
-        timeTotalAdded = Integer.parseInt(eventsTotalTimeAddedString);
+        // What Happens When eventsTotalTimeAddedString Does Not Equal 0:00//
+        if (!eventsTotalTimeAddedString.equals("0:00")) {
 
+            // Set timeTotalAdded Equal To eventsTotalTimeAddedString//
+            timeTotalAdded = Integer.parseInt(eventsTotalTimeAddedString);
+
+        }
 
         // Instantiate Variable Vibrator vibe//
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

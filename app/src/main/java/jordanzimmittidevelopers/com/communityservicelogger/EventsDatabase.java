@@ -112,7 +112,7 @@ public class EventsDatabase {
     }
 
     // Add A New Set Of Values To Be Inserted Into The Database//
-    public long insertRow(String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded, String peopleInCharge, String phoneNumber, String notes, String signature) {
+    public void insertRow(String nameEvent, String nameUser, String date, String location, String timeStart, String timeEnd, String timeTotal, String timeTotalAdded, String peopleInCharge, String phoneNumber, String notes, String signature) {
 
         // Gets All The New Values//
         ContentValues initialValues = new ContentValues();
@@ -132,7 +132,7 @@ public class EventsDatabase {
         initialValues.put(KEY_SIGNATURE, signature);
 
         // Inserts The Value Data Into The Database//
-        return db.insert(DATABASE_TABLE, null, initialValues);
+        db.insert(DATABASE_TABLE, null, initialValues);
     }
 
     // Change An Existing Row To Be Equal To New Data//
@@ -254,7 +254,7 @@ public class EventsDatabase {
     }
 
     // Get All Community Service Times//
-    public Cursor totalTimeAdded(String workingNameUser) {
+    public void totalTimeAdded(String workingNameUser) {
 
         // Set Total Time Added To Zero//
         totalTimeAdded = 0;
@@ -278,9 +278,6 @@ public class EventsDatabase {
             // Move To Next Row//
             c.moveToNext();
         }
-
-        // Kill Code//
-        return c;
     }
 
     // Method That Backup All Events//
@@ -309,7 +306,24 @@ public class EventsDatabase {
         // Define And Instantiate Variable int second//
         int second = calendar.get(Calendar.SECOND);
 
+        // Define Variable String zeroHandle//
+        String zeroHandle;
+
         //</editor-fold>
+
+        // What Happens When Minute Is Less Than Ten//
+        if (minute < 10) {
+
+            // Adds Zero Handle Before Single Digit//
+            zeroHandle = "0" + minute;
+        }
+
+        // What Happens When Minute Is Greater Than Ten//
+        else {
+
+            // Adds No Zero Handle To Minute//
+            zeroHandle = String.valueOf(minute);
+        }
 
         // Attempt To Backup The File//
         try {
@@ -344,7 +358,7 @@ public class EventsDatabase {
                     FileChannel mainDatabaseDirectory = new FileInputStream(mainDatabase).getChannel();
 
                     // Define And Instantiate Variable FileChannel backupDatabaseDirectory//
-                    FileChannel backupDatabaseDirectory = new FileOutputStream(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/" + "Events.db" + " " + month + "-" + day + "-" + year + " " + hour + ":" + minute + ":" + second + " ").getChannel();
+                    FileChannel backupDatabaseDirectory = new FileOutputStream(Environment.getExternalStorageDirectory() + "/C.S. Tracker/Events Backup/" + "Events.db" + " " + month + "-" + day + "-" + year + " " + hour + ":" + zeroHandle + ":" + second + " ").getChannel();
 
                     // Transfer Data From mainDatabaseDirectory To backupDatabaseDirectory//
                     backupDatabaseDirectory.transferFrom(mainDatabaseDirectory, 0, mainDatabaseDirectory.size());
@@ -354,15 +368,12 @@ public class EventsDatabase {
 
                     // Close Dest Transfer//
                     backupDatabaseDirectory.close();
-
-                    Toast.makeText(context, "Failed To Backup: You Must Have At Least One Event To Backup Database To Drive", Toast.LENGTH_SHORT).show();
                 }
             }
-
-            // What Happens When The Code Fails//
-        } catch (Exception ignored) {
-            Toast.makeText(context, "Failed To Backup: You Must Have At Least One Event To Backup Database To Drive", Toast.LENGTH_SHORT).show();
         }
+
+        // What Happens When The Code Fails//
+        catch (Exception ignored) {Toast.makeText(context, "Failed To Backup: You Must Have At Least One Event To Backup Database To Drive", Toast.LENGTH_SHORT).show();}
     }
 
     // Helps Make Database Work (Remember Don't Touch)//

@@ -233,17 +233,33 @@ public class Settings extends AppCompatActivity {
         }
     }
 
-    // What Happens When SettingsThemePicker Is Clicked//
-    public void onClickThemes(View view) {
+    // What Happens When onClickSyncData Is Clicked//
+    public void onClickSyncData(View view) {
 
         // Vibrate For 50m//
         vibe.vibrate(50);
 
-        // Define and Instantiate Variable Intent themes//
-        Intent themes = new Intent(this, EventsSync.class);
+        // Define and Instantiate Variable Intent settingsSyncData//
+        Intent settingsSyncData = new Intent(this, SettingsSyncData.class);
 
         // Start Activity themes//
-        startActivity(themes);
+        startActivity(settingsSyncData);
+
+        // Custom Transition//
+        overridePendingTransition(R.anim.slid_in, R.anim.slid_out);
+    }
+
+    // What Happens When onClickSettingsThemePicker Is Clicked//
+    public void onClickSettingsThemePicker(View view) {
+
+        // Vibrate For 50m//
+        vibe.vibrate(50);
+
+        // Define and Instantiate Variable Intent settingsThemePicker//
+        Intent settingsThemePicker = new Intent(this, SettingsThemePicker.class);
+
+        // Start Activity themes//
+        startActivity(settingsThemePicker);
 
         // Custom Transition//
         overridePendingTransition(R.anim.slid_in, R.anim.slid_out);

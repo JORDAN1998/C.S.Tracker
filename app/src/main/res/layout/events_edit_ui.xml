@@ -182,7 +182,8 @@
         android:layout_alignLeft="@+id/eventsEditTimeEndTitle"
         android:layout_alignStart="@+id/eventsEditTimeEndTitle"
         app:met_baseColor="?attr/colorPrimaryDark"
-        app:met_primaryColor="?attr/colorPrimaryDark" />
+        app:met_primaryColor="?attr/colorPrimaryDark"
+        tools:ignore="Deprecated" />
 
     <!-- TextView eventsEditTimeStartTitle -->
     <TextView

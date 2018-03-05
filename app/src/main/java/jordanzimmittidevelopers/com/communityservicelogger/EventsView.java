@@ -92,7 +92,6 @@ public class EventsView extends AppCompatActivity {
     // Sort By Newest To Oldest//
     private final static int SORT_BY_OLDEST_TO_NEWEST = 4;
 
-
     // Name Of Preference And What Its Saving The Integer To//
     private static final String USER_MODE_NAME = "user_mode_name";
 

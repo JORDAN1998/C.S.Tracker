@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI For Activity SettingsSyncData -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_sync_data_ui"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsSyncData">
+
+    <!-- TextView syncToANewDevice -->
+    <TextView
+        android:id="@+id/syncToANewDevice"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="onClickSyncToANewDevice"
+        android:paddingBottom="16dip"
+        android:paddingTop="16dip"
+        android:text="@string/sync_to_a_new_device"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
+
+    <!-- View view1 -->
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/syncToANewDevice"
+        android:background="?attr/colorPrimaryDark" />
+
+    <!-- TextView syncToThisDevice -->
+    <TextView
+        android:id="@+id/syncToThisDevice"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="onClickSyncToThisDevice"
+        android:paddingBottom="16dip"
+        android:paddingTop="16dip"
+        android:text="@string/sync_to_this_device"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/syncToANewDevice"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true" />
+
+    <!-- View view2 -->
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/syncToThisDevice"
+        android:background="?attr/colorPrimaryDark" />
+
+</RelativeLayout>
